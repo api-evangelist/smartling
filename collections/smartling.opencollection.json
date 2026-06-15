@@ -1,0 +1,3691 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authenticate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/auth-api/v2/authenticate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verifies the credentials of the connection attempt."
+        },
+        {
+          "info": {
+            "name": "Refresh access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/auth-api/v2/authenticate/refresh",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A [renewed access token](https://help.smartling.com/hc/en-us/articles/1260805176849) that can be attached to the header of any API request."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Account & Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/accounts-api/v2/accounts/:accountUid/projects",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "projectNameFilter",
+                "value": "",
+                "type": "query",
+                "description": "Substring search of the name of the project. Search is case insensitive."
+              },
+              {
+                "name": "includeArchived",
+                "value": "",
+                "type": "query",
+                "description": "Indicator whether or not archived projects should be returned. Defaults to false if not specified."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results. 500 projects are returned by default if not specified."
+              },
+              {
+                "name": "projectTypeCode",
+                "value": "",
+                "type": "query",
+                "description": "Indicator for the type of the project."
+              },
+              {
+                "name": "projectTypeCodes",
+                "value": "",
+                "type": "query",
+                "description": "Indicator list for the type of the projects."
+              }
+            ]
+          },
+          "docs": "Returns the list of projects for the account.\n"
+        },
+        {
+          "info": {
+            "name": "Get project details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/projects-api/v2/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "includeDisabledLocales",
+                "value": "",
+                "type": "query",
+                "description": "Indicator whether or not disabled locales configured for the project should be returned as part of the targetLocales. By default disabled target locales are not returned."
+              }
+            ]
+          },
+          "docs": "Returns the details of a project.\n"
+        },
+        {
+          "info": {
+            "name": "Add a new target locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/projects-api/v2/projects/:projectId/targetLocales",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new target locale to the project.\n"
+        },
+        {
+          "info": {
+            "name": "Copy an existing project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/projects-api/v2/projects/:projectId/copy",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Make a copy of an existing project, thereby creating a new one with a new name\n"
+        },
+        {
+          "info": {
+            "name": "Get the status of the project copy request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/projects-api/v2/projects/:projectId/copy/:processUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "processUid",
+                "value": "",
+                "type": "path",
+                "description": "The uid of the process to check for"
+              }
+            ]
+          },
+          "docs": "Used to check if the copy project request is complete and to retrieve the new projectId\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Locales",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List locales",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/locales-api/v2/dictionary/locales",
+            "params": [
+              {
+                "name": "localeIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of locales."
+              },
+              {
+                "name": "supportedOnly",
+                "value": "",
+                "type": "query",
+                "description": "Fetch only supported locales. Otherwise fetch all locales. Default value is \"true\"."
+              }
+            ]
+          },
+          "docs": "The list of available locales within Smartling.\n\nTo find out the `localedID` for a specific project, refer to [Get project\ndetails](/#operation/getProjectDetails).\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "People",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of user information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/people-api/v2/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Smartling users, who process and translate content with the Smartling platform.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workflow Assignment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Assignments removal status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/people-api/v3/accounts/:accountUid/processes/:processUid",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "processUid",
+                "value": "",
+                "type": "path",
+                "description": "The process unique identifier."
+              }
+            ]
+          },
+          "docs": "Checking state of workflow assignments removal process\n"
+        },
+        {
+          "info": {
+            "name": "Create Steps Assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/people-api/v3/accounts/:accountUid/users/:userUid/workflow-steps/assign",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "userUid",
+                "value": "",
+                "type": "path",
+                "description": "User identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create new workflow steps assignment"
+        },
+        {
+          "info": {
+            "name": "Remove Step Assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/people-api/v3/accounts/:accountUid/users/:userUid/workflow-steps/remove",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "userUid",
+                "value": "",
+                "type": "path",
+                "description": "User identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedule workflow steps assignment removal and returns process uid for status check."
+        },
+        {
+          "info": {
+            "name": "Search For Account Assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/people-api/v3/accounts/:accountUid/users/workflow-steps",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for workflow step assignments within account"
+        },
+        {
+          "info": {
+            "name": "Search For User Assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/people-api/v3/accounts/:accountUid/users/:userUid/workflow-steps",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "userUid",
+                "value": "",
+                "type": "path",
+                "description": "User identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for workflow step assignments for single user"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download source file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "Value that uniquely identifies the downloaded file."
+              }
+            ]
+          },
+          "docs": "This downloads the original version of the requested file from\nSmartling.\n\nIt is important to check the HTTP response status code. If Smartling\nfinds and returns the file normally, you will receive a `200` SUCCESS\nresponse. If you receive a response status code other than `200`, the\nrequested file will not be part of the response.\n\nWhen you upload a UTF-16 character encoded file, then /file/get requests\nfor that file will have a character encoding of UTF-16. All other\nuploaded files will return "
+        },
+        {
+          "info": {
+            "name": "Upload file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "fileUri",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "fileType",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "smartling.namespace",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "smartling.file_charset",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "smartling.[command]",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "callbackUrl",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "This uploads original source content to Smartling.\n\nThe curl example provided will upload your Java properties file directly\ninto the Smartling project identified by the `projectId`. Smartling will\ningest this file, parse out the keys and text as strings for\ntranslation. At this point, content is ready for translation.\n"
+        },
+        {
+          "info": {
+            "name": "Status of file for each locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file/status",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "Smartling value that uniquely identifies a file in Smartling"
+              }
+            ]
+          },
+          "docs": "Returns information on a specific file.\n\n**Example:**\n```bash\n  curl -X GET -H \"Authorization: Bearer {token}\" 'https://api.smartling.com/files-api/v2/projects/{projectId}/file/status?fileUri=file.properties'\n```\n"
+        },
+        {
+          "info": {
+            "name": "Status of file for a single locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/:localeId/file/status",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "localeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for a locale."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "Smartling value that uniquely identifies a file in Smartling"
+              }
+            ]
+          },
+          "docs": "Returns detailed status information on a specific file.\n\n**Example:**\n```bash\ncurl -X GET -H \"Authorization: Bearer {token}\" 'https://api.smartling.com/files-api/v2/projects/{projectId}/locales/{localeId}/file/status?fileUri=file.properties'\n```\n"
+        },
+        {
+          "info": {
+            "name": "Download translated file (single locale or multi-locale)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/:localeIds/file",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "localeIds",
+                "value": "",
+                "type": "path",
+                "description": "One of:\n- A **single locale ID**, e.g. `fr-FR` → single-locale mode  \n- A **comma-separated list** of locale IDs, e.g. `fr-FR,de-DE` → multi-locale mode  \n- `all` → download translations for all available locales\n"
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "Value that uniquely identifies the downloaded file"
+              },
+              {
+                "name": "retrievalType",
+                "value": "",
+                "type": "query",
+                "description": "Determines the desired format for the download. Applies to translated files only.\n\n| retrievalType | Description |\n|---------------|-------------|\n| pending | Smartling returns any translations (including non-published translations)|\n| published | Smartling returns only published/pre-published translations.|\n| pseudo | Smartling returns a modified version of the original text with certain characters transformed and the text expanded. For example, the uploaded string \"This is a sample string\", will return as \"T~hís ~ís á s~ámpl~é str~íñg\". Pseudo translations enable you to test how a longer string integrates into your application.|\n| contextMatchingInstrumented | Smartling returns a modified version of the original file with strings wrapped in a specific set of Unicode symbols that can later be recognized and matched by the Chrome Context Capture Extension.|\n"
+              },
+              {
+                "name": "includeOriginalStrings",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether Smartling will return the original string or an\nempty string where no translation is available. This parameter is\nonly supported for ANDROID, ARB, GETTEXT, IDML, IOS, JAVA Properties, JSON, QT, STRINGSDICT,\nXLIFF, XML, and YAML files. If unset, the default is <code>true</code>.\n\n| Value | Description |\n|-------|-------------|\n| true | If there is no translation, Smartling returns the original string. |\n| false | If there is no translation, Smartling returns an empty string. |\n"
+              }
+            ]
+          },
+          "docs": "Downloads the requested translated file from Smartling.  \n\nThis endpoint supports two modes depending on the value of `localeIds`:\n\n### **Single-locale mode**\n- Provide a **single locale ID**, e.g. `fr-FR`\n- Smartling returns a file containing translations only for that locale\n- Supported for **all file types**.\n\n### **Multi-locale mode**\n- Provide a **comma-separated list of locale IDs**, e.g. `fr-FR,de-DE,es-ES`\n- Or specify `all` to include all available locales\n- Smartling returns a **combin"
+        },
+        {
+          "info": {
+            "name": "Download all translations of file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/all/file/zip",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "Smartling value that uniquely identifies a file in Smartling"
+              },
+              {
+                "name": "retrievalType",
+                "value": "",
+                "type": "query",
+                "description": "Determines the desired format for the download. Applies to translated files only.\n\n| retrievalType | Description |\n|---------------|-------------|\n| pending | Smartling returns any translations (including non-published translations).|\n| published | Smartling returns only published/pre-published translations.|\n| pseudo | Smartling returns a modified version of the original text with certain characters transformed, and the text expanded. For example, the uploaded string \"This is a sample string\", will return as \"T~hís ~ís á s~ámpl~é str~íñg\". Pseudo translations enable you to test how a longer string integrates into your application.|\n| contextMatchingInstrumented | Smartling returns a modified version of the original file with strings wrapped in a specific set of Unicode symbols that can later be recognized and matched by the Chrome Context Capture Extension.|\n"
+              },
+              {
+                "name": "includeOriginalStrings",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether Smartling will return the original string or an\nempty string where no translation is available. This parameter is\nonly supported for ANDROID, ARB, GETTEXT, IDML, IOS, JAVA Properties, JSON, QT, STRINGSDICT,\nXLIFF, XML, and YAML files. If unset, the default is <code>true</code>.\n\n| Value | Description |\n|-------|-------------|\n| true | If there is no translation, Smartling returns the original string. |\n| false | If there is no translation, Smartling returns an empty string. |\n"
+              },
+              {
+                "name": "zipFileName",
+                "value": "",
+                "type": "query",
+                "description": "Name for the downloaded zip file. If unset, the default is ```translations.zip```"
+              }
+            ]
+          },
+          "docs": "Download a ZIP archive with all translations for the requested file.\n\nUnlike the \"Download translated file\" endpoint, you get a ZIP archive\nwith all translations of a specific file.\n\nIt is important to check the HTTP response status code. If Smartling\nfinds and returns the file normally, you will receive a `200` SUCCESS\nresponse. If you receive any other response status code than `200`, the\nrequested files will not be part of the response.\n\nWhen you upload a UTF-16 character encoded file, then /"
+        },
+        {
+          "info": {
+            "name": "Download multiple translated files (DEPRECATED)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/files/zip",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fileUris[]",
+                "value": "",
+                "type": "query",
+                "description": "Smartling values that each uniquely identify a file. The limit is 300 files."
+              },
+              {
+                "name": "localeIds[]",
+                "value": "",
+                "type": "query",
+                "description": "List of locales to download."
+              },
+              {
+                "name": "retrievalType",
+                "value": "",
+                "type": "query",
+                "description": "Determines the desired format for the download. Applies only to\ntranslated files.\n\n| retrievalType | Description |\n|---------------|-------------|\n| pending | Smartling returns any translations (including non-published translations)|\n| published | Smartling returns only published/pre-published translations.|\n| pseudo | Smartling returns a modified version of the original text with certain characters transformed and the text expanded. For example, the uploaded string \"This is a sample string\", will return as \"T~hís ~ís á s~ámpl~é str~íñg\". Pseudo translations enable you to test how a longer string integrates into your application.|\n| contextMatchingInstrumented | Smartling returns a modified version of the original file with strings wrapped in a specific set of Unicode symbols that can later be recognized and matched by the Chrome Context Capture Extension.|\n"
+              },
+              {
+                "name": "includeOriginalStrings",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether Smartling will return the original string or an\nempty string where no translation is available. This parameter is\nonly supported for ANDROID, ARB, GETTEXT, IDML, IOS, JAVA Properties, JSON, QT, STRINGSDICT,\nXLIFF, XML, and YAML files. If unset, the default is <code>true</code>.\n\n| Value | Description |\n|-------|-------------|\n| true | If there is no translation, Smartling returns the original string. |\n| false | If there is no translation, Smartling returns an empty string. |\n"
+              },
+              {
+                "name": "fileNameMode",
+                "value": "",
+                "type": "query",
+                "description": "Determines how files in the ZIP file will be named. If not set, the\nfull original file path will be used as the filename.\n\n| fileNameMode | Description |\n|--------------|-------------|\n| UNCHANGED | Full original file path is used |\n| TRIM_LEADING | Remove all except the last path segment. e.g. ```/en/strings/nav.properties``` becomes ```nav.properties```|\n| LOCALE_LAST | Adds a locale folder to the file path directly before the filename. e.g. ```/strings/nav.properties``` becomes ```/strings/en/nav.properties``` |\n"
+              },
+              {
+                "name": "localeMode",
+                "value": "",
+                "type": "query",
+                "description": "Determines how locales will be handled in the downloaded zip\n\n| localeMode | Description |\n|------------|-------------|\n| LOCALE_IN_PATH | Locale code is added to the end of the file path. e.g. ```/strings/es-ES/nav.properties```. |\n| LOCALE_IN_NAME | Locale code is added to the end of the file name e.g. ```/strings/nav_es-ES.properties```. |\n| LOCALE_IN_NAME_AND_PATH | Locale code is added to both the path and the filename. e.g. ```/strings/es-ES/nav_es-ES.properties```. |\n"
+              },
+              {
+                "name": "zipFileName",
+                "value": "",
+                "type": "query",
+                "description": "Name for the downloaded ZIP file. If unset, default is ```translations.zip```"
+              }
+            ]
+          },
+          "docs": "Download ZIP archive with the requested translated files.\n\nUnlike \"Download all translations of the file\" you can specify multiple\nfile URIs (limit is 300 files) and locale IDs to select which files and languages you want to download.\n\nIt is important to check the HTTP response status code. If Smartling\nfinds and returns the file normally, you will receive a `200` SUCCESS\nresponse. If you receive any other response status code than `200`, the\nrequested files will not be part of the response.\n\nWh"
+        },
+        {
+          "info": {
+            "name": "Download multiple translated files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/files/zip",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Download ZIP archive with the requested translated files.\n\nThis endpoint allows you to specify multiple files and locales in the\nrequest body (limit is 500 file-locale combinations) to select which files\nand languages you want to download.\n\nIt is important to check the HTTP response status code. If Smartling\nfinds and returns the file normally, you will receive a `200` SUCCESS\nresponse. If you receive a `204` response, no files were included because\nthe requested files were not fully published a"
+        },
+        {
+          "info": {
+            "name": "List recently uploaded files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/files/list",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "uriMask",
+                "value": "",
+                "type": "query",
+                "description": "Returns only files with a URI containing the given substring. Case is ignored. For example, the value ```.json``` will match ```strings.json``` and ```STRINGS.JSON``` but not ```json.strings```\n"
+              },
+              {
+                "name": "fileTypes[]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lastUploadedAfter",
+                "value": "",
+                "type": "query",
+                "description": "Returns all files uploaded after the specified date."
+              },
+              {
+                "name": "lastUploadedBefore",
+                "value": "",
+                "type": "query",
+                "description": "Returns all files uploaded before the specified date."
+              },
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query",
+                "description": "Sets the name and direction of the parameter to order results by. If ascending or descending is not specified, the default is ascending\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "In order to get consistent pagination, make sure to specify the ```orderBy``` parameter.\n"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results."
+              }
+            ]
+          },
+          "docs": "This lists recently uploaded files, and returns a maximum of 100 files."
+        },
+        {
+          "info": {
+            "name": "List all file types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file-types",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ]
+          },
+          "docs": "This returns a list of all file types currently represented in the project.\n"
+        },
+        {
+          "info": {
+            "name": "Rename file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file/rename",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "fileUri",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "newFileUri",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "This renames an uploaded file by changing the `fileUri`. After renaming the file, it will only be identified by the new `fileUri` that you provide.\n"
+        },
+        {
+          "info": {
+            "name": "Delete file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file/delete",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "fileUri",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "This removes the file from Smartling. The file will no longer be available for download. Any complete translations for the file remain available for use within the system.\n\nSmartling deletes files asynchronously and it typically takes a few minutes to complete. While deleting a file, you can not upload a file with the same `fileUri`.\n"
+        },
+        {
+          "info": {
+            "name": "Last modified date (single locale)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/:localeId/file/last-modified",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "localeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for a locale."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "A unique identifier for a file in Smartling."
+              },
+              {
+                "name": "lastModifiedAfter",
+                "value": "",
+                "type": "query",
+                "description": "Limits the return to only those file and locale combinations that have a ```lastModified``` date after the ```lastModifiedAfter```parameter . The items array will be empty if the file has not been modified in any of the locales since the `lastModifiedAfter` date specified."
+              }
+            ]
+          },
+          "docs": "This returns the date that a file was last modified in a specified locale.\n"
+        },
+        {
+          "info": {
+            "name": "Last modified date (all locales)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file/last-modified",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "A unique identifier for a file in Smartling."
+              },
+              {
+                "name": "lastModifiedAfter",
+                "value": "",
+                "type": "query",
+                "description": "Limits the return to only those file and locale combinations that have a ```lastModified``` date after the parameter ```lastModifiedAfter```. The items array will be empty if the file has not been modified in any of the locales since the `lastModifiedAfter` date specified."
+              }
+            ]
+          },
+          "docs": "This returns the date that a file was last modified in each locale.\n"
+        },
+        {
+          "info": {
+            "name": "Import translations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/:localeId/file/import",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "localeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for a locale."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "fileUri",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "fileType",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "translationState",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "overwrite",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Import translations"
+        },
+        {
+          "info": {
+            "name": "Export translations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/:localeId/file/get-translations",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "localeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for a locale."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "fileUri",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "retrievalType",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "includeOriginalStrings",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Temporarily uploads a file, then returns a translated version for requested locales.\n\nThis call can be used instead of a standard upload/download if you keep different versions of a file in multiple branches or are triggering rebuilds, and don’t want your files in Smartling to be overwritten by out-of-date versions of a file.\n\nTo use the call, you upload a file and identify the Smartling URI where the main version of that file is saved. Smartling will match strings shared between the uploaded fi"
+        },
+        {
+          "info": {
+            "name": "List recently published files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/published-files-api/v2/projects/:projectId/files/list/recently-published",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "publishedAfter",
+                "value": "",
+                "type": "query",
+                "description": "Limits the response to only those files that have a ```publishDate``` date after the ```publishedAfter``` parameter. The items array can be empty if no files match this criteria."
+              },
+              {
+                "name": "fileUris[]",
+                "value": "",
+                "type": "query",
+                "description": "A list of fileUris to filter the response list by. Value must be exact match. Up to 20 fileUris can be specified. See getRecentlyUploadedSourceFilesList to get a project's fileUris."
+              },
+              {
+                "name": "localeIds[]",
+                "value": "",
+                "type": "query",
+                "description": "A list of locale identifiers to filter the response list by. Up to 50 localeIds can be specified. See getProjectDetails to get a project's localeIds."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results. Default value is 0."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results. Limit is not applied if this parameter is not specified."
+              }
+            ]
+          },
+          "docs": "Response is limited to files published after 14 days from the time called.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Context",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List contexts for the project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "nameFilter",
+                "value": "",
+                "type": "query",
+                "description": "Context name (or url) filter."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "If your original request returns an *offset* value, the set of results is incomplete.\nRun the request again, with the given offset value to see more results.\nWhen offset is null, there are no more results to return."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Context type filter."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of metadata for all contexts in a project.\n\nResponse is limited to *100* items, to retrieve all items the request\nshould be repeated with **offset** parameter specified.\n"
+        },
+        {
+          "info": {
+            "name": "Upload new context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "content",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "[Visual Context](https://help.smartling.com/hc/en-us/articles/360057484273-Overview-of-Visual-Context) provides a visual representation of the source content to Translators and Editors as\nthey are performing their work, and is a very effective way to ensure high-quality translations. Visual\nContext is displayed in the Smartling CAT Tool - the environment in which translations are performed.\n\nThe following context types are supported via the Smartling API:\n\n- **HTML**: HTML files or files with co"
+        },
+        {
+          "info": {
+            "name": "Get context info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/:contextUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "contextUid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a context"
+              }
+            ]
+          },
+          "docs": "Retrieves basic information about the context."
+        },
+        {
+          "info": {
+            "name": "Delete the context",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/:contextUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "contextUid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a context"
+              }
+            ]
+          },
+          "docs": "Deletes the context metadata and the content.\nAll linked context resources (e.g. CSS, images, and fonts) will also eventually be cleaned up if no other context has them linked.\nAs well, bindings of this context to strings are removed, and strings are marked as having no context."
+        },
+        {
+          "info": {
+            "name": "Delete contexts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/remove/async",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates an asynchronous process to delete the contexts.\nAll linked context resources (e.g. CSS, images, and fonts) will also eventually be cleaned up if no other context has them linked.\nAs well, bindings of these contexts to strings are removed, and strings are marked as having no context."
+        },
+        {
+          "info": {
+            "name": "Download context file content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/:contextUid/content",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "contextUid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a context"
+              }
+            ]
+          },
+          "docs": "Returns the context content:\n\n|Context Type|Content|\n|---------|--------|\n|`HTML`|HTML document enriched with `data-sl-anchor` attributes for most of the elements, also known as *binding anchors*.|\n|`IMAGE`| Binary image data. Response is accompanied with appropriate `Content-Type` header.|\n|`VIDEO`| Empty response.|"
+        },
+        {
+          "info": {
+            "name": "Run automatic context matching",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/:contextUid/match/async",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "contextUid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a context"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Automatically matches context against strings in the project and creates corresponding bindings.\nOptionally, you can restrict matching to only a set of strings that you specify to ensure that no unwanted\nbindings are created.\n\nThe following endpoint does not support video contexts pointing to Youtube or Vimeo videos.\n\nOptical Character Recognition (OCR) is used for `IMAGE` and `VIDEO` contexts, while `HTML` context uses an approximate string matching algorithm.\n\nThis is a convenient method provi"
+        },
+        {
+          "info": {
+            "name": "Upload new context and run automatic context matching",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/upload-and-match-async",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "matchParams",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "content",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Combines two endpoints:\n- [Upload new context](/#operation/uploadNewVisualContext)\n- [Run automatic context matching](/#operation/runAutomaticContextMatching)\n\nThe following context types are supported via the Smartling API:\n\n- **HTML**: HTML files or files with content type text/html\n- **IMAGE**: Image files\n- **VIDEO**:\n  - Video file\n  - Link to video, such as:\n    - YouTube link\n    - Vimeo link\n    - Direct link to an .mp4 file\n\nStrings to match are retrieved from the project specified by t"
+        },
+        {
+          "info": {
+            "name": "Retrieve asynchronous match results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/match/:matchId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "matchId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the match request obtained when running asynchronous match request."
+              }
+            ]
+          },
+          "docs": "Check the status of the match request and get results once the match is completed.\nWhen the match has been completed, any newly created bindings are also returned in the response.\nThis endpoint is deprecated and will be deleted. We recommend to use `Retrieve asynchronous process results` endpoint"
+        },
+        {
+          "info": {
+            "name": "Retrieve asynchronous process results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/processes/:processUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "processUid",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the asynchronous process obtained when running asynchronous request."
+              }
+            ]
+          },
+          "docs": "Check the status of the asynchronous process and get the results once the process is completed"
+        },
+        {
+          "info": {
+            "name": "Create string to context bindings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/bindings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Link context files with the strings they contain.\n\nThe binding tells Smartling to show Translators which context images for which strings.\n\nA basic bindings request should contain an object with a `bindings` JSON array, with at least one element (binding) featuring `contextUid` and `stringHashcode` properties:\n```JSON\n{\n  \"bindings\": [\n    {\n       \"contextUid\": \"25137b65-e075-4341-8362-14b1a3e558f5\",\n       \"stringHashcode\": \"bd603147d945h3ec74d6874422ebe4e0\"\n    }\n  ]\n}\n```\n\nFor `IMAGE` contex"
+        },
+        {
+          "info": {
+            "name": "List string to context bindings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/bindings/list",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "If your original request returns an *offset* value, the set of results is incomplete.\nRun the request again, with the given offset value to see more results.\nWhen offset is null, there are no more results to return."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a paginated list of bindings according to specified parameters.\n\nResponse is limited to *5000* items, to retrieve all items the request\nshould be repeated with **offset** parameter specified."
+        },
+        {
+          "info": {
+            "name": "Delete string to context bindings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/bindings/remove",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete bindings for specified parameters."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Content Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search strings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/strings-view-service-graphql-api/v2/projects/:projectId/graphql",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for strings in your project using GraphQL.\n\n**Example Query:**\n```graphql\n  query Search($searchStringsFilter: SearchStringsFilter!) {\n    searchStrings(searchStringsFilter: $searchStringsFilter) {\n      content {\n        source {\n          hashcode\n        }\n        translations {\n          translationForms {\n            translationText\n            pluralForm\n          }\n        }\n      }\n      totalCount\n      totalWordCount\n      __typename\n    }\n  }\n```"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Strings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add strings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads an array of strings to a Smartling project. A maximum of 100 strings can be created per request. A request with more than 100 items will return an error. Each string has a character limit of 10,000.\n\n**Note**: You cannot authorize a string via API. Once you have created the strings, they will need to be authorized by a content owner in the Smartling Dashboard.\n\nSmartling creates a unique hashcode for each string based on the parsed string text and any variant or namespace metadata provid"
+        },
+        {
+          "info": {
+            "name": "Check string status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId/processes/:processUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "processUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "If an **Add strings** request takes longer than 60 seconds to process, a `202` response will be returned, indicating that the process of creating strings is continuing but not yet complete. This response will include a `proccessUid` value which can be used to check the progress of the request.\n\nThis request can return:\n  * `\"processState\": \"OPEN\"` which indicates that the request is still continuing.\n  * `\"processState\": \"CLOSED\"` indicates the request has successfully completed.\n  * `\"processSt"
+        },
+        {
+          "info": {
+            "name": "List all source strings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId/source-strings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "hashcodes",
+                "value": "",
+                "type": "query",
+                "description": "Hashcodes for each string you want to get source strings for."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "URI of a file you want to get strings for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "By default, responses will be limited to 500 per request. This is also the maximum allowed value."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination setting. Default is 0."
+              }
+            ]
+          },
+          "docs": "Returns source strings from Smartling. You can get strings by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that are not added via the Strings API, you may see differences in the response.\n\nYou may see a value for `parsedStringText` but a `null` value for `stringText`. The `stringText` records"
+        },
+        {
+          "info": {
+            "name": "List all source strings (POST)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId/source-strings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns source strings from Smartling. You can get strings by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that are not added via the Strings API, you may see differences in the response.\n\nYou may see a value for `parsedStringText` but a `null` value for `stringText`. The `stringText` records"
+        },
+        {
+          "info": {
+            "name": "List all translations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId/translations",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "hashcodes",
+                "value": "",
+                "type": "query",
+                "description": "Hashcodes for each string you want to get translations for."
+              },
+              {
+                "name": "targetLocaleId",
+                "value": "",
+                "type": "query",
+                "description": "Smartling ID for the language you want to get translations for."
+              },
+              {
+                "name": "retrievalType",
+                "value": "",
+                "type": "query",
+                "description": "Sets the types of translations you want returned. `published` will only return translations that have completed their workflows and been published. `pending` will return any saved translations."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "URI of a file you want to get translations for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination setting. By default, responses will be limited to 500 per request. This is also the maximum allowed value."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination setting. Default is 0."
+              }
+            ]
+          },
+          "docs": "Returns translated strings from Smartling. You can get translations by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that were not created via the Strings API, you may see differences in the response.\n\nOnly authorized and active strings will be returned. Excluded, unauthorized, and inactive st"
+        },
+        {
+          "info": {
+            "name": "List all translations (POST)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId/translations",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns translated strings from Smartling. You can get translations by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that were not created via the Strings API, you may see differences in the response.\n\nOnly authorized and active strings will be returned. Excluded, unauthorized, and inactive st"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Estimates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get List of Job Fuzzy Estimate Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/jobs/:translationJobUid/reports/fuzzy",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique translation job identifier."
+              },
+              {
+                "name": "reportStatus",
+                "value": "",
+                "type": "query",
+                "description": "Status of report."
+              },
+              {
+                "name": "contentCoverage",
+                "value": "",
+                "type": "query",
+                "description": "Specifies level of content coverage report should have."
+              },
+              {
+                "name": "creatorUserUids",
+                "value": "",
+                "type": "query",
+                "description": "Array of report creator uids."
+              },
+              {
+                "name": "translationJobSchemaContents",
+                "value": "",
+                "type": "query",
+                "description": "if report was generated for the job,."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Search is done via or logic, i.e. if a report has any of the given tags, it will be returned."
+              },
+              {
+                "name": "createdFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date filter for report."
+              },
+              {
+                "name": "createdTo",
+                "value": "",
+                "type": "query",
+                "description": "Date filter for report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Paging parameter. The number of reports to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Paging parameter. The index of the repor to start with."
+              }
+            ]
+          },
+          "docs": "List fuzzy estimate reports."
+        },
+        {
+          "info": {
+            "name": "Generate Fuzzy Estimate Report for the Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/jobs/:translationJobUid/reports/fuzzy",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique translation job identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate Fuzzy report for the Job."
+        },
+        {
+          "info": {
+            "name": "Get List of Job Cost Estimate Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/jobs/:translationJobUid/reports/cost",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique translation job identifier."
+              },
+              {
+                "name": "reportStatus",
+                "value": "",
+                "type": "query",
+                "description": "Status of report."
+              },
+              {
+                "name": "contentCoverage",
+                "value": "",
+                "type": "query",
+                "description": "Specifies level of content coverage report should have."
+              },
+              {
+                "name": "creatorUserUids",
+                "value": "",
+                "type": "query",
+                "description": "Array of report creator uids."
+              },
+              {
+                "name": "translationJobSchemaContents",
+                "value": "",
+                "type": "query",
+                "description": "if report was generated for the job,."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Search is done via or logic, i.e. if a report has any of the given tags, it will be returned."
+              },
+              {
+                "name": "createdFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date filter for report."
+              },
+              {
+                "name": "createdTo",
+                "value": "",
+                "type": "query",
+                "description": "Date filter for report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Paging parameter. The number of reports to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Paging parameter. The index of the repor to start with."
+              }
+            ]
+          },
+          "docs": "List cost estimate reports."
+        },
+        {
+          "info": {
+            "name": "Generate Cost Estimate Report for the Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/jobs/:translationJobUid/reports/cost",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique translation job identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate Cost Estimate Report for the Job"
+        },
+        {
+          "info": {
+            "name": "Get Estimate Report Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/reports/:reportUid/status",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "reportUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique report identifier."
+              },
+              {
+                "name": "reportStatus",
+                "value": "",
+                "type": "query",
+                "description": "Status of report."
+              },
+              {
+                "name": "reportType",
+                "value": "",
+                "type": "query",
+                "description": "Report type."
+              }
+            ]
+          },
+          "docs": "Get Estimate Report Status"
+        },
+        {
+          "info": {
+            "name": "Get Estimate Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/reports/:reportUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "reportUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique report identifier."
+              },
+              {
+                "name": "reportStatus",
+                "value": "",
+                "type": "query",
+                "description": "Status of report."
+              },
+              {
+                "name": "reportType",
+                "value": "",
+                "type": "query",
+                "description": "Report type."
+              }
+            ]
+          },
+          "docs": "Get Estimate Report"
+        },
+        {
+          "info": {
+            "name": "Delete Estimation Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/reports/:reportUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "reportUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique report identifier."
+              }
+            ]
+          },
+          "docs": "Delete estimate report."
+        },
+        {
+          "info": {
+            "name": "Modify Tags of Estimation Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/reports/:reportUid/tags",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "reportUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique report identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The new set of tags completely replaces the old ones."
+        },
+        {
+          "info": {
+            "name": "Export Estimation Report as CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectUid/reports/:reportUid/download",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "reportUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique report identifier."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "for now, only csv is supported."
+              }
+            ]
+          },
+          "docs": "Export Estimation Report as CSV"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Machine Translation (MT)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Machine Translation (MT) using a preconfigured MT or LLM Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/mt-router-api/v2/accounts/:accountUid/smartling-mt",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique account identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Machine Translation (MT) using a preconfigured MT or LLM Profile. Input and output text format is HTML."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List jobs within an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/accounts/:accountUid/jobs",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique account identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "jobName",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by `jobName`. Any entry is treated as a LIKE query on the name of the job."
+              },
+              {
+                "name": "projectIds",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by `projectId`. Supports up to 500 `projectId`s."
+              },
+              {
+                "name": "translationJobStatus",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by their status."
+              },
+              {
+                "name": "withPriority",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, returns jobs only with priority."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit on the number of jobs returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset to use when searching for jobs."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by."
+              },
+              {
+                "name": "sortDirection",
+                "value": "",
+                "type": "query",
+                "description": "The direction to sort."
+              }
+            ]
+          },
+          "docs": "List / search the jobs within an account. By default, only the last 50 jobs are returned. Use the <code>limit</code> and <code>offset</code> parameters to return more than 50 jobs. <a href=\"https://help.smartling.com/hc/en-us/articles/1260805176869-Pagination\" target=\"_blank\">Learn more.</a>"
+        },
+        {
+          "info": {
+            "name": "List jobs within a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "jobName",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by `jobName`. Any entry is treated as a LIKE query on the name of the job."
+              },
+              {
+                "name": "jobNumber",
+                "value": "SMTL-123",
+                "type": "query",
+                "description": "Used for searching jobs by `jobNumber`. Search works by exact comparison."
+              },
+              {
+                "name": "translationJobUids",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by `translationJobUid`. Supports up to 500 `translationJobUid`s."
+              },
+              {
+                "name": "translationJobStatus",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by their status."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit on the number of jobs returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset to use when searching for jobs."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by."
+              },
+              {
+                "name": "sortDirection",
+                "value": "",
+                "type": "query",
+                "description": "The direction to sort."
+              }
+            ]
+          },
+          "docs": "List / search the jobs within a project. By default, only the last 50 jobs are returned. Use the <code>limit</code> and <code>offset</code> parameters to return more than 50 jobs. <a href=\"https://help.smartling.com/hc/en-us/articles/1260805176869-Pagination\" target=\"_blank\">Learn more.</a>"
+        },
+        {
+          "info": {
+            "name": "Create job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a job within Smartling."
+        },
+        {
+          "info": {
+            "name": "Search Jobs By Hashcodes And Locales",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/find-jobs-by-strings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search Job(s), based on locales and hashcodes. We allow total 20000 records to be passed. Means it could be 10 locales * 2000 hashcodes or 1 locale * 20000 hashcodes or no locales and just 20000 hashcodes, etc\n"
+        },
+        {
+          "info": {
+            "name": "Get translation job strings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/strings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "targetLocaleId",
+                "value": "",
+                "type": "query",
+                "description": "Target / translation locale id."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max amount of result items."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Amount of items to skip."
+              }
+            ]
+          },
+          "docs": "This gets translation job string hashcodes with locales\n"
+        },
+        {
+          "info": {
+            "name": "Add strings to job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/strings/add",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adding strings to a job is useful if you don't manage strings / content through files, but instead need to add strings by some other means other than files.\n\nWhen strings are successfully added to a job, a `200` status is returned. When the system can't quickly add strings to the job, a `202` response status is returned. The response contains a link and `processUid` to check the progress of the request. When a `202` is received, the process of adding the content to the job will not be complete u"
+        },
+        {
+          "info": {
+            "name": "Remove strings from job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/strings/remove",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove strings from a job. Any strings removed from the job will also be unauthorized within Smartling.\n\nIf strings are successfully removed from a job, a `200` status will be returned. When the system can't quickly add the strings to the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of removing the content from the job will not be complete until the returned process has completed.\n"
+        },
+        {
+          "info": {
+            "name": "Close job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/close",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This closes a completed job. In order for a job to be closed, it must be in a completed state. All content from the job will be removed when it is closed. Closing a job guarantees that no additional work will be done against the job."
+        },
+        {
+          "info": {
+            "name": "Cancel job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/cancel",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This cancels a job. All content within the job will be removed from the job and the content will be unauthorized.\n\nIf a job is successfully cancelled, a `200` response status will be returned. When the system can't quickly cancel the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of canceling and removing the content from the job will not be complete until the returned process has completed.\n"
+        },
+        {
+          "info": {
+            "name": "Authorize job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/authorize",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This authorizes all content within a job. A job can only be authorized when it has content and is in an AWAITING_AUTHORIZATION state."
+        },
+        {
+          "info": {
+            "name": "Get details of job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This gets the details of a job such as job name, description, due date, and reference number."
+        },
+        {
+          "info": {
+            "name": "Update job",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This updates the attributes of the job, such as job name, description, due date, and reference number. The API works in a replace-all fashion. Fields, that are not passed, will be overwritten with empty values."
+        },
+        {
+          "info": {
+            "name": "Delete job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This deletes a job. Only job that is in `CANCELLED` status can be deleted.\nIf a job is successfully deleted, a `200` response status will be returned.\n"
+        },
+        {
+          "info": {
+            "name": "Search for job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/search",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This searches for jobs based on hashcodes (string identifiers), `fileUri`s, and `translationJobUid`s. Will return max of 100 translation job list items."
+        },
+        {
+          "info": {
+            "name": "Check for an async process for job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/processes/:processUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "processUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This checks for an asynchronous process for a job."
+        },
+        {
+          "info": {
+            "name": "Add file to job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/file/add",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This adds all non-published strings from a file to a job. By default, the file will be added for all locales of the job, but you can change this by specifying `targetLocaleId`s for the job you wish to add the file into.\n\n**Validation rules:**\n- A job can contain a maximum of 5000 files.\n- Content can't be added to the job if the job doesn't contain any locales, and the request to add a file doesn't specify any locales.\n- The file (specified by the `fileUri`) can't be in the process of being uplo"
+        },
+        {
+          "info": {
+            "name": "Remove file from job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/file/remove",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a file from a job. All content that is part of the file contained within that job will be removed from the job and will become unauthorized content.\n\nWhen the system can quickly remove the file and its content from the job synchronously, it responds with a `200` status. When the system cannot quickly remove the file and its content from the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of removi"
+        },
+        {
+          "info": {
+            "name": "List files within job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/files",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit on the number of files returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset to use when searching for files."
+              }
+            ]
+          },
+          "docs": "This lists all files within a job."
+        },
+        {
+          "info": {
+            "name": "Add locale to job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/locales/:targetLocaleId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "targetLocaleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This adds a locale to a job. When the system can quickly add the locale and any content to the job, it synchronously responds with status `200`. When the system can't quickly add the locale and any content to the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of adding the content to the job will not be complete until the returned process has completed.\n"
+        },
+        {
+          "info": {
+            "name": "Remove locale from job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/locales/:targetLocaleId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "targetLocaleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This removes a locale from a job. When removing a locale from a job (and thus any content within that job for that locale), the content being removed will be unauthorized.\n\nWhen the system can quickly remove the locale and any content from the job, it synchronously responds with status `200`. When the system cannot quickly remove the locale and any content from the job, then a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received,"
+        },
+        {
+          "info": {
+            "name": "Get progress of file within job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/file/progress",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This shows the progress of a file within a job."
+        },
+        {
+          "info": {
+            "name": "Get progress of job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/progress",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "targetLocaleId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This gets the progress of a job."
+        },
+        {
+          "info": {
+            "name": "Get last completion dates per locale of job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/locales-completion-dates",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a job."
+              }
+            ]
+          },
+          "docs": "Returns the last completion date for any locale completed within the job."
+        },
+        {
+          "info": {
+            "name": "Find schedule for translation job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/schedule",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a job."
+              }
+            ]
+          },
+          "docs": "Get all schedule items for a specific job."
+        },
+        {
+          "info": {
+            "name": "Modify schedule items for translation job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/schedule",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This modifies translation job schedule for provided items\n"
+        },
+        {
+          "info": {
+            "name": "Find custom fields for specified project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/custom-fields",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ]
+          },
+          "docs": "Returns custom fields assigned to the project. Order is the one that was specified during assignment operation."
+        },
+        {
+          "info": {
+            "name": "Assign new custom fields to project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/custom-fields",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Accepts new values for assignment. If empty list is passed - all assignments are deleted. Order of the fields in the request is preserved during saving."
+        },
+        {
+          "info": {
+            "name": "Find custom fields for specified account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/accounts/:accountUid/custom-fields",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "searchableOnly",
+                "value": "",
+                "type": "query",
+                "description": "Get only searchable custom fields."
+              },
+              {
+                "name": "enabledOnly",
+                "value": "",
+                "type": "query",
+                "description": "Get only enabled custom fields."
+              }
+            ]
+          },
+          "docs": "Gets all custom fields for specified account."
+        },
+        {
+          "info": {
+            "name": "Create new custom field in account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/accounts/:accountUid/custom-fields",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates new custom field in account."
+        },
+        {
+          "info": {
+            "name": "Update custom field in account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.smartling.com/jobs-api/v3/accounts/:accountUid/custom-fields/:fieldUid",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fieldUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a custom field."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates custom field in account using field UID specified."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List tags within a account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/tags-api/v2/accounts/:accountUid/tags",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "List / search tags within an account."
+        },
+        {
+          "info": {
+            "name": "List tags within a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/tags-api/v2/projects/:projectId/tags",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "tagMask",
+                "value": "",
+                "type": "query",
+                "description": "Tag mask for search."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit on the number of tags returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset to use when searching for tags."
+              }
+            ]
+          },
+          "docs": "List / search tags within a project."
+        },
+        {
+          "info": {
+            "name": "Get all tags for strings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/tags-api/v2/projects/:projectId/strings/tags/search",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve all tags linked to strings."
+        },
+        {
+          "info": {
+            "name": "Add tags to strings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/tags-api/v2/projects/:projectId/strings/tags/add",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a list of tags to a list of strings."
+        },
+        {
+          "info": {
+            "name": "Remove tags from strings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/tags-api/v2/projects/:projectId/strings/tags/remove",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove a list of tags from a list of strings."
+        },
+        {
+          "info": {
+            "name": "Remove all tags from strings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/tags-api/v2/projects/:projectId/strings/tags/remove/all",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove all tags from a list of strings."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "GDN url management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of URLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/gdn-url-management-api/v2/projects/:projectId/web-pages/list",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get list of URLs."
+        },
+        {
+          "info": {
+            "name": "Get details for URLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/gdn-url-management-api/v2/projects/:projectId/web-pages/details",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve details of the URLs."
+        },
+        {
+          "info": {
+            "name": "Get details for URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/gdn-url-management-api/v2/projects/:projectId/web-pages/:webPageUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "webPageUid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the URL"
+              }
+            ]
+          },
+          "docs": "Retrieve detail for the URL."
+        },
+        {
+          "info": {
+            "name": "Get domains for project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/gdn-url-management-api/v2/projects/:projectId/domains",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ]
+          },
+          "docs": "Get domains for project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Language Detection",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Detect language",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/language-detection-api/v2/bulk/detect/language",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request language detection for multiple texts. The request may include texts in multiple languages."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Vendors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List available jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/vendors-api/v2/agencies/:agencyUid/jobs",
+            "params": [
+              {
+                "name": "agencyUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the list of jobs available for the agency."
+        },
+        {
+          "info": {
+            "name": "List content assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/vendors-api/v2/accounts/:accountUid/content-assignments",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account's unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ]
+          },
+          "docs": "Returns the list of content assignments for the account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Word Count Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/reports-api/v3/word-count",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "A parameter to limit words processed on or after the ```startDate```, in America/New_York timezone."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "A parameter to limit words processed on or before the ```endDate```, in America/New_York timezone."
+              },
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "query",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "projectIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "jobUids",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation jobs."
+              },
+              {
+                "name": "agencyUid",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter of unique agency identifier."
+              },
+              {
+                "name": "userUids",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation resources."
+              },
+              {
+                "name": "targetLocaleIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation locale IDs."
+              },
+              {
+                "name": "workflowStepTypes",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of workflow step types.\n\nThe supported list of workflow step types is:\n\n  - Translation\n\n  - Edit\n\n  - Review\n\n  - Post-Edit\n\n  - Transcreation\n\n  - Transcreation review\n\n  - AI Review\n\n  - Quality Evaluation\n\n  - LQA\n\n  - Internal Review\n\n  - Desktop Publishing\n\n  - AI Translation\n\n  - Light Post-Edit"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated list of fields names to be returned by the endpoint. If this parameter is not set then the list of fields returned is defined by `include...` parameters.\n\nBoth `fields` and `include...` parameters are not allowed at the same time.\n\nThe supported list of fields names is:\n\n  - accountUid\n\n  - accountName\n\n  - projectId\n\n  - projectName\n\n  - targetLocaleId\n\n  - targetLocale\n\n  - jobUid\n\n  - jobName\n\n  - jobReferenceNumber\n  \n  - jobNumber\n\n  - translationResourceUid\n\n  - translationResourceName\n\n  - agencyUid\n\n  - agencyName\n\n  - workflowStepType\n\n  - workflowStepUid\n\n  - workflowStepName\n\n  - fuzzyProfileName\n\n  - fuzzyTier\n\n  - wordCount\n\n  - weightedWordCount\n\n  - characterCount. Please note: the column shows correct data since 2022-10-01.\n"
+              },
+              {
+                "name": "includeTranslationResource",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation resource name.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJob",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job name.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJobReferenceNumber",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job and include reference number in the response.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJobNumber",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job and include job number in the response.  \nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeFuzzyMatchProfile",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by fuzzy match profile and tier.          \n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeWorkflowStep",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by workflow step uid and name.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results. Default value is 10000."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results. Default value is 0."
+              }
+            ]
+          },
+          "docs": "Word Count report data for the specified parameters."
+        },
+        {
+          "info": {
+            "name": "Export Word Count in CSV format",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/reports-api/v3/word-count/csv",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "A parameter to limit words processed on or after the ```startDate```, in America/New_York timezone."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "A parameter to limit words processed on or before the ```endDate```, in America/New_York timezone."
+              },
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "query",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "projectIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "jobUids",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation jobs."
+              },
+              {
+                "name": "agencyUid",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter of unique agency identifier."
+              },
+              {
+                "name": "userUids",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation resources."
+              },
+              {
+                "name": "targetLocaleIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation locale IDs."
+              },
+              {
+                "name": "workflowStepTypes",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of workflow step types.\n\nThe supported list of workflow step types is:\n\n  - Translation\n\n  - Edit\n\n  - Review\n\n  - Post-Edit\n\n  - Transcreation\n\n  - Transcreation review\n\n  - AI Review\n\n  - Quality Evaluation\n\n  - LQA\n\n  - Internal Review\n\n  - Desktop Publishing\n\n  - AI Translation\n\n  - Light Post-Edit"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated list of fields names to be returned by the endpoint. If this parameter is not set then the list of fields returned is defined by `include...` parameters.\n\nBoth `fields` and `include...` parameters are not allowed at the same time.\n\nThe supported list of fields names is:\n\n  - accountUid\n\n  - accountName\n\n  - projectId\n\n  - projectName\n\n  - targetLocaleId\n\n  - targetLocale\n\n  - jobUid\n\n  - jobName\n\n  - jobReferenceNumber\n  \n  - jobNumber\n\n  - translationResourceUid\n\n  - translationResourceName\n\n  - agencyUid\n\n  - agencyName\n\n  - workflowStepType\n\n  - workflowStepUid\n\n  - workflowStepName\n\n  - fuzzyProfileName\n\n  - fuzzyTier\n\n  - wordCount\n\n  - weightedWordCount\n\n  - characterCount. Please note: the column shows correct data since 2022-10-01.\n"
+              },
+              {
+                "name": "includeTranslationResource",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation resource name.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJob",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job name.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJobReferenceNumber",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job and include reference number in the response.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJobNumber",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job and include job number in the response.                        \nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeFuzzyMatchProfile",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by fuzzy match profile and tier.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeWorkflowStep",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by workflow step uid and name.\n\nDeprecated, use parameter `fields` instead.\n"
+              }
+            ]
+          },
+          "docs": "Export Word Count report in CSV format."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download binary attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/attachments-api/v2/accounts/:accountUid/:type/attachments/:attachmentUid",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Attachment type"
+              },
+              {
+                "name": "attachmentUid",
+                "value": "",
+                "type": "path",
+                "description": "Attachment unique identifier."
+              }
+            ]
+          },
+          "docs": "Download attachment file"
+        },
+        {
+          "info": {
+            "name": "Get list of linked attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/attachments-api/v2/accounts/:accountUid/:type/:entityUid",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Attachment type"
+              },
+              {
+                "name": "entityUid",
+                "value": "",
+                "type": "path",
+                "description": "Entity uid"
+              }
+            ]
+          },
+          "docs": "List of linked attachments with entity"
+        },
+        {
+          "info": {
+            "name": "Upload binary attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/attachments-api/v2/accounts/:accountUid/:type/attachments",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Attachment type"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "entityUids",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "description",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload attachment file"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
