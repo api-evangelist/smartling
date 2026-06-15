@@ -2,79 +2,77 @@ aid: smartling
 url: https://raw.githubusercontent.com/api-evangelist/smartling/refs/heads/main/apis.yml
 name: Smartling
 kind: company
-description: >-
-  Smartling is an enterprise translation management platform combining a
-  cloud-based TMS, LinguisticAI, and neural machine translation. The Smartling
-  REST API at api.smartling.com exposes authentication, accounts, projects,
-  source files, strings, translations, jobs, glossary, issues, quality checks,
-  MT, and reports. Authentication uses an OAuth-style userIdentifier + secret
-  pair that returns a short-lived bearer access token (~5-10 minute TTL) with a
-  refresh token.
+description: Smartling is an enterprise translation management platform combining
+  a cloud-based TMS, LinguisticAI, and neural machine translation. The Smartling REST
+  API at api.smartling.com exposes authentication, accounts, projects, source files,
+  strings, translations, jobs, glossary, issues, quality checks, MT, and reports.
+  Authentication uses an OAuth-style userIdentifier + secret pair that returns a short-lived
+  bearer access token (~5-10 minute TTL) with a refresh token.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Localization
-  - Translation
-  - TMS
-  - LinguisticAI
-  - Neural MT
-  - Enterprise
-  - REST
+- Localization
+- Translation
+- TMS
+- LinguisticAI
+- Neural MT
+- Enterprise
+- REST
 created: '2026-05-23'
 modified: '2026-05-23'
 specificationVersion: '0.19'
 apis:
-  - aid: smartling:api-v2
-    name: Smartling REST API
-    description: >-
-      Smartling's REST API for the translation management platform. Resource
-      groups include Authentication, Accounts, Projects, Source Files, Strings,
-      Translations, Jobs, Glossary, Issues, Quality Checks, MT, and Reports.
-      Authentication via api.smartling.com/auth-api/v2/authenticate returns a
-      bearer access token used in subsequent requests.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    humanURL: https://api-reference.smartling.com/
-    baseURL: https://api.smartling.com
-    tags:
-      - REST
-      - OAuth
-      - Projects
-      - Files
-      - Translations
-      - Jobs
-      - Glossary
-      - Quality
-      - MT
-    properties:
-      - type: Documentation
-        url: https://api-reference.smartling.com/
-      - type: HelpCenter
-        url: https://help.smartling.com/hc/en-us/articles/1260804843689-Overview-of-the-API
-      - type: GettingStarted
-        url: https://help.smartling.com/hc/en-us/articles/1260804661570-Getting-Started-with-the-API
-      - type: Authentication
-        url: https://help.smartling.com/hc/en-us/articles/1260805176849-Authentication
-      - type: APITokens
-        url: https://help.smartling.com/hc/en-us/articles/115004187694-API-Tokens
-      - type: SDK
-        title: Java
-        url: https://github.com/Smartling/java-api-sdk
-common:
-  - type: Website
-    url: https://www.smartling.com/
+- aid: smartling:api-v2
+  name: Smartling REST API
+  description: Smartling's REST API for the translation management platform. Resource
+    groups include Authentication, Accounts, Projects, Source Files, Strings, Translations,
+    Jobs, Glossary, Issues, Quality Checks, MT, and Reports. Authentication via api.smartling.com/auth-api/v2/authenticate
+    returns a bearer access token used in subsequent requests.
+  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - REST
+  - OAuth
+  - Projects
+  - Files
+  - Translations
+  - Jobs
+  - Glossary
+  - Quality
+  - MT
+  properties:
   - type: Documentation
     url: https://api-reference.smartling.com/
   - type: HelpCenter
-    url: https://help.smartling.com/
-  - type: GitHub
-    url: https://github.com/Smartling
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/smartling
-  - type: Plans
-    url: plans/smartling-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/smartling-rate-limits.yml
-  - type: FinOps
-    url: finops/smartling-finops.yml
+    url: https://help.smartling.com/hc/en-us/articles/1260804843689-Overview-of-the-API
+  - type: GettingStarted
+    url: https://help.smartling.com/hc/en-us/articles/1260804661570-Getting-Started-with-the-API
+  - type: Authentication
+    url: https://help.smartling.com/hc/en-us/articles/1260805176849-Authentication
+  - type: APITokens
+    url: https://help.smartling.com/hc/en-us/articles/115004187694-API-Tokens
+  - type: SDK
+    title: Java
+    url: https://github.com/Smartling/java-api-sdk
+  - url: graphql/smartling-graphql.md
+    type: GraphQL
+common:
+- type: Website
+  url: https://www.smartling.com/
+- type: Documentation
+  url: https://api-reference.smartling.com/
+- type: HelpCenter
+  url: https://help.smartling.com/
+- type: GitHub
+  url: https://github.com/Smartling
+- type: LinkedIn
+  url: https://www.linkedin.com/company/smartling
+- type: Plans
+  url: plans/smartling-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/smartling-rate-limits.yml
+- type: FinOps
+  url: finops/smartling-finops.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,1188 @@
+"""
+Smartling GraphQL API Schema
+Conceptual schema derived from the Smartling REST API for translation management.
+Covers project management, file upload/download, translation jobs, glossary,
+visual context, translation memory, and localization workflow automation.
+Endpoint: https://api.smartling.com
+Documentation: https://api-reference.smartling.com/
+"""
+
+# ─── Scalars ────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+scalar Upload
+scalar URI
+
+# ─── Enums ──────────────────────────────────────────────────────────────────
+
+enum FileType {
+  ANDROID
+  IOS
+  GETTEXT
+  HTML
+  JAVAPROPERTIES
+  JSON
+  YAML
+  XML
+  XLIFF
+  DOCX
+  PPTX
+  XLSX
+  PDF
+  CSV
+  STRINGSDICT
+  RESX
+  SRT
+  PLAINTEXT
+  MADCAP
+  FLSNP
+  CUSTOM
+}
+
+enum TranslationState {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELED
+  EXCLUDED
+}
+
+enum JobStatus {
+  DRAFT
+  AWAITING_AUTHORIZATION
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  DELETED
+}
+
+enum WorkflowStatus {
+  CREATED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+  ARCHIVED
+}
+
+enum IssueType {
+  TRANSLATION
+  SOURCE
+}
+
+enum IssueSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum IssueStatus {
+  OPENED
+  RESOLVED
+  REJECTED
+}
+
+enum GlossaryTermPartOfSpeech {
+  NOUN
+  VERB
+  ADJECTIVE
+  ADVERB
+  PRONOUN
+  PREPOSITION
+  CONJUNCTION
+  INTERJECTION
+  OTHER
+}
+
+enum MTEngineType {
+  GOOGLE
+  MICROSOFT
+  DEEPL
+  AMAZON
+  SYSTRAN
+  MODERNMT
+  SMARTCAT
+  CUSTOM
+}
+
+enum QualityCheckSeverity {
+  NONE
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ScheduleFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  CUSTOM
+}
+
+enum LocaleStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum ContextType {
+  IMAGE
+  HTML
+  VIDEO
+}
+
+enum NotificationType {
+  JOB_COMPLETED
+  JOB_CANCELLED
+  FILE_UPLOADED
+  TRANSLATION_COMPLETED
+  ISSUE_CREATED
+  ISSUE_RESOLVED
+  REVIEW_REQUESTED
+  WORKFLOW_STEP_COMPLETED
+}
+
+# ─── Core Domain Types ────────────────────────────────────────────────────────
+
+type Account {
+  accountUid: ID!
+  accountName: String!
+  status: String!
+  projects(first: Int, after: String): ProjectConnection!
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+}
+
+type Project {
+  projectId: ID!
+  projectName: String!
+  accountUid: String!
+  sourceLocaleId: String!
+  sourceLocaleDescription: String
+  targetLocales: [Locale!]!
+  archived: Boolean!
+  projectType: String
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+  files(first: Int, after: String, filter: FileFilter): FileConnection!
+  jobs(first: Int, after: String, filter: JobFilter): JobConnection!
+  workflows: [Workflow!]!
+  glossaries: [Glossary!]!
+  strings(first: Int, after: String): StringConnection!
+  translationMemories: [TranslationMemory!]!
+  issues(first: Int, after: String, filter: IssueFilter): IssueConnection!
+  reports: [Report!]!
+  settings: ProjectSettings
+}
+
+type Locale {
+  localeId: ID!
+  description: String!
+  enabled: Boolean!
+  status: LocaleStatus!
+  translationProgress: Float
+  wordCount: Int
+  stringCount: Int
+}
+
+type ProjectSettings {
+  projectId: ID!
+  machineTranslationEnabled: Boolean!
+  autoAuthorizeEnabled: Boolean!
+  queuedTranslationEnabled: Boolean!
+  sourceLocaleId: String!
+  targetLocaleIds: [String!]!
+}
+
+# ─── File Management ─────────────────────────────────────────────────────────
+
+type File {
+  fileUri: ID!
+  projectId: String!
+  fileType: FileType!
+  fileName: String
+  stringCount: Int
+  wordCount: Int
+  approvedStringCount: Int
+  completedStringCount: Int
+  excludedStringCount: Int
+  lastUploaded: DateTime
+  fileLocales: [FileLocale!]!
+  directives: [FileDirective!]!
+  callbackUrl: URI
+  callbackMethod: String
+}
+
+type FileLocale {
+  localeId: String!
+  fileUri: String!
+  lastModified: DateTime
+  completedStrings: Int
+  totalStrings: Int
+  approvedStrings: Int
+  excludedStrings: Int
+  percentCompleted: Float
+}
+
+type FileDirective {
+  key: String!
+  value: String!
+}
+
+type FileUploadResult {
+  fileUri: String!
+  stringCount: Int!
+  wordCount: Int!
+  overWritten: Boolean!
+  message: String
+}
+
+type FileDownloadResult {
+  fileUri: String!
+  localeId: String
+  content: String!
+  contentType: String!
+}
+
+type FileImportResult {
+  wordCount: Int!
+  stringCount: Int!
+  translationImportErrors: [TranslationImportError!]!
+}
+
+type TranslationImportError {
+  importKey: String!
+  contentFileUri: String!
+  errorDescription: String!
+}
+
+# ─── String & Translation Types ──────────────────────────────────────────────
+
+type SourceString {
+  hashcode: ID!
+  fileUri: String!
+  stringText: String!
+  parsedStringText: String
+  keys: [StringKey!]!
+  variant: String
+  format: String
+  maxLength: Int
+  instruction: String
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+  translations: [Translation!]!
+  issues: [Issue!]!
+}
+
+type StringKey {
+  key: String!
+  fileUri: String!
+  localeId: String
+}
+
+type Translation {
+  hashcode: String!
+  localeId: String!
+  translationText: String!
+  state: TranslationState!
+  workflowStepType: String
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+  translator: User
+  reviewer: User
+  qualityChecks: [QualityCheckResult!]!
+}
+
+# ─── Job Types ────────────────────────────────────────────────────────────────
+
+type TranslationJob {
+  translationJobUid: ID!
+  projectId: String!
+  jobName: String!
+  jobNumber: String
+  description: String
+  dueDate: DateTime
+  status: JobStatus!
+  targetLocaleIds: [String!]!
+  callbackUrl: URI
+  callbackMethod: String
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+  createdByUserUid: String
+  modifiedByUserUid: String
+  fileCount: Int
+  stringCount: Int
+  wordCount: Int
+  files: [JobFile!]!
+  batches: [JobBatch!]!
+  schedule: JobSchedule
+  customFields: [CustomField!]!
+}
+
+type JobFile {
+  fileUri: String!
+  localeIds: [String!]!
+  wordCount: Int
+  stringCount: Int
+  status: TranslationState!
+}
+
+type JobBatch {
+  batchUid: ID!
+  status: String!
+  fileCount: Int!
+  stringCount: Int!
+  wordCount: Int!
+  createdDate: DateTime!
+}
+
+type JobSchedule {
+  scheduleUid: ID!
+  frequency: ScheduleFrequency!
+  nextRunDate: DateTime
+  lastRunDate: DateTime
+  enabled: Boolean!
+}
+
+# ─── Workflow Types ───────────────────────────────────────────────────────────
+
+type Workflow {
+  workflowUid: ID!
+  projectId: String!
+  workflowName: String!
+  description: String
+  status: WorkflowStatus!
+  steps: [WorkflowStep!]!
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+}
+
+type WorkflowStep {
+  stepUid: ID!
+  stepName: String!
+  stepType: String!
+  order: Int!
+  assigneeType: String
+  assignees: [User!]!
+  requiredTranslators: Int
+  completionThreshold: Float
+}
+
+type WorkflowAssignment {
+  assignmentUid: ID!
+  workflowUid: String!
+  stepUid: String!
+  localeId: String!
+  translator: User
+  dueDate: DateTime
+  status: String!
+}
+
+# ─── Glossary Types ───────────────────────────────────────────────────────────
+
+type Glossary {
+  glossaryUid: ID!
+  accountUid: String!
+  glossaryName: String!
+  description: String
+  localeIds: [String!]!
+  termCount: Int!
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+  terms(first: Int, after: String, filter: GlossaryTermFilter): GlossaryTermConnection!
+}
+
+type GlossaryTerm {
+  termUid: ID!
+  glossaryUid: String!
+  definition: String
+  partOfSpeech: GlossaryTermPartOfSpeech
+  notes: String
+  caseSensitive: Boolean!
+  exactMatch: Boolean!
+  variations: [String!]!
+  translations: [GlossaryTermTranslation!]!
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+}
+
+type GlossaryTermTranslation {
+  localeId: String!
+  translatedTerm: String!
+  notes: String
+  locked: Boolean!
+  forbidden: Boolean!
+}
+
+# ─── Translation Memory Types ─────────────────────────────────────────────────
+
+type TranslationMemory {
+  tmUid: ID!
+  accountUid: String!
+  tmName: String!
+  description: String
+  sourceLocaleId: String!
+  targetLocaleIds: [String!]!
+  segmentCount: Int!
+  wordCount: Int!
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+}
+
+type TMSegment {
+  segmentUid: ID!
+  tmUid: String!
+  sourceText: String!
+  sourceLocaleId: String!
+  translations: [TMSegmentTranslation!]!
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+}
+
+type TMSegmentTranslation {
+  localeId: String!
+  translationText: String!
+  quality: Float
+  usageCount: Int!
+  lastUsedDate: DateTime
+}
+
+type TMLookupResult {
+  sourceText: String!
+  tmUid: String!
+  localeId: String!
+  matchScore: Float!
+  translationText: String!
+  origin: String
+}
+
+# ─── Visual Context Types ─────────────────────────────────────────────────────
+
+type VisualContext {
+  contextUid: ID!
+  projectId: String!
+  contextName: String!
+  contextType: ContextType!
+  uploadStatus: String!
+  fileUri: String
+  url: URI
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+  bindings: [ContextBinding!]!
+}
+
+type ContextBinding {
+  bindingUid: ID!
+  contextUid: String!
+  stringHashcode: String!
+  coordinates: ContextCoordinates
+  createdDate: DateTime!
+}
+
+type ContextCoordinates {
+  x: Float!
+  y: Float!
+  width: Float!
+  height: Float!
+}
+
+# ─── Issue Types ──────────────────────────────────────────────────────────────
+
+type Issue {
+  issueUid: ID!
+  projectId: String!
+  issueType: IssueType!
+  issueSeverity: IssueSeverity!
+  issueStatus: IssueStatus!
+  issueText: String!
+  stringHashcode: String!
+  localeId: String
+  reportedByUserUid: String!
+  resolvedByUserUid: String
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+  resolvedDate: DateTime
+  comments: [IssueComment!]!
+}
+
+type IssueComment {
+  commentUid: ID!
+  issueUid: String!
+  commentText: String!
+  createdByUserUid: String!
+  createdDate: DateTime!
+}
+
+# ─── Quality Check Types ──────────────────────────────────────────────────────
+
+type QualityCheckProfile {
+  profileUid: ID!
+  projectId: String!
+  profileName: String!
+  checks: [QualityCheck!]!
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+}
+
+type QualityCheck {
+  checkUid: ID!
+  checkType: String!
+  enabled: Boolean!
+  severity: QualityCheckSeverity!
+  parameters: JSON
+}
+
+type QualityCheckResult {
+  checkType: String!
+  severity: QualityCheckSeverity!
+  passed: Boolean!
+  message: String
+  details: JSON
+}
+
+type QualityCheckReport {
+  reportUid: ID!
+  projectId: String!
+  jobUid: String
+  localeId: String!
+  totalStrings: Int!
+  passedStrings: Int!
+  failedStrings: Int!
+  results: [QualityCheckResult!]!
+  generatedDate: DateTime!
+}
+
+# ─── Machine Translation Types ────────────────────────────────────────────────
+
+type MTEngine {
+  mtEngineUid: ID!
+  accountUid: String!
+  engineName: String!
+  engineType: MTEngineType!
+  enabled: Boolean!
+  supportedLocales: [String!]!
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+}
+
+type MTTranslation {
+  sourceText: String!
+  translatedText: String!
+  localeId: String!
+  engineType: MTEngineType!
+  score: Float
+  processingTime: Int
+}
+
+# ─── Report Types ─────────────────────────────────────────────────────────────
+
+type Report {
+  reportUid: ID!
+  projectId: String!
+  reportType: String!
+  reportName: String!
+  status: String!
+  generatedDate: DateTime!
+  downloadUrl: URI
+  parameters: JSON
+}
+
+type WordCountReport {
+  projectId: String!
+  dateFrom: DateTime!
+  dateTo: DateTime!
+  totalWords: Int!
+  translatedWords: Int!
+  approvedWords: Int!
+  excludedWords: Int!
+  localeBreakdown: [LocaleWordCount!]!
+}
+
+type LocaleWordCount {
+  localeId: String!
+  translatedWords: Int!
+  approvedWords: Int!
+  excludedWords: Int!
+}
+
+type CostReport {
+  projectId: String!
+  dateFrom: DateTime!
+  dateTo: DateTime!
+  totalCost: Float!
+  currency: String!
+  breakdown: [CostBreakdownItem!]!
+}
+
+type CostBreakdownItem {
+  localeId: String!
+  wordCount: Int!
+  ratePerWord: Float!
+  totalCost: Float!
+}
+
+# ─── User & Auth Types ────────────────────────────────────────────────────────
+
+type User {
+  userUid: ID!
+  email: String!
+  firstName: String!
+  lastName: String!
+  displayName: String
+  userState: String!
+  roles: [UserRole!]!
+  locales: [String!]!
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+}
+
+type UserRole {
+  roleId: ID!
+  roleName: String!
+  projectId: String
+  permissions: [String!]!
+}
+
+type AuthToken {
+  accessToken: String!
+  refreshToken: String!
+  expiresIn: Int!
+  tokenType: String!
+}
+
+type APIToken {
+  tokenUid: ID!
+  tokenName: String!
+  userIdentifier: String!
+  secretKey: String
+  createdDate: DateTime!
+  expiryDate: DateTime
+  active: Boolean!
+}
+
+# ─── Notification Types ───────────────────────────────────────────────────────
+
+type Notification {
+  notificationUid: ID!
+  notificationType: NotificationType!
+  projectId: String!
+  userId: String!
+  message: String!
+  read: Boolean!
+  createdDate: DateTime!
+  payload: JSON
+}
+
+type WebhookConfig {
+  webhookUid: ID!
+  projectId: String!
+  webhookUrl: URI!
+  events: [NotificationType!]!
+  active: Boolean!
+  secret: String
+  createdDate: DateTime!
+  modifiedDate: DateTime!
+}
+
+# ─── Custom Field Types ───────────────────────────────────────────────────────
+
+type CustomField {
+  fieldUid: ID!
+  fieldName: String!
+  fieldType: String!
+  value: String
+  required: Boolean!
+  options: [String!]
+}
+
+type CustomFieldDefinition {
+  fieldUid: ID!
+  accountUid: String!
+  fieldName: String!
+  fieldType: String!
+  required: Boolean!
+  options: [String!]
+  defaultValue: String
+  createdDate: DateTime!
+}
+
+# ─── Tag Types ────────────────────────────────────────────────────────────────
+
+type Tag {
+  tagUid: ID!
+  projectId: String!
+  tagName: String!
+  color: String
+  description: String
+  createdDate: DateTime!
+}
+
+# ─── Connection Types (Pagination) ────────────────────────────────────────────
+
+type ProjectConnection {
+  edges: [ProjectEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type ProjectEdge {
+  node: Project!
+  cursor: String!
+}
+
+type FileConnection {
+  edges: [FileEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type FileEdge {
+  node: File!
+  cursor: String!
+}
+
+type JobConnection {
+  edges: [JobEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type JobEdge {
+  node: TranslationJob!
+  cursor: String!
+}
+
+type StringConnection {
+  edges: [StringEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type StringEdge {
+  node: SourceString!
+  cursor: String!
+}
+
+type GlossaryTermConnection {
+  edges: [GlossaryTermEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type GlossaryTermEdge {
+  node: GlossaryTerm!
+  cursor: String!
+}
+
+type IssueConnection {
+  edges: [IssueEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type IssueEdge {
+  node: Issue!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+# ─── Input Types ─────────────────────────────────────────────────────────────
+
+input AuthenticateInput {
+  userIdentifier: String!
+  userSecret: String!
+}
+
+input ProjectFilter {
+  archived: Boolean
+  projectType: String
+  createdAfter: DateTime
+  createdBefore: DateTime
+}
+
+input FileFilter {
+  fileType: FileType
+  lastUploadedAfter: DateTime
+  lastUploadedBefore: DateTime
+  uriMask: String
+}
+
+input JobFilter {
+  status: JobStatus
+  targetLocaleId: String
+  createdAfter: DateTime
+  createdBefore: DateTime
+  dueBefore: DateTime
+}
+
+input IssueFilter {
+  issueType: IssueType
+  issueStatus: IssueStatus
+  issueSeverity: IssueSeverity
+  localeId: String
+}
+
+input GlossaryTermFilter {
+  localeId: String
+  partOfSpeech: GlossaryTermPartOfSpeech
+  searchText: String
+}
+
+input CreateProjectInput {
+  accountUid: String!
+  projectName: String!
+  sourceLocaleId: String!
+  targetLocaleIds: [String!]!
+  projectType: String
+  description: String
+}
+
+input UpdateProjectInput {
+  projectName: String
+  description: String
+  targetLocaleIds: [String!]
+}
+
+input CreateJobInput {
+  projectId: String!
+  jobName: String!
+  description: String
+  dueDate: DateTime
+  targetLocaleIds: [String!]!
+  callbackUrl: URI
+  callbackMethod: String
+  customFields: [CustomFieldInput!]
+}
+
+input UpdateJobInput {
+  jobName: String
+  description: String
+  dueDate: DateTime
+  callbackUrl: URI
+  callbackMethod: String
+  customFields: [CustomFieldInput!]
+}
+
+input AddFileToJobInput {
+  jobUid: String!
+  fileUri: String!
+  targetLocaleIds: [String!]
+}
+
+input CreateGlossaryInput {
+  accountUid: String!
+  glossaryName: String!
+  description: String
+  localeIds: [String!]!
+}
+
+input CreateGlossaryTermInput {
+  glossaryUid: String!
+  definition: String
+  partOfSpeech: GlossaryTermPartOfSpeech
+  notes: String
+  caseSensitive: Boolean
+  exactMatch: Boolean
+  variations: [String!]
+  translations: [GlossaryTermTranslationInput!]!
+}
+
+input GlossaryTermTranslationInput {
+  localeId: String!
+  translatedTerm: String!
+  notes: String
+  locked: Boolean
+  forbidden: Boolean
+}
+
+input CreateIssueInput {
+  projectId: String!
+  issueType: IssueType!
+  issueSeverity: IssueSeverity!
+  issueText: String!
+  stringHashcode: String!
+  localeId: String
+}
+
+input ResolveIssueInput {
+  issueUid: String!
+  resolutionComment: String
+}
+
+input CreateTranslationMemoryInput {
+  accountUid: String!
+  tmName: String!
+  description: String
+  sourceLocaleId: String!
+  targetLocaleIds: [String!]!
+}
+
+input TMLookupInput {
+  tmUid: String!
+  sourceText: String!
+  localeId: String!
+  maxResults: Int
+  minMatchScore: Float
+}
+
+input CreateWebhookInput {
+  projectId: String!
+  webhookUrl: URI!
+  events: [NotificationType!]!
+  secret: String
+}
+
+input CustomFieldInput {
+  fieldUid: String!
+  value: String!
+}
+
+input MTTranslateInput {
+  projectId: String!
+  sourceText: String!
+  sourceLocaleId: String!
+  targetLocaleId: String!
+  mtEngineUid: String
+}
+
+input VisualContextInput {
+  projectId: String!
+  contextName: String!
+  contextType: ContextType!
+  url: URI
+}
+
+input ContextBindingInput {
+  contextUid: String!
+  stringHashcode: String!
+  coordinates: ContextCoordinatesInput
+}
+
+input ContextCoordinatesInput {
+  x: Float!
+  y: Float!
+  width: Float!
+  height: Float!
+}
+
+input ReportFilterInput {
+  projectId: String!
+  localeId: String
+  dateFrom: DateTime
+  dateTo: DateTime
+  jobUid: String
+}
+
+# ─── Query Root ───────────────────────────────────────────────────────────────
+
+type Query {
+  # Account
+  account(accountUid: ID!): Account
+  accounts(first: Int, after: String): [Account!]!
+
+  # Projects
+  project(projectId: ID!): Project
+  projects(accountUid: String!, first: Int, after: String, filter: ProjectFilter): ProjectConnection!
+
+  # Locales
+  locales: [Locale!]!
+  supportedLocales(projectId: String): [Locale!]!
+
+  # Files
+  file(projectId: String!, fileUri: String!): File
+  files(projectId: String!, first: Int, after: String, filter: FileFilter): FileConnection!
+  fileLocales(projectId: String!, fileUri: String!): [FileLocale!]!
+
+  # Strings
+  string(projectId: String!, hashcode: ID!): SourceString
+  strings(projectId: String!, first: Int, after: String, filter: StringFilter): StringConnection!
+
+  # Translation Jobs
+  job(projectId: String!, translationJobUid: ID!): TranslationJob
+  jobs(projectId: String!, first: Int, after: String, filter: JobFilter): JobConnection!
+  jobBatches(projectId: String!, translationJobUid: String!): [JobBatch!]!
+
+  # Workflows
+  workflow(projectId: String!, workflowUid: ID!): Workflow
+  workflows(projectId: String!): [Workflow!]!
+  workflowAssignments(projectId: String!, workflowUid: String!): [WorkflowAssignment!]!
+
+  # Glossaries
+  glossary(glossaryUid: ID!): Glossary
+  glossaries(accountUid: String!): [Glossary!]!
+  glossaryTerm(termUid: ID!): GlossaryTerm
+  glossaryTerms(glossaryUid: String!, first: Int, after: String, filter: GlossaryTermFilter): GlossaryTermConnection!
+
+  # Translation Memory
+  translationMemory(tmUid: ID!): TranslationMemory
+  translationMemories(accountUid: String!): [TranslationMemory!]!
+  tmLookup(input: TMLookupInput!): [TMLookupResult!]!
+
+  # Visual Context
+  visualContext(contextUid: ID!): VisualContext
+  visualContexts(projectId: String!): [VisualContext!]!
+  contextBindings(contextUid: String!): [ContextBinding!]!
+
+  # Issues
+  issue(issueUid: ID!): Issue
+  issues(projectId: String!, first: Int, after: String, filter: IssueFilter): IssueConnection!
+  issueComments(issueUid: String!): [IssueComment!]!
+
+  # Quality Checks
+  qualityCheckProfile(profileUid: ID!): QualityCheckProfile
+  qualityCheckProfiles(projectId: String!): [QualityCheckProfile!]!
+  qualityCheckReport(reportUid: ID!): QualityCheckReport
+
+  # Machine Translation
+  mtEngine(mtEngineUid: ID!): MTEngine
+  mtEngines(accountUid: String!): [MTEngine!]!
+
+  # Reports
+  report(reportUid: ID!): Report
+  reports(projectId: String!): [Report!]!
+  wordCountReport(filter: ReportFilterInput!): WordCountReport
+  costReport(filter: ReportFilterInput!): CostReport
+
+  # Users
+  user(userUid: ID!): User
+  users(accountUid: String!): [User!]!
+  currentUser: User
+
+  # API Tokens
+  apiToken(tokenUid: ID!): APIToken
+  apiTokens: [APIToken!]!
+
+  # Notifications
+  notifications(first: Int, after: String, unreadOnly: Boolean): [Notification!]!
+  webhookConfigs(projectId: String!): [WebhookConfig!]!
+
+  # Custom Fields
+  customFieldDefinitions(accountUid: String!): [CustomFieldDefinition!]!
+
+  # Tags
+  tags(projectId: String!): [Tag!]!
+}
+
+input StringFilter {
+  fileUri: String
+  localeId: String
+  translationState: TranslationState
+}
+
+# ─── Mutation Root ────────────────────────────────────────────────────────────
+
+type Mutation {
+  # Authentication
+  authenticate(input: AuthenticateInput!): AuthToken!
+  refreshToken(refreshToken: String!): AuthToken!
+  revokeToken(accessToken: String!): Boolean!
+
+  # Projects
+  createProject(input: CreateProjectInput!): Project!
+  updateProject(projectId: ID!, input: UpdateProjectInput!): Project!
+  archiveProject(projectId: ID!): Project!
+  restoreProject(projectId: ID!): Project!
+  addProjectLocale(projectId: ID!, localeId: String!): Project!
+  removeProjectLocale(projectId: ID!, localeId: String!): Project!
+
+  # Files
+  uploadFile(projectId: String!, fileUri: String!, fileType: FileType!, content: Upload!, directives: JSON): FileUploadResult!
+  deleteFile(projectId: String!, fileUri: String!): Boolean!
+  importTranslations(projectId: String!, fileUri: String!, localeId: String!, content: Upload!): FileImportResult!
+  renameFile(projectId: String!, fileUri: String!, newFileUri: String!): File!
+
+  # Translation Jobs
+  createJob(input: CreateJobInput!): TranslationJob!
+  updateJob(projectId: String!, translationJobUid: ID!, input: UpdateJobInput!): TranslationJob!
+  cancelJob(projectId: String!, translationJobUid: ID!): TranslationJob!
+  authorizeJob(projectId: String!, translationJobUid: ID!): TranslationJob!
+  addFileToJob(input: AddFileToJobInput!): TranslationJob!
+  removeFileFromJob(jobUid: String!, fileUri: String!): TranslationJob!
+  createJobBatch(projectId: String!, translationJobUid: String!, fileCount: Int!): JobBatch!
+
+  # Glossaries
+  createGlossary(input: CreateGlossaryInput!): Glossary!
+  updateGlossary(glossaryUid: ID!, glossaryName: String, description: String): Glossary!
+  deleteGlossary(glossaryUid: ID!): Boolean!
+  createGlossaryTerm(input: CreateGlossaryTermInput!): GlossaryTerm!
+  updateGlossaryTerm(termUid: ID!, definition: String, notes: String, caseSensitive: Boolean, exactMatch: Boolean): GlossaryTerm!
+  deleteGlossaryTerm(termUid: ID!): Boolean!
+  addGlossaryTermTranslation(termUid: String!, input: GlossaryTermTranslationInput!): GlossaryTerm!
+  updateGlossaryTermTranslation(termUid: String!, localeId: String!, translatedTerm: String, notes: String, locked: Boolean, forbidden: Boolean): GlossaryTerm!
+
+  # Translation Memory
+  createTranslationMemory(input: CreateTranslationMemoryInput!): TranslationMemory!
+  updateTranslationMemory(tmUid: ID!, tmName: String, description: String): TranslationMemory!
+  deleteTranslationMemory(tmUid: ID!): Boolean!
+  importTMX(tmUid: String!, content: Upload!): TranslationMemory!
+
+  # Visual Context
+  uploadVisualContext(input: VisualContextInput!, file: Upload): VisualContext!
+  deleteVisualContext(contextUid: ID!): Boolean!
+  createContextBinding(input: ContextBindingInput!): ContextBinding!
+  deleteContextBinding(bindingUid: ID!): Boolean!
+
+  # Issues
+  createIssue(input: CreateIssueInput!): Issue!
+  resolveIssue(input: ResolveIssueInput!): Issue!
+  reopenIssue(issueUid: ID!): Issue!
+  addIssueComment(issueUid: String!, commentText: String!): IssueComment!
+
+  # Quality Checks
+  runQualityChecks(projectId: String!, localeId: String!, jobUid: String): QualityCheckReport!
+
+  # Machine Translation
+  translateWithMT(input: MTTranslateInput!): MTTranslation!
+  applyMTToJob(projectId: String!, translationJobUid: String!, mtEngineUid: String): TranslationJob!
+
+  # Workflow
+  assignWorkflow(projectId: String!, workflowUid: String!, localeId: String!, translatorUid: String!): WorkflowAssignment!
+  advanceWorkflowStep(projectId: String!, workflowUid: String!, stepUid: String!, localeId: String!): WorkflowAssignment!
+
+  # Webhooks
+  createWebhook(input: CreateWebhookInput!): WebhookConfig!
+  updateWebhook(webhookUid: ID!, webhookUrl: URI, events: [NotificationType!], active: Boolean): WebhookConfig!
+  deleteWebhook(webhookUid: ID!): Boolean!
+
+  # API Tokens
+  createAPIToken(tokenName: String!, expiryDate: DateTime): APIToken!
+  deleteAPIToken(tokenUid: ID!): Boolean!
+
+  # Notifications
+  markNotificationRead(notificationUid: ID!): Notification!
+  markAllNotificationsRead: Boolean!
+
+  # Tags
+  createTag(projectId: String!, tagName: String!, color: String, description: String): Tag!
+  deleteTag(tagUid: ID!): Boolean!
+  addTagToJob(jobUid: String!, tagUid: String!): TranslationJob!
+  removeTagFromJob(jobUid: String!, tagUid: String!): TranslationJob!
+
+  # Custom Fields
+  createCustomFieldDefinition(accountUid: String!, fieldName: String!, fieldType: String!, required: Boolean, options: [String!], defaultValue: String): CustomFieldDefinition!
+  deleteCustomFieldDefinition(fieldUid: ID!): Boolean!
+}
+
+# ─── Subscription Root ────────────────────────────────────────────────────────
+
+type Subscription {
+  jobStatusChanged(projectId: String!, translationJobUid: String!): TranslationJob!
+  fileTranslationCompleted(projectId: String!, fileUri: String!, localeId: String): FileLocale!
+  issueCreated(projectId: String!): Issue!
+  workflowStepCompleted(projectId: String!, workflowUid: String!): WorkflowAssignment!
+  notificationReceived(userId: String!): Notification!
+  qualityCheckCompleted(projectId: String!): QualityCheckReport!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
