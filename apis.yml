@@ -8,7 +8,7 @@ description: Smartling is an enterprise translation management platform combinin
   strings, translations, jobs, glossary, issues, quality checks, MT, and reports.
   Authentication uses an OAuth-style userIdentifier + secret pair that returns a short-lived
   bearer access token (~5-10 minute TTL) with a refresh token.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Localization
 - Translation
@@ -27,7 +27,7 @@ apis:
     groups include Authentication, Accounts, Projects, Source Files, Strings, Translations,
     Jobs, Glossary, Issues, Quality Checks, MT, and Reports. Authentication via api.smartling.com/auth-api/v2/authenticate
     returns a bearer access token used in subsequent requests.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://api-reference.smartling.com/
   baseURL: https://api.smartling.com
   tags:
