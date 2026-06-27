@@ -51,7 +51,7 @@ apis:
     url: https://help.smartling.com/hc/en-us/articles/1260805176849-Authentication
   - type: APITokens
     url: https://help.smartling.com/hc/en-us/articles/115004187694-API-Tokens
-  - type: SDK
+  - type: SDKs
     title: Java
     url: https://github.com/Smartling/java-api-sdk
   - url: graphql/smartling-graphql.md
