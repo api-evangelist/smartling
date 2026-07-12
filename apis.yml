@@ -57,6 +57,10 @@ apis:
   - url: graphql/smartling-graphql.md
     type: GraphQL
 common:
+- type: TrustCenter
+  url: security/smartling-trust-center.yml
+- type: DomainSecurity
+  url: security/smartling-domain-security.yml
 - type: Website
   url: https://www.smartling.com/
 - type: Documentation
@@ -73,6 +77,8 @@ common:
   url: rate-limits/smartling-rate-limits.yml
 - type: FinOps
   url: finops/smartling-finops.yml
+- type: Blog
+  url: https://www.smartling.com/blog/rss.xml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
