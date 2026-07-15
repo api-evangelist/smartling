@@ -1,0 +1,1461 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/smartling-openapi.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 109
+  by_action_class:
+    acting: 59
+    connected: 50
+  by_consequence:
+    write: 57
+    read: 50
+    safety-critical: 2
+  human_in_the_loop_required: 2
+operations:
+- path: /auth-api/v2/authenticate
+  method: post
+  operationId: authenticate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /auth-api/v2/authenticate/refresh
+  method: post
+  operationId: refreshAccessToken
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /accounts-api/v2/accounts/{accountUid}/projects
+  method: get
+  operationId: getProjectsByAccount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /projects-api/v2/projects/{projectId}
+  method: get
+  operationId: getProjectDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /projects-api/v2/projects/{projectId}/targetLocales
+  method: post
+  operationId: addLocaleToProject
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /projects-api/v2/projects/{projectId}/copy
+  method: post
+  operationId: copyProject
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /projects-api/v2/projects/{projectId}/copy/{processUid}
+  method: get
+  operationId: getProjectCopyRequestStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /locales-api/v2/dictionary/locales
+  method: get
+  operationId: getAvailableLocalesList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /people-api/v2/users
+  method: post
+  operationId: getUsersList
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /people-api/v3/accounts/{accountUid}/processes/{processUid}
+  method: get
+  operationId: workflowAssignmentsProcess
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /people-api/v3/accounts/{accountUid}/users/{userUid}/workflow-steps/assign
+  method: post
+  operationId: workflowAssignmentsCreate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /people-api/v3/accounts/{accountUid}/users/{userUid}/workflow-steps/remove
+  method: post
+  operationId: workflowAssignmentsRemove
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /people-api/v3/accounts/{accountUid}/users/workflow-steps
+  method: post
+  operationId: workflowAssignmentsSearch
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /people-api/v3/accounts/{accountUid}/users/{userUid}/workflow-steps
+  method: post
+  operationId: workflowAssignmentsUserSearch
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /files-api/v2/projects/{projectId}/file
+  method: post
+  operationId: uploadSourceFile
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /files-api/v2/projects/{projectId}/file
+  method: get
+  operationId: downloadSourceFile
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /files-api/v2/projects/{projectId}/file/status
+  method: get
+  operationId: getFileTranslationStatusAllLocales
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /files-api/v2/projects/{projectId}/locales/{localeId}/file/status
+  method: get
+  operationId: getFileTranslationStatusSingleLocale
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /files-api/v2/projects/{projectId}/locales/{localeIds}/file
+  method: get
+  operationId: downloadTranslatedFile
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /files-api/v2/projects/{projectId}/locales/all/file/zip
+  method: get
+  operationId: downloadTranslatedFilesAllLocales
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /files-api/v2/projects/{projectId}/files/zip
+  method: get
+  operationId: downloadMultipleTranslatedFiles
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /files-api/v2/projects/{projectId}/files/zip
+  method: post
+  operationId: downloadMultipleTranslatedFilesPost
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /files-api/v2/projects/{projectId}/files/list
+  method: get
+  operationId: getRecentlyUploadedSourceFilesList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /files-api/v2/projects/{projectId}/file-types
+  method: get
+  operationId: getFileTypesList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /files-api/v2/projects/{projectId}/file/rename
+  method: post
+  operationId: renameUploadedSourceFile
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /files-api/v2/projects/{projectId}/file/delete
+  method: post
+  operationId: deleteUploadedSourceFile
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /files-api/v2/projects/{projectId}/locales/{localeId}/file/last-modified
+  method: get
+  operationId: getTranslatedFileLastModifiedDateSingleLocale
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /files-api/v2/projects/{projectId}/file/last-modified
+  method: get
+  operationId: getTranslatedFileLastModifiedDateAllLocales
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /files-api/v2/projects/{projectId}/locales/{localeId}/file/import
+  method: post
+  operationId: importFileTranslations
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /files-api/v2/projects/{projectId}/locales/{localeId}/file/get-translations
+  method: post
+  operationId: exportFileTranslations
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /published-files-api/v2/projects/{projectId}/files/list/recently-published
+  method: get
+  operationId: getRecentlyPublishedFilesList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /context-api/v2/projects/{projectId}/contexts
+  method: post
+  operationId: uploadNewVisualContext
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /context-api/v2/projects/{projectId}/contexts
+  method: get
+  operationId: getVisualContextsListByProject
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /context-api/v2/projects/{projectId}/contexts/{contextUid}
+  method: get
+  operationId: getVisualContextInfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /context-api/v2/projects/{projectId}/contexts/{contextUid}
+  method: delete
+  operationId: deleteVisualContext
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /context-api/v2/projects/{projectId}/contexts/remove/async
+  method: post
+  operationId: deleteVisualContextsAsync
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /context-api/v2/projects/{projectId}/contexts/{contextUid}/content
+  method: get
+  operationId: downloadVisualContextFileContent
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /context-api/v2/projects/{projectId}/contexts/{contextUid}/match/async
+  method: post
+  operationId: runAutomaticContextMatching
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /context-api/v2/projects/{projectId}/contexts/upload-and-match-async
+  method: post
+  operationId: uploadAndMatchVisualContext
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /context-api/v2/projects/{projectId}/match/{matchId}
+  method: get
+  operationId: getAsyncContextMatchResults
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /context-api/v2/projects/{projectId}/processes/{processUid}
+  method: get
+  operationId: getAsyncProcessResults
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /context-api/v2/projects/{projectId}/bindings
+  method: post
+  operationId: createStringToContextBindings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /context-api/v2/projects/{projectId}/bindings/list
+  method: post
+  operationId: getBindings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /context-api/v2/projects/{projectId}/bindings/remove
+  method: post
+  operationId: deleteBindings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /strings-view-service-graphql-api/v2/projects/{projectId}/graphql
+  method: post
+  operationId: searchStrings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /strings-api/v2/projects/{projectId}
+  method: post
+  operationId: addStringsToProject
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /strings-api/v2/projects/{projectId}/processes/{processUid}
+  method: get
+  operationId: getAddStringsToProjectRequestStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /strings-api/v2/projects/{projectId}/source-strings
+  method: get
+  operationId: getAllSourceStringsByProject
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /strings-api/v2/projects/{projectId}/source-strings
+  method: post
+  operationId: getAllSourceStringsByProjectPost
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /strings-api/v2/projects/{projectId}/translations
+  method: get
+  operationId: getAllTranslationsByProject
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /strings-api/v2/projects/{projectId}/translations
+  method: post
+  operationId: getAllTranslationsByProjectPost
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /estimates-api/v2/projects/{projectId}/jobs/{translationJobUid}/reports/fuzzy
+  method: get
+  operationId: getJobFuzzyEstimateReports
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /estimates-api/v2/projects/{projectId}/jobs/{translationJobUid}/reports/fuzzy
+  method: post
+  operationId: generateJobFuzzyEstimateReports
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /estimates-api/v2/projects/{projectId}/jobs/{translationJobUid}/reports/cost
+  method: get
+  operationId: getJobCostEstimateReports
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /estimates-api/v2/projects/{projectId}/jobs/{translationJobUid}/reports/cost
+  method: post
+  operationId: generateJobCostEstimateReports
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /estimates-api/v2/projects/{projectId}/reports/{reportUid}/status
+  method: get
+  operationId: getJobEstimateReportStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /estimates-api/v2/projects/{projectId}/reports/{reportUid}
+  method: get
+  operationId: getJobEstimateReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /estimates-api/v2/projects/{projectId}/reports/{reportUid}
+  method: delete
+  operationId: deleteJobEstimateReport
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /estimates-api/v2/projects/{projectId}/reports/{reportUid}/tags
+  method: put
+  operationId: modifyJobEstimateReportTags
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /estimates-api/v2/projects/{projectUid}/reports/{reportUid}/download
+  method: get
+  operationId: exportJobEstimationReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /mt-router-api/v2/accounts/{accountUid}/smartling-mt
+  method: post
+  operationId: translateForAccount
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/accounts/{accountUid}/jobs
+  method: get
+  operationId: getJobsByAccount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/projects/{projectId}/jobs
+  method: get
+  operationId: getJobsByProject
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/projects/{projectId}/jobs
+  method: post
+  operationId: addJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/find-jobs-by-strings
+  method: post
+  operationId: findJobsByStrings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/strings
+  method: get
+  operationId: getStringsForTranslationJob
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/strings/add
+  method: post
+  operationId: addStringsToJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/strings/remove
+  method: post
+  operationId: removeStringsFromJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/close
+  method: post
+  operationId: closeJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/cancel
+  method: post
+  operationId: cancelJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/authorize
+  method: post
+  operationId: authorizeJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}
+  method: get
+  operationId: getJobDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}
+  method: put
+  operationId: updateJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}
+  method: delete
+  operationId: deleteJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/search
+  method: post
+  operationId: searchForJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/processes/{processUid}
+  method: get
+  operationId: getJobAsyncProcessStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/file/add
+  method: post
+  operationId: addFileToJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/file/remove
+  method: post
+  operationId: removeFileFromJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/files
+  method: get
+  operationId: getJobFilesList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/locales/{targetLocaleId}
+  method: post
+  operationId: addLocaleToJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/locales/{targetLocaleId}
+  method: delete
+  operationId: removeLocaleFromJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/file/progress
+  method: get
+  operationId: getJobFileProgress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/progress
+  method: get
+  operationId: getJobProgress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/locales-completion-dates
+  method: get
+  operationId: getJobLastCompletionDatesPerLocale
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/schedule
+  method: get
+  operationId: findScheduleForTranslationJob
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/schedule
+  method: post
+  operationId: modifyScheduleItemsForTranslationJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/projects/{projectId}/custom-fields
+  method: get
+  operationId: getProjectCustomFields
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/projects/{projectId}/custom-fields
+  method: post
+  operationId: assignCustomFieldsToProject
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /jobs-api/v3/accounts/{accountUid}/custom-fields
+  method: get
+  operationId: getAccountCustomFields
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jobs-api/v3/accounts/{accountUid}/custom-fields
+  method: post
+  operationId: createCustomField
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jobs-api/v3/accounts/{accountUid}/custom-fields/{fieldUid}
+  method: put
+  operationId: updateCustomField
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /tags-api/v2/accounts/{accountUid}/tags
+  method: post
+  operationId: getTagsListByAccount
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /tags-api/v2/projects/{projectId}/tags
+  method: get
+  operationId: getTagsListByProject
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tags-api/v2/projects/{projectId}/strings/tags/search
+  method: post
+  operationId: getAllTagsForStrings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /tags-api/v2/projects/{projectId}/strings/tags/add
+  method: post
+  operationId: addTagToStrings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /tags-api/v2/projects/{projectId}/strings/tags/remove
+  method: post
+  operationId: removeTagsFromStrings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /tags-api/v2/projects/{projectId}/strings/tags/remove/all
+  method: post
+  operationId: removeAllTagsFromStrings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /gdn-url-management-api/v2/projects/{projectId}/web-pages/list
+  method: post
+  operationId: getGdnUrlsList
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /gdn-url-management-api/v2/projects/{projectId}/web-pages/details
+  method: post
+  operationId: getGdnUrlsDetails
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /gdn-url-management-api/v2/projects/{projectId}/web-pages/{webPageUid}
+  method: get
+  operationId: getGdnUrlDetailsSingleUrl
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /gdn-url-management-api/v2/projects/{projectId}/domains
+  method: get
+  operationId: getProjectDomains
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /language-detection-api/v2/bulk/detect/language
+  method: post
+  operationId: bulkDetectLanguage
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /vendors-api/v2/agencies/{agencyUid}/jobs
+  method: get
+  operationId: getJobsListByAgency
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /vendors-api/v2/accounts/{accountUid}/content-assignments
+  method: get
+  operationId: getContentAssignmentsByAccount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /reports-api/v3/word-count
+  method: get
+  operationId: getWordCountReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /reports-api/v3/word-count/csv
+  method: get
+  operationId: exportWordCountReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /attachments-api/v2/accounts/{accountUid}/{type}/attachments/{attachmentUid}
+  method: get
+  operationId: downloadAttachment
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /attachments-api/v2/accounts/{accountUid}/{type}/{entityUid}
+  method: get
+  operationId: listAttachment
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /attachments-api/v2/accounts/{accountUid}/{type}/attachments
+  method: post
+  operationId: uploadAttachment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required

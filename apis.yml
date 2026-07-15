@@ -57,6 +57,8 @@ apis:
   - url: graphql/smartling-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/smartling-agentic-access.yml
 - type: TrustCenter
   url: security/smartling-trust-center.yml
 - type: DomainSecurity
