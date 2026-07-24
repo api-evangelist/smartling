@@ -1,0 +1,277 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@smartling.com
+  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
+
+    '
+  termsOfService: https://www.smartling.com/legal
+  title: Smartling REST API Reference Account & Projects People API
+  version: 2.0.0
+  x-logo:
+    url: smartling_logo.png
+servers:
+- url: https://api.smartling.com
+tags:
+- name: People
+  description: Smartling users, who process and translate content with the Smartling platform.
+paths:
+  /people-api/v2/users:
+    post:
+      summary: Get list of user information
+      tags:
+      - People
+      description: 'Smartling users, who process and translate content with the Smartling platform.
+
+        '
+      operationId: getUsersList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                userUids:
+                  description: List of user uids.
+                  example:
+                  - ac48ht4qy
+                  items:
+                    type: string
+                  type: array
+                excludeProfileImage:
+                  description: As a performance optimization, exclude the user's profile image.
+                  example: false
+                  type: boolean
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeopleAPIUserInfosSuccessResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        items:
+                        - userUid: ac48ht4qy
+                          firstName: user first name 1
+                          lastName: user last name 1
+                          profileImage: https://my.gravatar.net/avatar/eeca2d632c1weeeaf5dsd3e32e32ddsasd
+                          createdDate: 1704110400000
+                        totalCount: 1
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+components:
+  schemas:
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    UserInfoApiItem:
+      properties:
+        userUid:
+          description: User identifier.
+          type: string
+        firstName:
+          description: User first name.
+          type: string
+        lastName:
+          description: User last name.
+          type: string
+        profileImage:
+          description: User's profile url.
+          type: string
+      required:
+      - userUid
+      - firstName
+      - lastName
+      type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error401Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    PeopleAPIUserInfosSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/UserInfoApiItem'
+                    type: array
+                  totalCount:
+                    description: The total number of users matching the request
+                    type: integer
+                required:
+                - totalCount
+                - items
+                type: object
+            type: object
+  responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+externalDocs:
+  description: Smartling Help Center
+  url: https://help.smartling.com

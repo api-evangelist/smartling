@@ -1,0 +1,468 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@smartling.com
+  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
+
+    '
+  termsOfService: https://www.smartling.com/legal
+  title: Smartling REST API Reference Account & Projects GDN url management API
+  version: 2.0.0
+  x-logo:
+    url: smartling_logo.png
+servers:
+- url: https://api.smartling.com
+tags:
+- name: GDN url management
+paths:
+  /gdn-url-management-api/v2/projects/{projectId}/web-pages/list:
+    post:
+      summary: Get list of URLs
+      description: Get list of URLs.
+      tags:
+      - GDN url management
+      operationId: getGdnUrlsList
+      parameters:
+      - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebPageListRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPageListResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        items:
+                        - created: '2015-11-21T11:51:17Z'
+                          domain:
+                            name: my.domain.com
+                          urlPath: /home/page.htm
+                          webPageUid: 23dsd23md
+                        totalCount: 1
+      x-code-samples:
+      - lang: curl
+        source: 'curl -X POST -H "Authorization: Bearer $smartlingToken" -H "Content-Type: application/json" -d "$smartlingStringTagJSON" https://api.smartling.com/gdn-url-management-api/v2/projects/$smartlingProjectId/web-pages/list
+
+          '
+  /gdn-url-management-api/v2/projects/{projectId}/web-pages/details:
+    post:
+      summary: Get details for URLs
+      description: Retrieve details of the URLs.
+      tags:
+      - GDN url management
+      operationId: getGdnUrlsDetails
+      parameters:
+      - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebPageDetailListRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPageDetailListResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        items:
+                        - details:
+                            contextUids:
+                            - 122ssasa323
+                            - 334asds3434
+                            created: '2015-11-21T01:51:17Z'
+                            stringCount: 10
+                            wordCount: 25
+                          domain:
+                            name: my.domain.com
+                          urlPath: /home/page.htm
+                          webPageUid: 23dsd23md
+                        totalCount: 1
+      x-code-samples:
+      - lang: curl
+        source: 'curl -X POST -H "Authorization: Bearer $smartlingToken" -H "Content-Type: application/json" -d "$smartlingStringTagJSON" https://api.smartling.com/gdn-url-management-api/v2/projects/$smartlingProjectId/web-pages/details
+
+          '
+  /gdn-url-management-api/v2/projects/{projectId}/web-pages/{webPageUid}:
+    get:
+      summary: Get details for URL
+      description: Retrieve detail for the URL.
+      tags:
+      - GDN url management
+      operationId: getGdnUrlDetailsSingleUrl
+      parameters:
+      - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      - description: Unique identifier of the URL
+        in: path
+        name: webPageUid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPageDetailsResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        details:
+                          contextUids:
+                          - 122ssasa323
+                          - 334asds3434
+                          created: '2015-11-21T01:51:17Z'
+                          stringCount: 10
+                          wordCount: 25
+                        domain:
+                          name: my.domain.com
+                        urlPath: /home/page.htm
+                        webPageUid: 23dsd23md
+      x-code-samples:
+      - lang: curl
+        source: 'curl -H "Authorization: Bearer $smartlingToken" https://api.smartling.com/gdn-url-management-api/v2/projects/$smartlingProjectId/web-pages/$webPageUid
+
+          '
+  /gdn-url-management-api/v2/projects/{projectId}/domains:
+    get:
+      summary: Get domains for project
+      description: Get domains for project.
+      tags:
+      - GDN url management
+      operationId: getProjectDomains
+      parameters:
+      - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebPageDomainsResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        totalCount: 1
+                        items:
+                        - name: my.domain.com
+      x-code-samples:
+      - lang: curl
+        source: 'curl -H "Authorization: Bearer $smartlingToken" https://api.smartling.com/gdn-url-management-api/v2/projects/$smartlingProjectId/domains
+
+          '
+components:
+  schemas:
+    WebPageDomainsResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      properties:
+                        name:
+                          description: url domain name
+                          example: my.domain.com
+                          type: string
+                      type: object
+                    type: array
+                  totalCount:
+                    description: Total element count
+                    type: integer
+                type: object
+            type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    WebPageDetailListRequest:
+      properties:
+        webPageUids:
+          description: list of url identifiers
+          example:
+          - 4423d44
+          - 123jd44
+          items:
+            type: string
+          maximum: 200
+          minimum: 1
+          type: array
+      type: object
+    WebPageListRequest:
+      properties:
+        domainName:
+          description: domain name
+          example: my.domain.com
+          type: string
+        limit:
+          default: 100
+          description: limit
+          example: 30
+          maximum: 200
+          minimum: 1
+          type: integer
+        localeIds:
+          example:
+          - ru-RU
+          items:
+            description: An identifying code for a language in Smartling.
+            type: string
+          type: array
+        offset:
+          default: 0
+          description: offset
+          example: 0
+          maximum: 100
+          minimum: 0
+          type: integer
+        orderBy:
+          description: Sort result by fields
+          example:
+          - DOMAIN
+          - URL_PATH
+          properties:
+            items:
+              items:
+                properties:
+                  direction:
+                    description: Sort direction
+                    enum:
+                    - DOMAIN
+                    - URL_PATH
+                    type: string
+                type: object
+              type: array
+          type: object
+        orderDirection:
+          default: ASC
+          description: Sort direction
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        urlCaptureDateAfter:
+          description: The date after which the URL was captured.
+          example: '2020-11-21T01:51:17Z'
+          format: date-time
+          type: string
+        urlCaptureDateBefore:
+          description: The date by which the URL was captured.
+          example: '2020-11-21T01:51:17Z'
+          format: date-time
+          type: string
+        urlPath:
+          description: url
+          example: /home/page.htm
+          type: string
+        urlPathExactMatch:
+          description: Should or should not apply exact match.
+          example: false
+          type: boolean
+      type: object
+    WebPageListResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      properties:
+                        created:
+                          description: url capture date
+                          type: string
+                        domain:
+                          description: domain
+                          properties:
+                            name:
+                              description: url domain name
+                              example: my.domain.com
+                              type: string
+                          type: object
+                        urlPath:
+                          description: Watcher name
+                          type: string
+                        webPageUid:
+                          description: url identifier
+                          type: string
+                      type: object
+                    type: array
+                  totalCount:
+                    description: Total element count
+                    type: integer
+                type: object
+            type: object
+    WebPageDetailsResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  details:
+                    properties:
+                      contextUids:
+                        description: context identifiers
+                        example:
+                        - 122ssasa323
+                        - 334asds3434
+                        items:
+                          type: string
+                        type: array
+                      created:
+                        description: capture url date
+                        example: '2015-11-21T01:51:17Z'
+                        type: string
+                      stringCount:
+                        description: string count
+                        example: 10
+                        type: integer
+                      wordCount:
+                        description: word count
+                        example: 25
+                        type: integer
+                    type: object
+                  domain:
+                    description: domain
+                    properties:
+                      name:
+                        description: url domain name
+                        example: my.domain.com
+                        type: string
+                    type: object
+                  urlPath:
+                    description: Url path
+                    type: string
+                  webPageUid:
+                    description: url identifier
+                    type: string
+                type: object
+            type: object
+    WebPageDetailListResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      properties:
+                        details:
+                          properties:
+                            contextUids:
+                              description: context identifiers
+                              example:
+                              - 122ssasa323
+                              - 334asds3434
+                              items:
+                                type: string
+                              type: array
+                            created:
+                              description: capture url date
+                              example: '2015-11-21T01:51:17Z'
+                              type: string
+                            stringCount:
+                              description: string count
+                              example: 10
+                              type: integer
+                            wordCount:
+                              description: word count
+                              example: 25
+                              type: integer
+                          type: object
+                        domain:
+                          description: domain
+                          properties:
+                            name:
+                              description: url domain name
+                              example: my.domain.com
+                              type: string
+                          type: object
+                        urlPath:
+                          description: Url path
+                          type: string
+                        webPageUid:
+                          description: url identifier
+                          type: string
+                      type: object
+                    type: array
+                  totalCount:
+                    description: Total element count
+                    type: integer
+                type: object
+            type: object
+externalDocs:
+  description: Smartling Help Center
+  url: https://help.smartling.com

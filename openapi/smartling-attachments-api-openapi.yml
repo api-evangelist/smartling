@@ -1,0 +1,469 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@smartling.com
+  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
+
+    '
+  termsOfService: https://www.smartling.com/legal
+  title: Smartling REST API Reference Account & Projects Attachments API
+  version: 2.0.0
+  x-logo:
+    url: smartling_logo.png
+servers:
+- url: https://api.smartling.com
+tags:
+- name: Attachments
+  description: 'The Attachments API allows for file attachment upload, download and checking linked attachments for an entity.
+
+    Attachment entities can be from three domains: strings, jobs or issues.
+
+    Each entity is referenced by an entity UID. These UIDs have a specific form for each of the domains.
+
+    - jobs: `<jobUid>`
+
+    - issues: `<accountUid>-<issueUid>` or `<accountUid>-<issueUid>-<commentUid>`
+
+    - strings: `<projectUid>:<stringHashcode>`
+
+
+    **Attachments API Usage Limitations**:
+
+    * Maximum attachment size is 500MB.'
+paths:
+  /attachments-api/v2/accounts/{accountUid}/{type}/attachments/{attachmentUid}:
+    get:
+      summary: Download binary attachment
+      description: Download attachment file
+      tags:
+      - Attachments
+      operationId: downloadAttachment
+      parameters:
+      - name: accountUid
+        in: path
+        required: true
+        description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        schema:
+          format: uuid
+          type: string
+      - name: type
+        in: path
+        required: true
+        description: Attachment type
+        schema:
+          enum:
+          - jobs
+          - strings
+          - issues
+          type: string
+      - name: attachmentUid
+        in: path
+        required: true
+        description: Attachment unique identifier.
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+  /attachments-api/v2/accounts/{accountUid}/{type}/{entityUid}:
+    get:
+      summary: Get list of linked attachments
+      description: List of linked attachments with entity
+      tags:
+      - Attachments
+      operationId: listAttachment
+      parameters:
+      - name: accountUid
+        in: path
+        required: true
+        description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        schema:
+          format: uuid
+          type: string
+      - name: type
+        in: path
+        required: true
+        description: Attachment type
+        schema:
+          enum:
+          - jobs
+          - strings
+          - issues
+          type: string
+      - name: entityUid
+        in: path
+        required: true
+        description: Entity uid
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttachmentListEntityResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        totalCount: 2
+                        items:
+                        - attachmentUid: 1e2f4378324e
+                          name: my-attachment
+                          description: meta-for-my-attachment
+                          createdDate: '2018-03-30T12:58:22Z'
+                          createdByUserUid: 5789003e276a
+                          canDelete: false
+                        - attachmentUid: 198eafe96267
+                          name: my-attachment
+                          description: meta-for-my-attachment
+                          createdDate: '2018-03-30T12:58:22Z'
+                          createdByUserUid: 5789003e276a
+                          canDelete: true
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+  /attachments-api/v2/accounts/{accountUid}/{type}/attachments:
+    post:
+      summary: Upload binary attachment
+      description: Upload attachment file
+      tags:
+      - Attachments
+      operationId: uploadAttachment
+      parameters:
+      - name: accountUid
+        in: path
+        required: true
+        description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        schema:
+          format: uuid
+          type: string
+      - name: type
+        in: path
+        required: true
+        description: Attachment type
+        schema:
+          enum:
+          - jobs
+          - strings
+          - issues
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The attachment file contents to upload.
+                name:
+                  type: string
+                  description: Functional name of the file uploaded. This is not a unique identifier.
+                entityUids:
+                  type: array
+                  items:
+                    type: string
+                  description: (Optional) The list of entity uids attachment will be linked with (max 100).
+                  maxItems: 100
+                description:
+                  type: string
+                  description: (Optional) Description of uploaded binary file.
+              required:
+              - file
+              - name
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAttachmentResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        attachmentUid: 1e2f4378324e
+                        name: my-attachment
+                        description: meta-for-my-attachment
+                        createdDate: '2018-03-30T12:58:22Z'
+                        createdByUserUid: 5789003e276a
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+components:
+  schemas:
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    CreateAttachmentResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  attachmentUid:
+                    description: The unique identifier of the attachment.
+                    format: uid
+                    type: string
+                  name:
+                    description: The name of the attachment.
+                    type: string
+                  description:
+                    description: The description of the attachment.
+                    type: string
+                  createdDate:
+                    description: The UTC value of the date the attachment was uploaded.
+                    example: '2018-03-30T12:58:22Z'
+                    format: date-time
+                    type: string
+                  createdByUserUid:
+                    description: The unique identifier of user whom upload attachment.
+                    format: uid
+                    example: c297ff10f584
+                    type: string
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    AttachmentListEntityResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    description: attachemnts
+                    items:
+                      $ref: '#/components/schemas/AttachmentResponseItem'
+                    type: array
+                  totalCount:
+                    description: total number of attachemnts
+                    type: integer
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
+    AttachmentResponseItem:
+      properties:
+        attachmentJobUid:
+          description: The unique identifier of the attachment.
+          format: uid
+          type: string
+        name:
+          description: The name of the attachemnt.
+          type: string
+        description:
+          description: The description of the attachment.
+          type: string
+        createdDate:
+          description: The UTC value of the date the attachemnt was uploaded.
+          example: '2018-03-30T12:58:22Z'
+          format: date-time
+          type: string
+        createdByUserUid:
+          description: The unique identifier of user whom upload attachment
+          format: uid
+          example: c297ff10f584
+          type: string
+      type: object
+    Error401Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+  responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+externalDocs:
+  description: Smartling Help Center
+  url: https://help.smartling.com

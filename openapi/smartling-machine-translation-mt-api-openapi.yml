@@ -1,0 +1,327 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@smartling.com
+  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
+
+    '
+  termsOfService: https://www.smartling.com/legal
+  title: Smartling REST API Reference Account & Projects Machine Translation (MT) API
+  version: 2.0.0
+  x-logo:
+    url: smartling_logo.png
+servers:
+- url: https://api.smartling.com
+tags:
+- name: Machine Translation (MT)
+  description: The Smartling platform offers state-of-the-art [Machine Translation capabilities](https://www.smartling.com/software/neural-machine-translation-hub/) through its synchronous account-level Machine Translation API. This API enables seamless translation of content without the need for it to be processed through Smartling workflows. The API offers access to all <a href="https://help.smartling.com/hc/en-us/articles/46030485398171" target="_blank" rel="noopener"> Profiles</a>, including the highly efficient MT Auto Select feature, providing unparalleled flexibility and control over your translation needs.
+paths:
+  /mt-router-api/v2/accounts/{accountUid}/smartling-mt:
+    post:
+      summary: Machine Translation (MT) using a preconfigured MT or LLM Profile
+      description: Machine Translation (MT) using a preconfigured MT or LLM Profile. Input and output text format is HTML.
+      tags:
+      - Machine Translation (MT)
+      operationId: translateForAccount
+      parameters:
+      - name: accountUid
+        description: A unique account identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MTTranslateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MTTranslateResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        items:
+                        - key: key-from-request
+                          translationText: Translated text
+                          mtUid: m91o03gnvzuh
+                          provider: AUTO_SELECT_PROVIDER
+                          error: null
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+      x-code-samples:
+      - lang: curl
+        source: 'curl -H "Authorization: Bearer $smartlingToken" https://api.smartling.com/mt-router-api/v2/accounts/{accountUid}/smartling-mt
+
+          '
+components:
+  schemas:
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    MTTranslateResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/MTTranslateItemResponse'
+                    type: array
+                required:
+                - items
+                type: object
+            type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    MTTranslateItemRequest:
+      properties:
+        key:
+          description: A unique identifier to match results in the response
+          example: my-key-1
+          type: string
+          maxLength: 255
+        sourceText:
+          description: The text to translate
+          example: Text to translate
+          type: string
+          maxLength: 64kb
+      required:
+      - key
+      - sourceText
+      type: object
+    MTTranslateItemResponse:
+      properties:
+        key:
+          description: A unique identifier from the request
+          example: my-key-1
+          type: string
+        translationText:
+          description: Translated text. Empty if error is present
+          example: Text zum Übersetzen
+          type: string
+        mtUid:
+          description: Translation unique identifier
+          example: m91o03gnvzuh
+          type: string
+        provider:
+          description: Provider used for translation
+          example: AUTO_SELECT_PROVIDER
+          type: string
+        error:
+          type: object
+          properties:
+            key:
+              type: string
+              description: Error key of the error
+              example: PROVIDER_UNAUTHORIZED
+            code:
+              type: string
+              description: Error code of the error
+              example: invalid.credentials
+            message:
+              type: string
+              description: Error code detailed message
+              example: Invalid API Key.
+      required:
+      - key
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Error401Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    MTTranslateRequest:
+      properties:
+        sourceLocaleId:
+          type: string
+          description: Locale ID of the original text
+          example: en-US
+        targetLocaleId:
+          type: string
+          description: Locale ID of the requested translation
+          example: de-DE
+        profileUid:
+          type: string
+          description: Optional Profile UID to use for translation. Will override the default/preconfigured in the settings profile.
+          example: 29f3ee25-7eaf-472e-9e26-550d512931cb
+        items:
+          items:
+            $ref: '#/components/schemas/MTTranslateItemRequest'
+          type: array
+          maxItems: 1000
+      required:
+      - sourceLocaleId
+      - targetLocaleId
+      - items
+      type: object
+  responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+externalDocs:
+  description: Smartling Help Center
+  url: https://help.smartling.com

@@ -1,0 +1,527 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@smartling.com
+  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
+
+    '
+  termsOfService: https://www.smartling.com/legal
+  title: Smartling REST API Reference Account & Projects Vendors API
+  version: 2.0.0
+  x-logo:
+    url: smartling_logo.png
+servers:
+- url: https://api.smartling.com
+tags:
+- name: Vendors
+  description: 'The Vendors API is for Language Service Providers to view work that''s
+
+    available in Smartling.'
+paths:
+  /vendors-api/v2/agencies/{agencyUid}/jobs:
+    get:
+      summary: List available jobs
+      description: Returns the list of jobs available for the agency.
+      tags:
+      - Vendors
+      operationId: getJobsListByAgency
+      parameters:
+      - in: path
+        name: agencyUid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorsAPIJobsListSuccessResponse'
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+      x-code-samples:
+      - lang: curl
+        source: 'curl -H "Authorization: Bearer $smartlingToken" -H "Content-Type: application/json" \
+
+          https://api.smartling.com/vendors-api/v2/agencies/{agencyUid}/jobs
+
+          '
+  /vendors-api/v2/accounts/{accountUid}/content-assignments:
+    get:
+      summary: List content assignments
+      description: Returns the list of content assignments for the account.
+      tags:
+      - Vendors
+      operationId: getContentAssignmentsByAccount
+      parameters:
+      - name: accountUid
+        in: path
+        required: true
+        description: The account's unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        items:
+                        - accountUid: '111222333'
+                          accountName: Test account
+                          projectUid: '111222333'
+                          projectName: Test Project
+                          localeId: es-ES
+                          workflowUid: '111222333444'
+                          workflowName: Example Workflow
+                          workflowStepUid: '111222333444'
+                          workflowStepName: Translation
+                          workflowStepType: TRANSLATION
+                          translationJobUid: '111222333444'
+                          translationJobName: Example Job
+                          translationJobWorkflowStepDueDate: '2025-01-20T18:01:00Z'
+                          translationJobOverallDueDate: '2025-01-20T18:01:00Z'
+                          userUid: null
+                          userFirstName: null
+                          userLastName: null
+                          userEmail: null
+                          agencyUid: null
+                          agencyName: null
+                          wordCount: 300
+                          workflowStepOrder: 2
+                          assignmentEnabled: false
+              schema:
+                $ref: '#/components/schemas/VendorsAPIContentAssignmentsSuccessResponse'
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+      x-code-samples:
+      - lang: curl
+        source: 'curl -H "Authorization: Bearer $smartlingToken" \
+
+          https://api.smartling.com/vendors-api/v2/accounts/{accountUid}/content-assignments
+
+          '
+components:
+  schemas:
+    VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItemTargetLocalesItemWorkflowStepsItem:
+      properties:
+        unassignedWordCount:
+          type: integer
+        wordCount:
+          type: integer
+        workflowStepName:
+          type: string
+        workflowStepOrder:
+          description: A workflow step position in workflow
+          type: integer
+        workflowStepUid:
+          type: string
+      type: object
+    VendorsAPIJobsListAgencyItem:
+      properties:
+        agencyName:
+          type: string
+        agencyUid:
+          type: string
+      required:
+      - agencyUid
+      - agencyName
+      type: object
+    Error401Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    VendorsAPIJobsListAgencyItemTranslationJobItem:
+      properties:
+        translationJobAuthorizedDate:
+          format: date-time
+          type: string
+        translationJobDueDate:
+          format: date-time
+          type: string
+        translationJobName:
+          type: string
+        translationJobRisk:
+          properties:
+            status:
+              enum:
+              - AT_RISK
+              - ON_TRACK
+              - LATE
+              type: string
+          type: object
+        translationJobUid:
+          type: string
+        translationJobCustomFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldBasicResponse'
+      type: object
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    VendorsAPIJobsListTranslationJobItem:
+      properties:
+        account:
+          properties:
+            accountName:
+              type: string
+            accountUid:
+              type: string
+          type: object
+        progressDetails:
+          $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemProgressDetailsItem'
+        project:
+          properties:
+            projectId:
+              type: string
+            projectName:
+              type: string
+          type: object
+        translationJob:
+          $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemTranslationJobItem'
+      required:
+      - account
+      - project
+      - progressDetails
+      - translationJob
+      type: object
+    VendorsAPIJobsListSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  agency:
+                    $ref: '#/components/schemas/VendorsAPIJobsListAgencyItem'
+                  lastUpdatedDate:
+                    description: Date when data for the API response was last refreshed.
+                    format: date-time
+                    type: string
+                  translationJobs:
+                    items:
+                      $ref: '#/components/schemas/VendorsAPIJobsListTranslationJobItem'
+                    type: array
+                required:
+                - lastUpdatedDate
+                - agency
+                - translationJobs
+                type: object
+            type: object
+    VendorsAPIJobsListAgencyItemProgressDetailsItem:
+      properties:
+        aggregatedPerWorkflow:
+          properties:
+            workflows:
+              items:
+                $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItem'
+              type: array
+          type: object
+      type: object
+    VendorsAPIContentAssignmentItem:
+      properties:
+        accountUid:
+          type: string
+        accountName:
+          type: string
+        projectUid:
+          type: string
+        projectName:
+          type: string
+        localeId:
+          type: string
+        workflowUid:
+          type: string
+        workflowName:
+          type: string
+        workflowStepUid:
+          type: string
+        workflowStepName:
+          type: string
+        workflowStepType:
+          type: string
+        translationJobUid:
+          type: string
+        translationJobName:
+          type: string
+        translationJobWorkflowStepDueDate:
+          format: date-time
+          type: string
+        translationJobOverallDueDate:
+          format: date-time
+          type: string
+        userUid:
+          type: string
+          nullable: true
+        userFirstName:
+          type: string
+          nullable: true
+        userLastName:
+          type: string
+          nullable: true
+        userEmail:
+          type: string
+          nullable: true
+        agencyUid:
+          type: string
+          nullable: true
+        agencyName:
+          type: string
+          nullable: true
+        wordCount:
+          type: integer
+        workflowStepOrder:
+          type: integer
+        assignmentEnabled:
+          type: boolean
+      required:
+      - accountUid
+      - accountName
+      - projectUid
+      - projectName
+      - localeId
+      - workflowUid
+      - workflowName
+      - workflowStepUid
+      - workflowStepName
+      - workflowStepType
+      - translationJobUid
+      - translationJobName
+      - wordCount
+      - workflowStepOrder
+      - assignmentEnabled
+      type: object
+    CustomFieldBasicResponse:
+      type: object
+      properties:
+        fieldUid:
+          type: string
+          description: Custom field unique identifier.
+          example: 3rrwchzmjf24
+        fieldName:
+          type: string
+          description: Custom field name.
+          example: Department Name
+        fieldValue:
+          type: string
+          description: Custom field value.
+          example: Finance Dept
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    VendorsAPIContentAssignmentsSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/VendorsAPIContentAssignmentItem'
+                    type: array
+                required:
+                - items
+                type: object
+            type: object
+    VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItemTargetLocalesItem:
+      properties:
+        issues:
+          properties:
+            totalIssuesCount:
+              type: integer
+          type: object
+        localeId:
+          type: string
+        workflowSteps:
+          $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItemTargetLocalesItemWorkflowStepsItem'
+      type: object
+    VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItem:
+      properties:
+        targetLocales:
+          items:
+            $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItemTargetLocalesItem'
+          type: array
+        workflowName:
+          type: string
+        workflowUid:
+          type: string
+      type: object
+  responses:
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+externalDocs:
+  description: Smartling Help Center
+  url: https://help.smartling.com

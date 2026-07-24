@@ -1,0 +1,163 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@smartling.com
+  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
+
+    '
+  termsOfService: https://www.smartling.com/legal
+  title: Smartling REST API Reference Account & Projects Content Search API
+  version: 2.0.0
+  x-logo:
+    url: smartling_logo.png
+servers:
+- url: https://api.smartling.com
+tags:
+- name: Content Search
+  description: 'The Content Search API allows you to search for strings within a Smartling project.
+
+    You can filter by string text, hashcode, namespace, or any combination of available filters.'
+  externalDocs:
+    url: https://content-search-api-reference.smartling.com/
+    description: Content Search Documentation
+paths:
+  /strings-view-service-graphql-api/v2/projects/{projectId}/graphql:
+    post:
+      summary: Search strings
+      description: "Search for strings in your project using GraphQL.\n\n**Example Query:**\n```graphql\n  query Search($searchStringsFilter: SearchStringsFilter!) {\n    searchStrings(searchStringsFilter: $searchStringsFilter) {\n      content {\n        source {\n          hashcode\n        }\n        translations {\n          translationForms {\n            translationText\n            pluralForm\n          }\n        }\n      }\n      totalCount\n      totalWordCount\n      __typename\n    }\n  }\n```"
+      tags:
+      - Content Search
+      operationId: searchStrings
+      parameters:
+      - in: path
+        name: projectId
+        required: true
+        schema:
+          format: uuid
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              variables:
+                searchStringsFilter:
+                  localeIds:
+                  - es-LA
+                  workflowStepsFilter:
+                    workflowStepUids:
+                    - a58fab71dce6
+                    - f5f168bb13b1
+                  limit: 1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentSearchResponse'
+          description: OK
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+components:
+  schemas:
+    ContentSearchResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            searchStrings:
+              type: object
+              properties:
+                content:
+                  type: array
+                  description: Array of string content with translations
+                  items:
+                    type: object
+                    properties:
+                      source:
+                        type: object
+                        properties:
+                          hashcode:
+                            type: string
+                            description: Unique hash identifier for the source string
+                            example: 0214054db2146bef256852cd0d27f936
+                      translations:
+                        type: array
+                        description: Array of translations for the source string
+                        items:
+                          type: object
+                          properties:
+                            translationForms:
+                              type: array
+                              description: Translation text variations (including plural forms)
+                              items:
+                                type: object
+                                properties:
+                                  translationText:
+                                    type: string
+                                    description: The translated text
+                                    example: El rápido zorro marrón salta sobre el perro perezoso.
+                                  pluralForm:
+                                    type: string
+                                    nullable: true
+                                    description: Plural form identifier if applicable
+                                    example: ONE
+                totalCount:
+                  type: integer
+                  description: Total number of strings found
+                  example: 198
+                totalWordCount:
+                  type: integer
+                  description: Total word count
+                  example: 644
+                __typename:
+                  type: string
+                  description: GraphQL type name
+                  example: StringGroup
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+  responses:
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+externalDocs:
+  description: Smartling Help Center
+  url: https://help.smartling.com

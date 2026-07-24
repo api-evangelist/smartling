@@ -1,0 +1,346 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@smartling.com
+  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
+
+    '
+  termsOfService: https://www.smartling.com/legal
+  title: Smartling REST API Reference Account & Projects Locales API
+  version: 2.0.0
+  x-logo:
+    url: smartling_logo.png
+servers:
+- url: https://api.smartling.com
+tags:
+- name: Locales
+  description: 'Locales are the language and country pairs that are used to identify the
+
+    source content and the desired target locale for your translated content.'
+paths:
+  /locales-api/v2/dictionary/locales:
+    get:
+      summary: List locales
+      tags:
+      - Locales
+      description: 'The list of available locales within Smartling.
+
+
+        To find out the `localedID` for a specific project, refer to [Get project
+
+        details](/#operation/getProjectDetails).
+
+        '
+      operationId: getAvailableLocalesList
+      parameters:
+      - description: Optional parameter to filter to the specified list of locales.
+        in: query
+        name: localeIds
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Fetch only supported locales. Otherwise fetch all locales. Default value is "true".
+        in: query
+        name: supportedOnly
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocalesAPISuccessResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        items:
+                        - description: English
+                          mtSupported: true
+                          language:
+                            description: English
+                            direction: RTL
+                            languageId: en
+                            wordDelimiter: CHARACTER
+                          localeId: en-US
+                          direction: RTL
+                          country:
+                            countryId: US
+                            description: United States
+                        - description: Italian (Italy) [it-IT]
+                          mtSupported: true
+                          language:
+                            description: Italian
+                            direction: RTL
+                            languageId: it
+                            wordDelimiter: CHARACTER
+                          localeId: it-IT
+                          direction: RTL
+                          country:
+                            countryId: IT
+                            description: Italy
+                        totalCount: 2
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+components:
+  schemas:
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error401Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    LocalesAPISuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/LocaleApiItem'
+                    type: array
+                  totalCount:
+                    description: The total number of locales matching the request
+                    type: integer
+                required:
+                - totalCount
+                - items
+                type: object
+            type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    LocaleApiItem:
+      example:
+        country:
+          countryId: US
+          description: United States
+        description: English (United States)
+        language:
+          description: English
+          direction: LTR
+          languageId: en
+          wordDelimiter: SPACE
+        localeId: en-US
+        direction: RTL
+      properties:
+        country:
+          description: The country that makes up the locale. Not all locales have a country specified.
+          properties:
+            countryId:
+              description: The identifier of the country.
+              type: string
+            description:
+              description: The name of the country.
+              type: string
+          type: object
+        description:
+          description: The name of the locale.
+          type: string
+        mtSupported:
+          description: Smartling MT Hub can translate into this locale.
+          type: boolean
+        language:
+          description: The language that makes up the locale. All locales have a language.
+          properties:
+            description:
+              description: The name of the language.
+              type: string
+            direction:
+              enum:
+              - LTR
+              - RTL
+              type: string
+            languageId:
+              description: The identifier of the language.
+              type: string
+            wordDelimiter:
+              enum:
+              - SPACE
+              - CHARACTER
+              type: string
+          type: object
+        direction:
+          enum:
+          - RTL
+          - LTR
+          type: string
+        localeId:
+          description: The identifier for the locale. Locales are defined as a unique combination of language and country pairs.
+          type: string
+      required:
+      - localeId
+      - description
+      - language
+      - mtSupported
+      type: object
+  responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+externalDocs:
+  description: Smartling Help Center
+  url: https://help.smartling.com

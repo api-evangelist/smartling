@@ -1,0 +1,669 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@smartling.com
+  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
+
+    '
+  termsOfService: https://www.smartling.com/legal
+  title: Smartling REST API Reference Account & Projects Reports API
+  version: 2.0.0
+  x-logo:
+    url: smartling_logo.png
+servers:
+- url: https://api.smartling.com
+tags:
+- name: Reports
+  description: 'The Reports API allows to request various reports available on Smartling
+
+    platform and specify additional filtering criteria to narrow down data
+
+    returned by the reports.'
+paths:
+  /reports-api/v3/word-count:
+    get:
+      summary: Get Word Count Report
+      description: Word Count report data for the specified parameters.
+      tags:
+      - Reports
+      operationId: getWordCountReport
+      parameters:
+      - description: A parameter to limit words processed on or after the ```startDate```, in America/New_York timezone.
+        in: query
+        name: startDate
+        required: true
+        schema:
+          format: YYYY-MM-DD
+          type: string
+      - description: A parameter to limit words processed on or before the ```endDate```, in America/New_York timezone.
+        in: query
+        name: endDate
+        required: true
+        schema:
+          format: YYYY-MM-DD
+          type: string
+      - description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: query
+        name: accountUid
+        required: true
+        schema:
+          type: string
+      - description: Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: query
+        name: projectIds
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Optional parameter to filter to the specified list of translation jobs.
+        in: query
+        name: jobUids
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Optional parameter of unique agency identifier.
+        in: query
+        name: agencyUid
+        required: false
+        schema:
+          type: string
+      - description: Optional parameter to filter to the specified list of translation resources.
+        in: query
+        name: userUids
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Optional parameter to filter to the specified list of translation locale IDs.
+        in: query
+        name: targetLocaleIds
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - description: "Optional parameter to filter to the specified list of workflow step types.\n\nThe supported list of workflow step types is:\n\n  - Translation\n\n  - Edit\n\n  - Review\n\n  - Post-Edit\n\n  - Transcreation\n\n  - Transcreation review\n\n  - AI Review\n\n  - Quality Evaluation\n\n  - LQA\n\n  - Internal Review\n\n  - Desktop Publishing\n\n  - AI Translation\n\n  - Light Post-Edit"
+        in: query
+        name: workflowStepTypes
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - description: "Optional comma-separated list of fields names to be returned by the endpoint. If this parameter is not set then the list of fields returned is defined by `include...` parameters.\n\nBoth `fields` and `include...` parameters are not allowed at the same time.\n\nThe supported list of fields names is:\n\n  - accountUid\n\n  - accountName\n\n  - projectId\n\n  - projectName\n\n  - targetLocaleId\n\n  - targetLocale\n\n  - jobUid\n\n  - jobName\n\n  - jobReferenceNumber\n  \n  - jobNumber\n\n  - translationResourceUid\n\n  - translationResourceName\n\n  - agencyUid\n\n  - agencyName\n\n  - workflowStepType\n\n  - workflowStepUid\n\n  - workflowStepName\n\n  - fuzzyProfileName\n\n  - fuzzyTier\n\n  - wordCount\n\n  - weightedWordCount\n\n  - characterCount. Please note: the column shows correct data since 2022-10-01.\n"
+        in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - description: 'Optional parameter to specify whether the report should group word count by translation resource name.
+
+
+          Deprecated, use parameter `fields` instead.
+
+          '
+        in: query
+        name: includeTranslationResource
+        required: false
+        deprecated: true
+        schema:
+          default: true
+          type: boolean
+      - description: 'Optional parameter to specify whether the report should group word count by translation job name.
+
+
+          Deprecated, use parameter `fields` instead.
+
+          '
+        in: query
+        name: includeJob
+        required: false
+        deprecated: true
+        schema:
+          default: true
+          type: boolean
+      - description: 'Optional parameter to specify whether the report should group word count by translation job and include reference number in the response.
+
+
+          Deprecated, use parameter `fields` instead.
+
+          '
+        in: query
+        name: includeJobReferenceNumber
+        required: false
+        deprecated: true
+        schema:
+          default: false
+          type: boolean
+      - description: "Optional parameter to specify whether the report should group word count by translation job and include job number in the response.  \nDeprecated, use parameter `fields` instead.\n"
+        in: query
+        name: includeJobNumber
+        required: false
+        deprecated: true
+        schema:
+          default: false
+          type: boolean
+      - description: "Optional parameter to specify whether the report should group word count by fuzzy match profile and tier.          \n\nDeprecated, use parameter `fields` instead.\n"
+        in: query
+        name: includeFuzzyMatchProfile
+        required: false
+        deprecated: true
+        schema:
+          default: true
+          type: boolean
+      - description: 'Optional parameter to specify whether the report should group word count by workflow step uid and name.
+
+
+          Deprecated, use parameter `fields` instead.
+
+          '
+        in: query
+        name: includeWorkflowStep
+        required: false
+        deprecated: true
+        schema:
+          default: false
+          type: boolean
+      - description: Standard Smartling limit and offset to paginate through results. Default value is 10000.
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10000
+          maximum: 10000
+          minimum: 0
+          type: integer
+      - description: Standard Smartling limit and offset to paginate through results. Default value is 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          maximum: 10000
+          minimum: 0
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WordCountResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        items:
+                        - accountName: Test Account
+                          accountUid: 35a84f71
+                          agencyName: Test Agency 1
+                          agencyUid: 0ed85b93
+                          fuzzyProfileName: Default
+                          fuzzyTier: 85 - 94.9%
+                          jobName: Translation Job 1
+                          jobUid: f12ad8e9
+                          jobReferenceNumber: Job reference number
+                          projectId: ba952f4c
+                          projectName: Test Project 1
+                          targetLocaleId: es-ES
+                          targetLocaleName: Spanish (Spain)
+                          translationResourceName: Agency Translator 5
+                          translationResourceUid: da57302e
+                          weightedWordCount: 4
+                          wordCount: 20
+                          characterCount: 101
+                          workflowStepType: Translation
+                          workflowStepUid: lk3gh7zr20ao
+                          workflowStepName: Translation
+                        - accountName: Test Account
+                          accountUid: 35a84f71
+                          agencyName: Test Agency 2
+                          agencyUid: 4d6230e1
+                          fuzzyProfileName: Default
+                          fuzzyTier: 85 - 94.9%
+                          jobName: Translation Job 1
+                          jobUid: f12ad8e9
+                          jobReferenceNumber: Job reference number
+                          projectId: ba952f4c
+                          projectName: Test Project 1
+                          targetLocaleId: es-ES
+                          targetLocale: Spanish (Spain)
+                          translationResourceName: Agency Editor 12
+                          translationResourceUid: 5eb90a14
+                          weightedWordCount: 20
+                          wordCount: 20
+                          characterCount: 101
+                          workflowStepType: Edit
+                          workflowStepUid: ac7ac1bd15bf
+                          workflowStepName: Edit
+                        resultsTruncated: false
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+  /reports-api/v3/word-count/csv:
+    get:
+      summary: Export Word Count in CSV format
+      description: Export Word Count report in CSV format.
+      tags:
+      - Reports
+      operationId: exportWordCountReport
+      parameters:
+      - description: A parameter to limit words processed on or after the ```startDate```, in America/New_York timezone.
+        in: query
+        name: startDate
+        required: true
+        schema:
+          format: YYYY-MM-DD
+          type: string
+      - description: A parameter to limit words processed on or before the ```endDate```, in America/New_York timezone.
+        in: query
+        name: endDate
+        required: true
+        schema:
+          format: YYYY-MM-DD
+          type: string
+      - description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: query
+        name: accountUid
+        required: true
+        schema:
+          type: string
+      - description: Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: query
+        name: projectIds
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Optional parameter to filter to the specified list of translation jobs.
+        in: query
+        name: jobUids
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Optional parameter of unique agency identifier.
+        in: query
+        name: agencyUid
+        required: false
+        schema:
+          type: string
+      - description: Optional parameter to filter to the specified list of translation resources.
+        in: query
+        name: userUids
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Optional parameter to filter to the specified list of translation locale IDs.
+        in: query
+        name: targetLocaleIds
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - description: "Optional parameter to filter to the specified list of workflow step types.\n\nThe supported list of workflow step types is:\n\n  - Translation\n\n  - Edit\n\n  - Review\n\n  - Post-Edit\n\n  - Transcreation\n\n  - Transcreation review\n\n  - AI Review\n\n  - Quality Evaluation\n\n  - LQA\n\n  - Internal Review\n\n  - Desktop Publishing\n\n  - AI Translation\n\n  - Light Post-Edit"
+        in: query
+        name: workflowStepTypes
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - description: "Optional comma-separated list of fields names to be returned by the endpoint. If this parameter is not set then the list of fields returned is defined by `include...` parameters.\n\nBoth `fields` and `include...` parameters are not allowed at the same time.\n\nThe supported list of fields names is:\n\n  - accountUid\n\n  - accountName\n\n  - projectId\n\n  - projectName\n\n  - targetLocaleId\n\n  - targetLocale\n\n  - jobUid\n\n  - jobName\n\n  - jobReferenceNumber\n  \n  - jobNumber\n\n  - translationResourceUid\n\n  - translationResourceName\n\n  - agencyUid\n\n  - agencyName\n\n  - workflowStepType\n\n  - workflowStepUid\n\n  - workflowStepName\n\n  - fuzzyProfileName\n\n  - fuzzyTier\n\n  - wordCount\n\n  - weightedWordCount\n\n  - characterCount. Please note: the column shows correct data since 2022-10-01.\n"
+        in: query
+        name: fields
+        required: false
+        schema:
+          type: string
+      - description: 'Optional parameter to specify whether the report should group word count by translation resource name.
+
+
+          Deprecated, use parameter `fields` instead.
+
+          '
+        in: query
+        name: includeTranslationResource
+        required: false
+        deprecated: true
+        schema:
+          default: true
+          type: boolean
+      - description: 'Optional parameter to specify whether the report should group word count by translation job name.
+
+
+          Deprecated, use parameter `fields` instead.
+
+          '
+        in: query
+        name: includeJob
+        required: false
+        deprecated: true
+        schema:
+          default: true
+          type: boolean
+      - description: 'Optional parameter to specify whether the report should group word count by translation job and include reference number in the response.
+
+
+          Deprecated, use parameter `fields` instead.
+
+          '
+        in: query
+        name: includeJobReferenceNumber
+        required: false
+        deprecated: true
+        schema:
+          default: false
+          type: boolean
+      - description: "Optional parameter to specify whether the report should group word count by translation job and include job number in the response.                        \nDeprecated, use parameter `fields` instead.\n"
+        in: query
+        name: includeJobNumber
+        required: false
+        deprecated: true
+        schema:
+          default: false
+          type: boolean
+      - description: 'Optional parameter to specify whether the report should group word count by fuzzy match profile and tier.
+
+
+          Deprecated, use parameter `fields` instead.
+
+          '
+        in: query
+        name: includeFuzzyMatchProfile
+        required: false
+        deprecated: true
+        schema:
+          default: true
+          type: boolean
+      - description: 'Optional parameter to specify whether the report should group word count by workflow step uid and name.
+
+
+          Deprecated, use parameter `fields` instead.
+
+          '
+        in: query
+        name: includeWorkflowStep
+        required: false
+        deprecated: true
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            text/csv:
+              schema:
+                type: string
+              examples:
+                response:
+                  value: Account,Project,Job Uid,Job,Translation Resource,Agency Uid,Agency, Target Language,Workflow Step,Workflow Step Uid,Workflow Step Name, Fuzzy Profile,Fuzzy Breakdown,Word Count,Weighted Words,Character Count Test Account,Test Project,f12ad8e9,Translation Job,Translator 1, Test Agency 1 Uid, Test Agency 1,Spanish (Spain),Translation,123abc456def, Translation,Default,85 - 94.9%,1,1,1
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+components:
+  schemas:
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error401Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    WordCountResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      properties:
+                        accountName:
+                          description: Name of the account
+                          type: string
+                        accountUid:
+                          description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+                          type: string
+                        agencyName:
+                          description: Name of the agency that was credited for the words
+                          type: string
+                        agencyUid:
+                          description: The unique identifier of the agency that was credited for the words
+                          type: string
+                        fuzzyProfileName:
+                          description: Name of the fuzzy match profile used
+                          type: string
+                        fuzzyTier:
+                          description: Fuzzy match tier that matches fuzzy score of the processed words
+                          type: string
+                        jobName:
+                          description: Name of the translation job
+                          type: string
+                        jobUid:
+                          description: The unique identifier of the translation job
+                          type: string
+                        projectId:
+                          description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+                          type: string
+                        projectName:
+                          description: Name of the project
+                          type: string
+                        targetLocaleId:
+                          description: Locale ID of the translations
+                          type: string
+                        targetLocaleName:
+                          description: Name of the locale of the translations
+                          type: string
+                        translationResourceName:
+                          description: Name of the translation resource who was credited for the words
+                          type: string
+                        translationResourceUid:
+                          description: The unique identifier of the translation resource who was credited for the words
+                          type: string
+                        weightedWordCount:
+                          description: The number of weighted words processed by a translation resource
+                          type: integer
+                        wordCount:
+                          description: The number of words processed by a translation resource
+                          type: integer
+                        characterCount:
+                          description: The number of characters processed by a translation resource
+                          type: integer
+                        workflowStepType:
+                          description: Type of the workflow step (Translation, Edit, Review) the words transitioned through
+                          type: string
+                        workflowStepUid:
+                          description: Unique identifier of the workflow step the words transitioned through
+                          type: string
+                        workflowStepName:
+                          description: Name of the workflow step the words transitioned through
+                          type: string
+                      type: object
+                    type: array
+                  resultsTruncated:
+                    description: The flag showing whether all qualified records returned by the response.
+                    type: boolean
+                type: object
+            type: object
+      description: A list of report records
+  responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+externalDocs:
+  description: Smartling Help Center
+  url: https://help.smartling.com

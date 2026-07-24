@@ -1,0 +1,736 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@smartling.com
+  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
+
+    '
+  termsOfService: https://www.smartling.com/legal
+  title: Smartling REST API Reference Account & Projects API
+  version: 2.0.0
+  x-logo:
+    url: smartling_logo.png
+servers:
+- url: https://api.smartling.com
+tags:
+- name: Account & Projects
+  description: 'Each client within Smartling is given their own account with a designated
+
+    `accountUid`. Within each account is any number of projects. All files,
+
+    content, and jobs are tied to a particular project. The Accounts &
+
+    Projects API will allow you to programmatically find and use the projects
+
+    within your account.
+
+
+    You may wish to reference the [Key Concepts for
+
+    Developers](https://help.smartling.com/hc/en-us/articles/1260805481390) article
+
+    to better understand how content is organized within Smartling.'
+paths:
+  /accounts-api/v2/accounts/{accountUid}/projects:
+    get:
+      tags:
+      - Account & Projects
+      description: 'Returns the list of projects for the account.
+
+        '
+      summary: List projects
+      operationId: getProjectsByAccount
+      parameters:
+      - name: accountUid
+        in: path
+        required: true
+        description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        schema:
+          type: string
+      - description: Substring search of the name of the project. Search is case insensitive.
+        in: query
+        name: projectNameFilter
+        required: false
+        schema:
+          type: string
+      - description: Indicator whether or not archived projects should be returned. Defaults to false if not specified.
+        in: query
+        name: includeArchived
+        required: false
+        schema:
+          type: boolean
+      - description: Standard Smartling limit and offset to paginate through results.
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+      - description: Standard Smartling limit and offset to paginate through results. 500 projects are returned by default if not specified.
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - description: Indicator for the type of the project.
+        in: query
+        name: projectTypeCode
+        required: false
+        schema:
+          type: String
+      - description: Indicator list for the type of the projects.
+        in: query
+        name: projectTypeCodes
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        items:
+                        - accountUid: at724e365
+                          archived: false
+                          projectId: fd7244365
+                          projectName: Android XML Content
+                          projectTypeCode: APPLICATION_RESOURCES
+                          sourceLocaleDescription: English
+                          sourceLocaleId: en-US
+                        - accountUid: at724e365
+                          archived: false
+                          projectId: eqb7243x5
+                          projectName: Marketing Website GDN
+                          projectTypeCode: GDN
+                          sourceLocaleDescription: English
+                          sourceLocaleId: en-US
+                        totalCount: 2
+              schema:
+                $ref: '#/components/schemas/AccountAPIProjectListSuccessResponse'
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+      x-code-samples:
+      - lang: curl
+        source: 'curl -H "Authorization: Bearer $smartlingToken" https://api.smartling.com/accounts-api/v2/accounts/$smartlingAccountId/projects
+
+          '
+  /projects-api/v2/projects/{projectId}:
+    get:
+      tags:
+      - Account & Projects
+      description: 'Returns the details of a project.
+
+        '
+      summary: Get project details
+      operationId: getProjectDetails
+      parameters:
+      - name: projectId
+        description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Indicator whether or not disabled locales configured for the project should be returned as part of the targetLocales. By default disabled target locales are not returned.
+        in: query
+        name: includeDisabledLocales
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        accountUid: at724e365
+                        archived: false
+                        projectId: fd7244365
+                        projectName: Android XML Content
+                        projectTypeCode: APPLICATION_RESOURCES
+                        sourceLocaleDescription: English
+                        sourceLocaleId: en-US
+                        targetLocales:
+                        - description: German (Germany)
+                          enabled: true
+                          localeId: de-DE
+              schema:
+                $ref: '#/components/schemas/ProjectDetailsSuccessResponse'
+          description: OK
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+      x-code-samples:
+      - lang: curl
+        source: 'curl -H "Authorization: Bearer $smartlingToken" https://api.smartling.com/projects-api/v2/projects/$smartlingProjectId
+
+          '
+  /projects-api/v2/projects/{projectId}/targetLocales:
+    post:
+      summary: Add a new target locale
+      tags:
+      - Account & Projects
+      description: 'Add a new target locale to the project.
+
+        '
+      operationId: addLocaleToProject
+      parameters:
+      - name: projectId
+        description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                defaultWorkflowUid:
+                  description: The default workflow that should be used when content is authorized. If not specified, the default workflow configured for the project will be used.
+                  example: ac48ht4qy
+                  type: string
+                localeId:
+                  description: The locale identifier (localeId) of the locale to be added to the project.
+                  example: ru-RU
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDetailsSuccessResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                      - accountUid: at724e365
+                        archived: false
+                        projectId: fd7244365
+                        projectName: Android XML Content
+                        projectTypeCode: APPLICATION_RESOURCES
+                        sourceLocaleDescription: English
+                        sourceLocaleId: en-US
+                        targetLocales:
+                        - description: German (Germany)
+                          enabled: true
+                          localeId: de-DE
+                        - description: Russian (Russia)
+                          enabled: true
+                          localeId: ru-RU
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+  /projects-api/v2/projects/{projectId}/copy:
+    post:
+      summary: Copy an existing project
+      tags:
+      - Account & Projects
+      description: 'Make a copy of an existing project, thereby creating a new one with a new name
+
+        '
+      operationId: copyProject
+      parameters:
+      - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                projectName:
+                  description: The name of the new project to create.
+                  example: New Android Project
+                  type: string
+                targetLocaleIds:
+                  description: The list of target locales the new project should be created for. Note, each target locale specified must valid within the source project you are copying, i.e. you can copy all or a subset of locales from the source project to the target project.
+                  example:
+                  - ru-RU
+                  items:
+                    type: string
+                  type: array
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectCopySuccessResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        processUid: 7908ae61-3489-48e1-9e28-10652634d34e
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+  /projects-api/v2/projects/{projectId}/copy/{processUid}:
+    get:
+      tags:
+      - Account & Projects
+      description: 'Used to check if the copy project request is complete and to retrieve the new projectId
+
+        '
+      summary: Get the status of the project copy request
+      operationId: getProjectCopyRequestStatus
+      parameters:
+      - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      - description: The uid of the process to check for
+        in: path
+        name: processUid
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectCopyProcessSuccessResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        createdDate: 2016-08-21T0B1:51:17Z
+                        modifiedDate: 2016-08-21T0B1:51:17Z
+                        newProjectUid: 8t7q4d643
+                        processState: OPEN
+                        processStatistics:
+                          errored: 0
+                          processed: 6
+                          requested: 8
+                          skipped: 0
+                        processuid: 7908ae61-3489-48e1-9e28-10652634d34e
+        '400':
+          $ref: '#/components/responses/Error400ResponseDefinition'
+        '401':
+          $ref: '#/components/responses/Error401ResponseDefinition'
+        '429':
+          $ref: '#/components/responses/Error429ResponseDefinition'
+        '500':
+          $ref: '#/components/responses/Error500ResponseDefinition'
+components:
+  schemas:
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    ProjectDetailsLocaleItem:
+      example:
+        description: Russian (Russia)
+        enabled: 'true'
+        localeId: ru-RU
+      properties:
+        description:
+          description: The name of the locale.
+          type: string
+        enabled:
+          description: Boolean indicator of the locale is enabled for the project.
+          type: boolean
+        localeId:
+          description: The identifier for the specific locale configured for the project.
+          type: string
+      required:
+      - localeId
+      - description
+      - enabled
+      type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    ProjectCopyProcessSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  createdDate:
+                    format: date-time
+                    type: string
+                  modifiedDate:
+                    format: date-time
+                    type: string
+                  newProjectUid:
+                    description: A unique identifier for the newly created project. This is available once the project copying has finished, which is indicated once it has a processState of CLOSED.
+                    type: string
+                  processState:
+                    description: The status of the copy request. The new projectId will be available once the state is marked as CLOSED.
+                    enum:
+                    - OPEN
+                    - CLOSED
+                    - FAILED
+                    type: string
+                  processStatistics:
+                    description: Information on the copying of the project
+                    properties:
+                      errored:
+                        description: The number of entities that failed to copy
+                        type: string
+                      processed:
+                        description: The number of entities processed successfully
+                        type: string
+                      requested:
+                        description: The number of entities being copied
+                        type: string
+                      skipped:
+                        description: The number of entities that were skipped
+                        type: string
+                    type: object
+                  processUid:
+                    description: A unique identifier for a long running process
+                    type: string
+                required:
+                - processUid
+                - newProjectUid
+                - processState
+                - createdDate
+                - modifiedDate
+                - processStatistics
+                type: object
+            type: object
+    AccountAPIProjectListSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/AccountAPIListProjectItem'
+                    type: array
+                  totalCount:
+                    description: The number of projects that match your specified criteria
+                    type: integer
+                required:
+                - totalCount
+                - items
+                type: object
+            type: object
+    Error401Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    AccountAPIListProjectItem:
+      example:
+        accountUid: ab5f1939
+        archived: false
+        projectId: fd7244365
+        projectName: fd7244365
+        projectTypeCode: APPLICATION_RESOURCES
+        sourceLocaleDescription: English
+        sourceLocaleId: en-US
+      properties:
+        accountUid:
+          description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+          type: string
+        archived:
+          description: Indicator whether or not the project has been archived. Archived projects are typically hidden from a user's view, but can still be accessible
+          type: boolean
+        projectId:
+          description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+          type: string
+        projectName:
+          description: The name of the project. Names of projects are not guaranteed to be unique within an account.
+          type: string
+        projectTypeCode:
+          description: Indicator for the type of the project.
+          type: string
+        sourceLocaleDescription:
+          description: The full name of the sourceLocaleId
+          type: string
+        sourceLocaleId:
+          description: The locale identifier for the source locale of the project. This indicates the base locale for which content should be uploaded to the project.
+          type: string
+      required:
+      - projectId
+      - projectName
+      - accountUid
+      - archived
+      - projectTypeCode
+      - sourceLocaleId
+      - sourceLocaleDescription
+      type: object
+    ProjectCopySuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  processUid:
+                    description: A unique identifier for a long running process
+                    type: string
+                required:
+                - processUid
+                type: object
+            type: object
+    ProjectDetailsSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                example:
+                  accountUid: ab5f1939
+                  archived: false
+                  projectId: fd7244365
+                  projectName: fd7244365
+                  projectTypeCode: APPLICATION_RESOURCES
+                  sourceLocaleDescription: English
+                  sourceLocaleId: en-US
+                properties:
+                  accountUid:
+                    description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+                    type: string
+                  archived:
+                    description: Indicator whether or not the project has been archived. Archived projects are typically hidden from a user's view, but can still be accessible
+                    type: boolean
+                  projectId:
+                    description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+                    type: string
+                  projectName:
+                    description: The name of the project.
+                    type: string
+                  projectTypeCode:
+                    description: Indicator for the type of the project.
+                    type: string
+                  sourceLocaleDescription:
+                    description: The full name of the sourceLocaleId
+                    type: string
+                  sourceLocaleId:
+                    description: The locale identifier for the source locale of the project. This indicates the base locale for which content should be uploaded to the project.
+                    type: string
+                  targetLocales:
+                    description: The locales configured for translation for this project.
+                    items:
+                      $ref: '#/components/schemas/ProjectDetailsLocaleItem'
+                    type: array
+                required:
+                - projectId
+                - projectName
+                - accountUid
+                - archived
+                - projectTypeCode
+                - sourceLocaleId
+                - sourceLocaleDescription
+                - targetLocales
+                type: object
+            type: object
+  responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+externalDocs:
+  description: Smartling Help Center
+  url: https://help.smartling.com

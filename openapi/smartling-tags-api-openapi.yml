@@ -1,0 +1,437 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: support@smartling.com
+  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
+
+    '
+  termsOfService: https://www.smartling.com/legal
+  title: Smartling REST API Reference Account & Projects Tags API
+  version: 2.0.0
+  x-logo:
+    url: smartling_logo.png
+servers:
+- url: https://api.smartling.com
+tags:
+- name: Tags
+  description: 'Tags can help you manage your strings. The Tags API allows you to
+
+    add/remove string tags, and search for tags in a project.'
+paths:
+  /tags-api/v2/accounts/{accountUid}/tags:
+    post:
+      summary: List tags within a account
+      description: List / search tags within an account.
+      tags:
+      - Tags
+      operationId: getTagsListByAccount
+      parameters:
+      - description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: accountUid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                projectIds:
+                  items:
+                    description: Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API.
+                    type: string
+                  maxItems: 1000
+                  type: array
+                  example:
+                  - 12ddasds5
+                  - dsde3e3f4
+                  description: Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API.
+                tagMask:
+                  description: Search filter. Will return tags with partial match and is case insensitive.
+                  type: string
+                limit:
+                  default: 1500
+                  description: The limit on the number of tags returned.
+                  example: 30
+                  maximum: 1500
+                  minimum: 1
+                  type: integer
+                offset:
+                  default: 0
+                  description: The offset to use when searching for tags.
+                  example: 30
+                  minimum: 0
+                  type: integer
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountTagsResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        items:
+                        - projectId: 123jlkj8c
+                          tag: StringTag
+                        - projectId: hjhjkh44f
+                          tag: AnotherTag
+                        totalCount: 2
+      x-code-samples:
+      - lang: curl
+        source: 'curl -H "Authorization: Bearer $smartlingToken" https://api.smartling.com/tags-api/v2/accounts/$smartlingAccountUid/tags
+
+          '
+  /tags-api/v2/projects/{projectId}/tags:
+    get:
+      summary: List tags within a project
+      description: List / search tags within a project.
+      tags:
+      - Tags
+      operationId: getTagsListByProject
+      parameters:
+      - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      - description: Tag mask for search.
+        in: query
+        name: tagMask
+        required: false
+        schema:
+          default: ''
+          type: string
+      - description: The limit on the number of tags returned.
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 100
+          minimum: 0
+          type: number
+      - description: The offset to use when searching for tags.
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: number
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectTagsResponse'
+              examples:
+                response:
+                  value:
+                    response:
+                      code: SUCCESS
+                      data:
+                        items:
+                        - tag: StringTag
+                        - tag: AnotherTag
+                        totalCount: 2
+      x-code-samples:
+      - lang: curl
+        source: 'curl -H "Authorization: Bearer $smartlingToken" https://api.smartling.com/tags-api/v2/projects/$smartlingProjectId/tags
+
+          '
+  /tags-api/v2/projects/{projectId}/strings/tags/search:
+    post:
+      summary: Get all tags for strings
+      description: Retrieve all tags linked to strings.
+      tags:
+      - Tags
+      operationId: getAllTagsForStrings
+      parameters:
+      - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                stringHashcodes:
+                  items:
+                    description: String hashcode
+                    type: string
+                  maxItems: 1000
+                  type: array
+              required:
+              - stringHashcodes
+              type: object
+        description: List of string hashcodes
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetStringsTagsResponse'
+      x-code-samples:
+      - lang: curl
+        source: 'curl -X POST -H "Authorization: Bearer $smartlingToken" -H "Content-Type: application/json" -d "$smartlingStringTagJSON" https://api.smartling.com/tags-api/v2/projects/$smartlingProjectId/strings/tags/search
+
+          '
+  /tags-api/v2/projects/{projectId}/strings/tags/add:
+    post:
+      summary: Add tags to strings
+      description: Add a list of tags to a list of strings.
+      tags:
+      - Tags
+      operationId: addTagToStrings
+      parameters:
+      - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/TagsWithStrings'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - response
+                properties:
+                  response:
+                    $ref: '#/components/schemas/SuccessResponse'
+      x-code-samples:
+      - lang: curl
+        source: 'curl -X POST -H "Authorization: Bearer $smartlingToken" -H "Content-Type: application/json" -d "$smartlingStringTagJSON" https://api.smartling.com/tags-api/v2/projects/$smartlingProjectId/strings/tags/add
+
+          '
+  /tags-api/v2/projects/{projectId}/strings/tags/remove:
+    post:
+      summary: Remove tags from strings
+      description: Remove a list of tags from a list of strings.
+      tags:
+      - Tags
+      operationId: removeTagsFromStrings
+      parameters:
+      - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/TagsWithStrings'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - response
+                properties:
+                  response:
+                    $ref: '#/components/schemas/SuccessResponse'
+      x-code-samples:
+      - lang: curl
+        source: 'curl -X POST -H "Authorization: Bearer $smartlingToken" -H "Content-Type: application/json" -d "$smartlingStringTagJSON" https://api.smartling.com/tags-api/v2/projects/$smartlingProjectId/strings/tags/remove
+
+          '
+  /tags-api/v2/projects/{projectId}/strings/tags/remove/all:
+    post:
+      summary: Remove all tags from strings
+      description: Remove all tags from a list of strings.
+      tags:
+      - Tags
+      operationId: removeAllTagsFromStrings
+      parameters:
+      - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+        in: path
+        name: projectId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                stringHashcodes:
+                  description: List of string hashcodes
+                  items:
+                    type: string
+                  maxItems: 1000
+                  type: array
+              required:
+              - stringHashcodes
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - response
+                properties:
+                  response:
+                    $ref: '#/components/schemas/SuccessResponse'
+      x-code-samples:
+      - lang: curl
+        source: 'curl -X POST -H "Authorization: Bearer $smartlingToken" -H "Content-Type: application/json" -d "$smartlingStringTagJSON" https://api.smartling.com/tags-api/v2/projects/$smartlingProjectId/strings/tags/remove/all
+
+          '
+components:
+  schemas:
+    GetStringsTagsResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      properties:
+                        tags:
+                          items:
+                            $ref: '#/components/schemas/TagInfo'
+                          type: array
+                        stringHashcode:
+                          example: stringHashcode
+                          type: string
+                      type: object
+                    type: array
+                  totalCount:
+                    example: 1
+                    type: number
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
+    AccountTagInfo:
+      properties:
+        projectId:
+          description: Project identifier
+          example: ewr33dssd
+          type: string
+        tag:
+          description: Tag text
+          example: SomeTag
+          type: string
+      required:
+      - tag
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    GetProjectTagsResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/TagInfo'
+                    type: array
+                  totalCount:
+                    type: number
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
+    GetAccountTagsResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/AccountTagInfo'
+                    type: array
+                  totalCount:
+                    type: number
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
+    TagInfo:
+      properties:
+        tag:
+          description: Tag text
+          example: SomeTag
+          type: string
+      required:
+      - tag
+      type: object
+  requestBodies:
+    TagsWithStrings:
+      content:
+        application/json:
+          schema:
+            properties:
+              tags:
+                description: List of tags. Maximum length is 128 characters.
+                items:
+                  type: string
+                maxItems: 100
+                minItems: 1
+                type: array
+              stringHashcodes:
+                description: List of string hashcodes
+                items:
+                  type: string
+                maxItems: 1000
+                type: array
+            required:
+            - tags
+            - stringHashcodes
+            type: object
+      required: true
+externalDocs:
+  description: Smartling Help Center
+  url: https://help.smartling.com
