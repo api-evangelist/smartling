@@ -8,7 +8,19 @@ description: Smartling is an enterprise translation management platform combinin
   strings, translations, jobs, glossary, issues, quality checks, MT, and reports.
   Authentication uses an OAuth-style userIdentifier + secret pair that returns a short-lived
   bearer access token (~5-10 minute TTL) with a refresh token.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/smartling.png
 tags:
 - Localization
 - Translation
@@ -23,10 +35,11 @@ specificationVersion: '0.19'
 apis:
 - aid: smartling:api-v2
   name: Smartling REST API
-  description: Smartling's REST API for the translation management platform. Resource
-    groups include Authentication, Accounts, Projects, Source Files, Strings, Translations,
-    Jobs, Glossary, Issues, Quality Checks, MT, and Reports. Authentication via api.smartling.com/auth-api/v2/authenticate
-    returns a bearer access token used in subsequent requests.
+  description: >-
+    Smartling's REST API for the translation management platform. Resource groups include Authentication,
+    Accounts, Projects, Source Files, Strings, Translations, Jobs, Glossary, Issues, Quality Checks, MT,
+    and Reports. Authentication via api.smartling.com/auth-api/v2/authenticate returns a bearer access
+    token used in subsequent requests.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://api-reference.smartling.com/
   baseURL: https://api.smartling.com
@@ -56,6 +69,397 @@ apis:
     url: https://github.com/Smartling/java-api-sdk
   - url: graphql/smartling-graphql.md
     type: GraphQL
+- aid: smartling:smartling-account-projects-api
+  name: Smartling Account & Projects API
+  description: >-
+    Each client within Smartling is given their own account with a designated
+
+    `accountUid`. Within each account is any number of projects. All files,
+
+    content, and jobs are tied to a particular project. The Accounts &
+
+    Projects API will allow you to programmatically find and use the projects
+
+    within your account.
+
+
+    You may wish to reference the [Key Concepts for
+
+    Developers](https://help.smartling.com/hc/en-us/articles/1260805481390) article
+
+    to better understand how content is organized within Smartling.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Account & Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-account-projects-api-openapi.yml
+- aid: smartling:smartling-attachments-api
+  name: Smartling Attachments API
+  description: >-
+    The Attachments API allows for file attachment upload, download and checking linked attachments for
+    an entity.
+
+    Attachment entities can be from three domains: strings, jobs or issues.
+
+    Each entity is referenced by an entity UID. These UIDs have a specific form for each of the domains.
+
+    - jobs: `<jobUid>`
+
+    - issues: `<accountUid>-<issueUid>` or `<accountUid>-<issueUid>-<commentUid>`
+
+    - strings: `<projectUid>:<stringHashcode>`
+
+
+    **Attachments API Usage Limitations**:
+
+    * Maximum attachment size is 500MB.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Attachments
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-attachments-api-openapi.yml
+- aid: smartling:smartling-authentication-api
+  name: Smartling Authentication API
+  description: >-
+    Smartling uses OAuth2 for [authentication](https://help.smartling.com/hc/en-us/articles/1260805176849).
+
+    To access the Smartling APIs, you'll first need to authenticate with your
+
+    user identifier and user secret. An access token is returned that can be
+
+    attached to the header of any API request. A refresh token is also returned.
+
+
+    To obtain your [user identifier and user secret](https://help.smartling.com/hc/en-us/articles/115004187694),
+
+    log in to Smartling.com and go to **API > Create Token**. Authenticating is as
+
+    simple as calling the `/api.smartling.com/auth-api/v2/authenticate` with
+
+    your `userIdentifier` and `userSecret`. The access token returned is valid
+
+    for 5-minutes, and is used in the header of all subsequent requests.
+
+
+    **Example for generating your access token:**
+
+
+    ```bash
+
+    curl -X POST https://api.smartling.com/auth-api/v2/authenticate  -H 'content-type: application/json'
+    -d '{"userIdentifier": "userIdasdklj4348dk34!", "userSecret": "userSecret34i34kkd5634f"}'
+
+    ```
+
+
+    ```
+
+    {
+        "response": {
+            "code": "SUCCESS",
+            "data": {
+                    "accessToken": "eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOasdlkjn",
+                    "refreshToken": "eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJkMTdkMmEw",
+                    "expiresIn": 480,
+                    "refreshExpiresIn": 3660,
+                    "tokenType": "Bearer"
+            }
+        }
+    }
+
+    ```
+
+
+    **Example of using your access token to list all projects for your account:**
+
+
+    ```bash
+
+    curl -X GET -H "Authorization: Bearer {accessToken}" https://api.smartling.com/accounts-api/v2/accounts/{accountUid}/projects
+
+    ```
+
+
+    ```
+
+    {
+        "response": {
+            "code": "SUCCESS",
+            "data": {
+                "totalCount": 1,
+                "items": [{
+                             "projectId": "df324sdf5",
+                             "projectName": "iOS Strings files",
+                             "accountUid": "ab5f1939",
+                             "archived": false,
+                             "projectTypeCode": "APPLICATION_RESOURCES",
+                             "sourceLocaleId": "en",
+                             "sourceLocaleDescription": "English"
+                         }
+                ]
+            }
+        }
+    }
+
+    ```
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-authentication-api-openapi.yml
+- aid: smartling:smartling-content-search-api
+  name: Smartling Content Search API
+  description: >-
+    The Content Search API allows you to search for strings within a Smartling project.
+
+    You can filter by string text, hashcode, namespace, or any combination of available filters.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Content Search
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-content-search-api-openapi.yml
+- aid: smartling:smartling-context-api
+  name: Smartling Context API
+  description: >-
+    [Visual context](https://help.smartling.com/hc/en-us/articles/360057484273)
+
+    helps Translators make linguistic, layout, and spacing decisions based on
+
+    where strings appear in your mobile or desktop application. The Context
+
+    API supports uploading various forms of context (images and HTML), and
+
+    associate the context with content in Smartling.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Context
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-context-api-openapi.yml
+- aid: smartling:smartling-estimates-api
+  name: Smartling Estimates API
+  description: The Estimates API from Smartling — 6 operation(s) for estimates.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Estimates
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-estimates-api-openapi.yml
+- aid: smartling:smartling-files-api
+  name: Smartling Files API
+  description: >-
+    Files are typically how you can exchange your content with Smartling to
+
+    get translations. Smartling supports a wide variety of [file
+
+    types](https://help.smartling.com/hc/en-us/articles/360007998893). When
+
+    you upload a file to Smartling, it gets parsed into strings, which will
+
+    then be sent into the translation queue.
+
+
+    The complete list of supported file types is available [here](https://help.smartling.com/hc/en-us/articles/360007998893).
+    For information on file directives, please refer to the documentation for each specific file type.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-files-api-openapi.yml
+- aid: smartling:smartling-gdn-url-management-api
+  name: Smartling GDN url management API
+  description: The GDN url management API from Smartling — 4 operation(s) for gdn url management.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - GDN url management
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-gdn-url-management-api-openapi.yml
+- aid: smartling:smartling-jobs-api
+  name: Smartling Jobs API
+  description: >-
+    A Smartling project (such as a mobile, web, files, or connector project)
+
+    may contain one or more
+
+    [jobs](https://help.smartling.com/hc/en-us/articles/1260805481390). You may
+
+    have multiple projects, each containing multiple jobs. Each job contains
+
+    strings, consisting of words or phrases.
+
+
+    The Jobs feature allows you to group and prioritize your content by name,
+
+    due date, description, and reference number (optional). It also enables
+
+    you to monitor the progress of your translations throughout completion.
+
+
+    The Jobs API allows you to create a job, add a file to a job, authorize a
+
+    job, and cancel a job, among many other actions. You have full control via
+
+    the API to manage your job(s).
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-jobs-api-openapi.yml
+- aid: smartling:smartling-language-detection-api
+  name: Smartling Language Detection API
+  description: The Language Detection API from Smartling — 1 operation(s) for language detection.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Language Detection
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-language-detection-api-openapi.yml
+- aid: smartling:smartling-locales-api
+  name: Smartling Locales API
+  description: >-
+    Locales are the language and country pairs that are used to identify the
+
+    source content and the desired target locale for your translated content.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Locales
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-locales-api-openapi.yml
+- aid: smartling:smartling-machine-translation-mt-api
+  name: Smartling Machine Translation (MT) API
+  description: >-
+    The Smartling platform offers state-of-the-art [Machine Translation capabilities](https://www.smartling.com/software/neural-machine-translation-hub/)
+    through its synchronous account-level Machine Translation API. This API enables seamless translation
+    of content without the need for it to be processed through Smartling workflows. The API offers access
+    to all <a href="https://help.smartling.com/hc/en-us/articles/46030485398171" target="_blank" rel="noopener">
+    Profiles</a>, including the highly efficient MT Auto Select feature, providing unparalleled flexibility
+    and control over your translation needs.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Machine Translation (MT)
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-machine-translation-mt-api-openapi.yml
+- aid: smartling:smartling-people-api
+  name: Smartling People API
+  description: Smartling users, who process and translate content with the Smartling platform.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - People
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-people-api-openapi.yml
+- aid: smartling:smartling-reports-api
+  name: Smartling Reports API
+  description: >-
+    The Reports API allows to request various reports available on Smartling
+
+    platform and specify additional filtering criteria to narrow down data
+
+    returned by the reports.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-reports-api-openapi.yml
+- aid: smartling:smartling-strings-api
+  name: Smartling Strings API
+  description: >-
+    A string is a piece of translation. Based on the source content, strings
+
+    can be parsed differently. A string is then broken down further, into one
+
+    or more segments.
+
+
+    The Strings API allows you to directly upload strings to a Smartling
+
+    project and fetch original strings or translations.
+
+
+    For each string in a Smartling project, there is a unique identifier
+
+    created by hashing together the parsed string text, [variant
+
+    metadata](https://help.smartling.com/hc/en-us/articles/360008143853), and
+
+    in some cases,
+
+    [namespace](https://help.smartling.com/hc/en-us/articles/360008143833).
+
+    When adding strings via the Strings API, each string will be unique. If
+
+    you try to create a string with identical variant metadata and string text
+
+    to a string that already exists in the project, the string will be
+
+    overwritten.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Strings
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-strings-api-openapi.yml
+- aid: smartling:smartling-tags-api
+  name: Smartling Tags API
+  description: >-
+    Tags can help you manage your strings. The Tags API allows you to
+
+    add/remove string tags, and search for tags in a project.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-tags-api-openapi.yml
+- aid: smartling:smartling-vendors-api
+  name: Smartling Vendors API
+  description: >-
+    The Vendors API is for Language Service Providers to view work that's
+
+    available in Smartling.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Vendors
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-vendors-api-openapi.yml
+- aid: smartling:smartling-workflow-assignment-api
+  name: Smartling Workflow Assignment API
+  description: The Workflow Assignment API handles workflow step assignments for non agency users.
+  humanURL: https://api-reference.smartling.com/
+  baseURL: https://api.smartling.com
+  tags:
+  - Workflow Assignment
+  properties:
+  - type: OpenAPI
+    url: openapi/smartling-workflow-assignment-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/smartling-agentic-access.yml
