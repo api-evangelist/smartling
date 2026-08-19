@@ -31,7 +31,7 @@ tags:
 - REST
 created: '2026-05-23'
 modified: '2026-05-23'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: smartling:api-v2
   name: Smartling REST API
