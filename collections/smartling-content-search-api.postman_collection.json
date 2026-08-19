@@ -1,0 +1,202 @@
+{
+  "item": [
+    {
+      "id": "c4c776f6-8ada-44bc-9de2-1a6a1b0033c5",
+      "name": "Content Search",
+      "description": {
+        "content": "The Content Search API allows you to search for strings within a Smartling project.\nYou can filter by string text, hashcode, namespace, or any combination of available filters.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "077a930d-82ef-471c-a2da-fa8e0220a31d",
+          "name": "Search strings",
+          "request": {
+            "name": "Search strings",
+            "description": {
+              "content": "Search for strings in your project using GraphQL.\n\n**Example Query:**\n```graphql\n  query Search($searchStringsFilter: SearchStringsFilter!) {\n    searchStrings(searchStringsFilter: $searchStringsFilter) {\n      content {\n        source {\n          hashcode\n        }\n        translations {\n          translationForms {\n            translationText\n            pluralForm\n          }\n        }\n      }\n      totalCount\n      totalWordCount\n      __typename\n    }\n  }\n```",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "strings-view-service-graphql-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "graphql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"variables\": {\n    \"searchStringsFilter\": {\n      \"localeIds\": [\n        \"es-LA\"\n      ],\n      \"workflowStepsFilter\": {\n        \"workflowStepUids\": [\n          \"a58fab71dce6\",\n          \"f5f168bb13b1\"\n        ]\n      },\n      \"limit\": 1\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "922a6cfa-f39c-4e1d-9da6-9df2a9e6562f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-view-service-graphql-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"variables\": {\n    \"searchStringsFilter\": {\n      \"localeIds\": [\n        \"es-LA\"\n      ],\n      \"workflowStepsFilter\": {\n        \"workflowStepUids\": [\n          \"a58fab71dce6\",\n          \"f5f168bb13b1\"\n        ]\n      },\n      \"limit\": 1\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"searchStrings\": {\n      \"content\": [\n        {\n          \"source\": {\n            \"hashcode\": \"0214054db2146bef256852cd0d27f936\"\n          },\n          \"translations\": [\n            {\n              \"translationForms\": [\n                {\n                  \"translationText\": \"El rápido zorro marrón salta sobre el perro perezoso.\",\n                  \"pluralForm\": \"ONE\"\n                },\n                {\n                  \"translationText\": \"El rápido zorro marrón salta sobre el perro perezoso.\",\n                  \"pluralForm\": \"ONE\"\n                }\n              ]\n            },\n            {\n              \"translationForms\": [\n                {\n                  \"translationText\": \"El rápido zorro marrón salta sobre el perro perezoso.\",\n                  \"pluralForm\": \"ONE\"\n                },\n                {\n                  \"translationText\": \"El rápido zorro marrón salta sobre el perro perezoso.\",\n                  \"pluralForm\": \"ONE\"\n                }\n              ]\n            }\n          ]\n        },\n        {\n          \"source\": {\n            \"hashcode\": \"0214054db2146bef256852cd0d27f936\"\n          },\n          \"translations\": [\n            {\n              \"translationForms\": [\n                {\n                  \"translationText\": \"El rápido zorro marrón salta sobre el perro perezoso.\",\n                  \"pluralForm\": \"ONE\"\n                },\n                {\n                  \"translationText\": \"El rápido zorro marrón salta sobre el perro perezoso.\",\n                  \"pluralForm\": \"ONE\"\n                }\n              ]\n            },\n            {\n              \"translationForms\": [\n                {\n                  \"translationText\": \"El rápido zorro marrón salta sobre el perro perezoso.\",\n                  \"pluralForm\": \"ONE\"\n                },\n                {\n                  \"translationText\": \"El rápido zorro marrón salta sobre el perro perezoso.\",\n                  \"pluralForm\": \"ONE\"\n                }\n              ]\n            }\n          ]\n        }\n      ],\n      \"totalCount\": 198,\n      \"totalWordCount\": 644,\n      \"__typename\": \"StringGroup\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6c0e632-c81b-4e35-9e80-afadabf3afd7",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-view-service-graphql-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"variables\": {\n    \"searchStringsFilter\": {\n      \"localeIds\": [\n        \"es-LA\"\n      ],\n      \"workflowStepsFilter\": {\n        \"workflowStepUids\": [\n          \"a58fab71dce6\",\n          \"f5f168bb13b1\"\n        ]\n      },\n      \"limit\": 1\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAINTENANCE_MODE_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "63f5c0e9-0589-46a0-a38f-1f150a10486b",
+    "name": "Smartling REST API Reference Account & Projects Content Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

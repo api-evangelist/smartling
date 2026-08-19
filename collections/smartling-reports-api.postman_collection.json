@@ -1,0 +1,1638 @@
+{
+  "item": [
+    {
+      "id": "a96dee82-545c-4fd4-9024-eee1737aa859",
+      "name": "Reports",
+      "description": {
+        "content": "The Reports API allows to request various reports available on Smartling\nplatform and specify additional filtering criteria to narrow down data\nreturned by the reports.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a14eec3b-8d08-4f7e-b24b-53c641a55bfb",
+          "name": "Get Word Count Report",
+          "request": {
+            "name": "Get Word Count Report",
+            "description": {
+              "content": "Word Count report data for the specified parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports-api",
+                "v3",
+                "word-count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<YYYY-MM-DD>",
+                  "description": "(Required) A parameter to limit words processed on or after the ```startDate```, in America/New_York timezone."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<YYYY-MM-DD>",
+                  "description": "(Required) A parameter to limit words processed on or before the ```endDate```, in America/New_York timezone."
+                },
+                {
+                  "disabled": false,
+                  "key": "accountUid",
+                  "value": "<string>",
+                  "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "key": "projectIds",
+                  "value": "<string>",
+                  "description": "Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "key": "projectIds",
+                  "value": "<string>",
+                  "description": "Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "key": "jobUids",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation jobs."
+                },
+                {
+                  "disabled": false,
+                  "key": "jobUids",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation jobs."
+                },
+                {
+                  "disabled": false,
+                  "key": "agencyUid",
+                  "value": "<string>",
+                  "description": "Optional parameter of unique agency identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "userUids",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation resources."
+                },
+                {
+                  "disabled": false,
+                  "key": "userUids",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation resources."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetLocaleIds",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation locale IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetLocaleIds",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation locale IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "workflowStepTypes",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of workflow step types.\n\nThe supported list of workflow step types is:\n\n  - Translation\n\n  - Edit\n\n  - Review\n\n  - Post-Edit\n\n  - Transcreation\n\n  - Transcreation review\n\n  - AI Review\n\n  - Quality Evaluation\n\n  - LQA\n\n  - Internal Review\n\n  - Desktop Publishing\n\n  - AI Translation\n\n  - Light Post-Edit"
+                },
+                {
+                  "disabled": false,
+                  "key": "workflowStepTypes",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of workflow step types.\n\nThe supported list of workflow step types is:\n\n  - Translation\n\n  - Edit\n\n  - Review\n\n  - Post-Edit\n\n  - Transcreation\n\n  - Transcreation review\n\n  - AI Review\n\n  - Quality Evaluation\n\n  - LQA\n\n  - Internal Review\n\n  - Desktop Publishing\n\n  - AI Translation\n\n  - Light Post-Edit"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Optional comma-separated list of fields names to be returned by the endpoint. If this parameter is not set then the list of fields returned is defined by `include...` parameters.\n\nBoth `fields` and `include...` parameters are not allowed at the same time.\n\nThe supported list of fields names is:\n\n  - accountUid\n\n  - accountName\n\n  - projectId\n\n  - projectName\n\n  - targetLocaleId\n\n  - targetLocale\n\n  - jobUid\n\n  - jobName\n\n  - jobReferenceNumber\n  \n  - jobNumber\n\n  - translationResourceUid\n\n  - translationResourceName\n\n  - agencyUid\n\n  - agencyName\n\n  - workflowStepType\n\n  - workflowStepUid\n\n  - workflowStepName\n\n  - fuzzyProfileName\n\n  - fuzzyTier\n\n  - wordCount\n\n  - weightedWordCount\n\n  - characterCount. Please note: the column shows correct data since 2022-10-01.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeTranslationResource",
+                  "value": "true",
+                  "description": "Optional parameter to specify whether the report should group word count by translation resource name.\n\nDeprecated, use parameter `fields` instead.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeJob",
+                  "value": "true",
+                  "description": "Optional parameter to specify whether the report should group word count by translation job name.\n\nDeprecated, use parameter `fields` instead.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeJobReferenceNumber",
+                  "value": "false",
+                  "description": "Optional parameter to specify whether the report should group word count by translation job and include reference number in the response.\n\nDeprecated, use parameter `fields` instead.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeJobNumber",
+                  "value": "false",
+                  "description": "Optional parameter to specify whether the report should group word count by translation job and include job number in the response.  \nDeprecated, use parameter `fields` instead.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeFuzzyMatchProfile",
+                  "value": "true",
+                  "description": "Optional parameter to specify whether the report should group word count by fuzzy match profile and tier.          \n\nDeprecated, use parameter `fields` instead.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeWorkflowStep",
+                  "value": "false",
+                  "description": "Optional parameter to specify whether the report should group word count by workflow step uid and name.\n\nDeprecated, use parameter `fields` instead.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10000",
+                  "description": "Standard Smartling limit and offset to paginate through results. Default value is 10000."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Standard Smartling limit and offset to paginate through results. Default value is 0."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f534fba8-4774-4ec4-9246-019d222eec59",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports-api",
+                    "v3",
+                    "word-count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "accountUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agencyUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTranslationResource",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJob",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJobReferenceNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeJobNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeFuzzyMatchProfile",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeWorkflowStep",
+                      "value": "false"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"accountName\": \"Test Account\",\n          \"accountUid\": \"35a84f71\",\n          \"agencyName\": \"Test Agency 1\",\n          \"agencyUid\": \"0ed85b93\",\n          \"fuzzyProfileName\": \"Default\",\n          \"fuzzyTier\": \"85 - 94.9%\",\n          \"jobName\": \"Translation Job 1\",\n          \"jobUid\": \"f12ad8e9\",\n          \"jobReferenceNumber\": \"Job reference number\",\n          \"projectId\": \"ba952f4c\",\n          \"projectName\": \"Test Project 1\",\n          \"targetLocaleId\": \"es-ES\",\n          \"targetLocaleName\": \"Spanish (Spain)\",\n          \"translationResourceName\": \"Agency Translator 5\",\n          \"translationResourceUid\": \"da57302e\",\n          \"weightedWordCount\": 4,\n          \"wordCount\": 20,\n          \"characterCount\": 101,\n          \"workflowStepType\": \"Translation\",\n          \"workflowStepUid\": \"lk3gh7zr20ao\",\n          \"workflowStepName\": \"Translation\"\n        },\n        {\n          \"accountName\": \"Test Account\",\n          \"accountUid\": \"35a84f71\",\n          \"agencyName\": \"Test Agency 2\",\n          \"agencyUid\": \"4d6230e1\",\n          \"fuzzyProfileName\": \"Default\",\n          \"fuzzyTier\": \"85 - 94.9%\",\n          \"jobName\": \"Translation Job 1\",\n          \"jobUid\": \"f12ad8e9\",\n          \"jobReferenceNumber\": \"Job reference number\",\n          \"projectId\": \"ba952f4c\",\n          \"projectName\": \"Test Project 1\",\n          \"targetLocaleId\": \"es-ES\",\n          \"targetLocale\": \"Spanish (Spain)\",\n          \"translationResourceName\": \"Agency Editor 12\",\n          \"translationResourceUid\": \"5eb90a14\",\n          \"weightedWordCount\": 20,\n          \"wordCount\": 20,\n          \"characterCount\": 101,\n          \"workflowStepType\": \"Edit\",\n          \"workflowStepUid\": \"ac7ac1bd15bf\",\n          \"workflowStepName\": \"Edit\"\n        }\n      ],\n      \"resultsTruncated\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b442efe-42c4-4d47-bbc8-4d42a222d805",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports-api",
+                    "v3",
+                    "word-count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "accountUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agencyUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTranslationResource",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJob",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJobReferenceNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeJobNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeFuzzyMatchProfile",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeWorkflowStep",
+                      "value": "false"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b92522c-a78c-4d72-8467-a03852b14734",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports-api",
+                    "v3",
+                    "word-count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "accountUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agencyUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTranslationResource",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJob",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJobReferenceNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeJobNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeFuzzyMatchProfile",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeWorkflowStep",
+                      "value": "false"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be980c24-5fc6-41a0-b399-84b7cec047b0",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports-api",
+                    "v3",
+                    "word-count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "accountUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agencyUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTranslationResource",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJob",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJobReferenceNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeJobNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeFuzzyMatchProfile",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeWorkflowStep",
+                      "value": "false"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45ee7257-3af7-4f11-8d0a-626eb0a56ba9",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports-api",
+                    "v3",
+                    "word-count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "accountUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agencyUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTranslationResource",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJob",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJobReferenceNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeJobNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeFuzzyMatchProfile",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeWorkflowStep",
+                      "value": "false"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5072ceff-d0a6-491f-8ae6-54cefea90451",
+          "name": "Export Word Count in CSV format",
+          "request": {
+            "name": "Export Word Count in CSV format",
+            "description": {
+              "content": "Export Word Count report in CSV format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports-api",
+                "v3",
+                "word-count",
+                "csv"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<YYYY-MM-DD>",
+                  "description": "(Required) A parameter to limit words processed on or after the ```startDate```, in America/New_York timezone."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<YYYY-MM-DD>",
+                  "description": "(Required) A parameter to limit words processed on or before the ```endDate```, in America/New_York timezone."
+                },
+                {
+                  "disabled": false,
+                  "key": "accountUid",
+                  "value": "<string>",
+                  "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "key": "projectIds",
+                  "value": "<string>",
+                  "description": "Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "key": "projectIds",
+                  "value": "<string>",
+                  "description": "Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "key": "jobUids",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation jobs."
+                },
+                {
+                  "disabled": false,
+                  "key": "jobUids",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation jobs."
+                },
+                {
+                  "disabled": false,
+                  "key": "agencyUid",
+                  "value": "<string>",
+                  "description": "Optional parameter of unique agency identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "userUids",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation resources."
+                },
+                {
+                  "disabled": false,
+                  "key": "userUids",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation resources."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetLocaleIds",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation locale IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetLocaleIds",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of translation locale IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "workflowStepTypes",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of workflow step types.\n\nThe supported list of workflow step types is:\n\n  - Translation\n\n  - Edit\n\n  - Review\n\n  - Post-Edit\n\n  - Transcreation\n\n  - Transcreation review\n\n  - AI Review\n\n  - Quality Evaluation\n\n  - LQA\n\n  - Internal Review\n\n  - Desktop Publishing\n\n  - AI Translation\n\n  - Light Post-Edit"
+                },
+                {
+                  "disabled": false,
+                  "key": "workflowStepTypes",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of workflow step types.\n\nThe supported list of workflow step types is:\n\n  - Translation\n\n  - Edit\n\n  - Review\n\n  - Post-Edit\n\n  - Transcreation\n\n  - Transcreation review\n\n  - AI Review\n\n  - Quality Evaluation\n\n  - LQA\n\n  - Internal Review\n\n  - Desktop Publishing\n\n  - AI Translation\n\n  - Light Post-Edit"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Optional comma-separated list of fields names to be returned by the endpoint. If this parameter is not set then the list of fields returned is defined by `include...` parameters.\n\nBoth `fields` and `include...` parameters are not allowed at the same time.\n\nThe supported list of fields names is:\n\n  - accountUid\n\n  - accountName\n\n  - projectId\n\n  - projectName\n\n  - targetLocaleId\n\n  - targetLocale\n\n  - jobUid\n\n  - jobName\n\n  - jobReferenceNumber\n  \n  - jobNumber\n\n  - translationResourceUid\n\n  - translationResourceName\n\n  - agencyUid\n\n  - agencyName\n\n  - workflowStepType\n\n  - workflowStepUid\n\n  - workflowStepName\n\n  - fuzzyProfileName\n\n  - fuzzyTier\n\n  - wordCount\n\n  - weightedWordCount\n\n  - characterCount. Please note: the column shows correct data since 2022-10-01.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeTranslationResource",
+                  "value": "true",
+                  "description": "Optional parameter to specify whether the report should group word count by translation resource name.\n\nDeprecated, use parameter `fields` instead.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeJob",
+                  "value": "true",
+                  "description": "Optional parameter to specify whether the report should group word count by translation job name.\n\nDeprecated, use parameter `fields` instead.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeJobReferenceNumber",
+                  "value": "false",
+                  "description": "Optional parameter to specify whether the report should group word count by translation job and include reference number in the response.\n\nDeprecated, use parameter `fields` instead.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeJobNumber",
+                  "value": "false",
+                  "description": "Optional parameter to specify whether the report should group word count by translation job and include job number in the response.                        \nDeprecated, use parameter `fields` instead.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeFuzzyMatchProfile",
+                  "value": "true",
+                  "description": "Optional parameter to specify whether the report should group word count by fuzzy match profile and tier.\n\nDeprecated, use parameter `fields` instead.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeWorkflowStep",
+                  "value": "false",
+                  "description": "Optional parameter to specify whether the report should group word count by workflow step uid and name.\n\nDeprecated, use parameter `fields` instead.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c92a4900-6ed1-4a86-a641-4b4f079fe684",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports-api",
+                    "v3",
+                    "word-count",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "accountUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agencyUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTranslationResource",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJob",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJobReferenceNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeJobNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeFuzzyMatchProfile",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeWorkflowStep",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv"
+                }
+              ],
+              "body": "Account,Project,Job Uid,Job,Translation Resource,Agency Uid,Agency, Target Language,Workflow Step,Workflow Step Uid,Workflow Step Name, Fuzzy Profile,Fuzzy Breakdown,Word Count,Weighted Words,Character Count Test Account,Test Project,f12ad8e9,Translation Job,Translator 1, Test Agency 1 Uid, Test Agency 1,Spanish (Spain),Translation,123abc456def, Translation,Default,85 - 94.9%,1,1,1",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "21b4cae6-0d78-4e6b-96e4-a183d551e984",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports-api",
+                    "v3",
+                    "word-count",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "accountUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agencyUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTranslationResource",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJob",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJobReferenceNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeJobNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeFuzzyMatchProfile",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeWorkflowStep",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "210773cb-5522-4a4f-a14b-87429856cdbe",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports-api",
+                    "v3",
+                    "word-count",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "accountUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agencyUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTranslationResource",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJob",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJobReferenceNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeJobNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeFuzzyMatchProfile",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeWorkflowStep",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1502880b-fc53-41e2-8d18-51d3477fb13d",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports-api",
+                    "v3",
+                    "word-count",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "accountUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agencyUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTranslationResource",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJob",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJobReferenceNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeJobNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeFuzzyMatchProfile",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeWorkflowStep",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e236d7cd-f555-430d-9a17-616c0bfc37ec",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports-api",
+                    "v3",
+                    "word-count",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<YYYY-MM-DD>"
+                    },
+                    {
+                      "key": "accountUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "projectIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "jobUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agencyUid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workflowStepTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTranslationResource",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJob",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeJobReferenceNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeJobNumber",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeFuzzyMatchProfile",
+                      "value": "true"
+                    },
+                    {
+                      "key": "includeWorkflowStep",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAINTENANCE_MODE_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b754b8e3-8ce4-4bb4-af17-0b771fff3a34",
+    "name": "Smartling REST API Reference Account & Projects Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

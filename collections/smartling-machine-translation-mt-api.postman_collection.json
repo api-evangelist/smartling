@@ -1,0 +1,367 @@
+{
+  "item": [
+    {
+      "id": "e269c592-5c12-42de-9581-f9c2e665e303",
+      "name": "Machine Translation (MT)",
+      "description": {
+        "content": "The Smartling platform offers state-of-the-art [Machine Translation capabilities](https://www.smartling.com/software/neural-machine-translation-hub/) through its synchronous account-level Machine Translation API. This API enables seamless translation of content without the need for it to be processed through Smartling workflows. The API offers access to all <a href=\"https://help.smartling.com/hc/en-us/articles/46030485398171\" target=\"_blank\" rel=\"noopener\"> Profiles</a>, including the highly efficient MT Auto Select feature, providing unparalleled flexibility and control over your translation needs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7d9708cf-580c-46f6-99dc-f38a143bbe88",
+          "name": "Machine Translation (MT) using a preconfigured MT or LLM Profile",
+          "request": {
+            "name": "Machine Translation (MT) using a preconfigured MT or LLM Profile",
+            "description": {
+              "content": "Machine Translation (MT) using a preconfigured MT or LLM Profile. Input and output text format is HTML.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mt-router-api",
+                "v2",
+                "accounts",
+                ":accountUid",
+                "smartling-mt"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountUid",
+                  "description": "(Required) A unique account identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceLocaleId\": \"<string>\",\n  \"targetLocaleId\": \"<string>\",\n  \"items\": [\n    {\n      \"key\": \"<string>\",\n      \"sourceText\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"sourceText\": \"<string>\"\n    }\n  ],\n  \"profileUid\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "31a00ca0-7da8-4d73-aa6a-f0a9487eda02",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mt-router-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    "smartling-mt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountUid",
+                      "description": "(Required) A unique account identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceLocaleId\": \"en-US\",\n  \"targetLocaleId\": \"de-DE\",\n  \"items\": [\n    {\n      \"key\": \"my-key-1\",\n      \"sourceText\": \"Text to translate\"\n    },\n    {\n      \"key\": \"my-key-1\",\n      \"sourceText\": \"Text to translate\"\n    }\n  ],\n  \"profileUid\": \"29f3ee25-7eaf-472e-9e26-550d512931cb\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"key\": \"key-from-request\",\n          \"translationText\": \"Translated text\",\n          \"mtUid\": \"m91o03gnvzuh\",\n          \"provider\": \"AUTO_SELECT_PROVIDER\",\n          \"error\": null\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "403a9d1c-4bca-441d-b902-9f36f2e8c4ad",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mt-router-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    "smartling-mt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountUid",
+                      "description": "(Required) A unique account identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceLocaleId\": \"en-US\",\n  \"targetLocaleId\": \"de-DE\",\n  \"items\": [\n    {\n      \"key\": \"my-key-1\",\n      \"sourceText\": \"Text to translate\"\n    },\n    {\n      \"key\": \"my-key-1\",\n      \"sourceText\": \"Text to translate\"\n    }\n  ],\n  \"profileUid\": \"29f3ee25-7eaf-472e-9e26-550d512931cb\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2f68dbb-5480-4654-9f55-6fbdb777f7a9",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mt-router-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    "smartling-mt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountUid",
+                      "description": "(Required) A unique account identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceLocaleId\": \"en-US\",\n  \"targetLocaleId\": \"de-DE\",\n  \"items\": [\n    {\n      \"key\": \"my-key-1\",\n      \"sourceText\": \"Text to translate\"\n    },\n    {\n      \"key\": \"my-key-1\",\n      \"sourceText\": \"Text to translate\"\n    }\n  ],\n  \"profileUid\": \"29f3ee25-7eaf-472e-9e26-550d512931cb\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6cf77c8b-51ac-4f9b-8df5-7cfe9bfa1385",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mt-router-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    "smartling-mt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountUid",
+                      "description": "(Required) A unique account identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceLocaleId\": \"en-US\",\n  \"targetLocaleId\": \"de-DE\",\n  \"items\": [\n    {\n      \"key\": \"my-key-1\",\n      \"sourceText\": \"Text to translate\"\n    },\n    {\n      \"key\": \"my-key-1\",\n      \"sourceText\": \"Text to translate\"\n    }\n  ],\n  \"profileUid\": \"29f3ee25-7eaf-472e-9e26-550d512931cb\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b0cf1de-2767-4e06-9fe7-bb4441e4ef51",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mt-router-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    "smartling-mt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountUid",
+                      "description": "(Required) A unique account identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceLocaleId\": \"en-US\",\n  \"targetLocaleId\": \"de-DE\",\n  \"items\": [\n    {\n      \"key\": \"my-key-1\",\n      \"sourceText\": \"Text to translate\"\n    },\n    {\n      \"key\": \"my-key-1\",\n      \"sourceText\": \"Text to translate\"\n    }\n  ],\n  \"profileUid\": \"29f3ee25-7eaf-472e-9e26-550d512931cb\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "42159fc2-922e-42b9-98f6-754c9ed55b8d",
+    "name": "Smartling REST API Reference Account & Projects Machine Translation (MT) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

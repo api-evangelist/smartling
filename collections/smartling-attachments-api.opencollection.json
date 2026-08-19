@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Attachments API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download binary attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/attachments-api/v2/accounts/:accountUid/:type/attachments/:attachmentUid",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Attachment type"
+              },
+              {
+                "name": "attachmentUid",
+                "value": "",
+                "type": "path",
+                "description": "Attachment unique identifier."
+              }
+            ]
+          },
+          "docs": "Download attachment file"
+        },
+        {
+          "info": {
+            "name": "Get list of linked attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/attachments-api/v2/accounts/:accountUid/:type/:entityUid",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Attachment type"
+              },
+              {
+                "name": "entityUid",
+                "value": "",
+                "type": "path",
+                "description": "Entity uid"
+              }
+            ]
+          },
+          "docs": "List of linked attachments with entity"
+        },
+        {
+          "info": {
+            "name": "Upload binary attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/attachments-api/v2/accounts/:accountUid/:type/attachments",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "Attachment type"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "entityUids",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "description",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload attachment file"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

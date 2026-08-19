@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account & Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/accounts-api/v2/accounts/:accountUid/projects",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "projectNameFilter",
+                "value": "",
+                "type": "query",
+                "description": "Substring search of the name of the project. Search is case insensitive."
+              },
+              {
+                "name": "includeArchived",
+                "value": "",
+                "type": "query",
+                "description": "Indicator whether or not archived projects should be returned. Defaults to false if not specified."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results. 500 projects are returned by default if not specified."
+              },
+              {
+                "name": "projectTypeCode",
+                "value": "",
+                "type": "query",
+                "description": "Indicator for the type of the project."
+              },
+              {
+                "name": "projectTypeCodes",
+                "value": "",
+                "type": "query",
+                "description": "Indicator list for the type of the projects."
+              }
+            ]
+          },
+          "docs": "Returns the list of projects for the account.\n"
+        },
+        {
+          "info": {
+            "name": "Get project details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/projects-api/v2/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "includeDisabledLocales",
+                "value": "",
+                "type": "query",
+                "description": "Indicator whether or not disabled locales configured for the project should be returned as part of the targetLocales. By default disabled target locales are not returned."
+              }
+            ]
+          },
+          "docs": "Returns the details of a project.\n"
+        },
+        {
+          "info": {
+            "name": "Add a new target locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/projects-api/v2/projects/:projectId/targetLocales",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new target locale to the project.\n"
+        },
+        {
+          "info": {
+            "name": "Copy an existing project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/projects-api/v2/projects/:projectId/copy",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Make a copy of an existing project, thereby creating a new one with a new name\n"
+        },
+        {
+          "info": {
+            "name": "Get the status of the project copy request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/projects-api/v2/projects/:projectId/copy/:processUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "processUid",
+                "value": "",
+                "type": "path",
+                "description": "The uid of the process to check for"
+              }
+            ]
+          },
+          "docs": "Used to check if the copy project request is complete and to retrieve the new projectId\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

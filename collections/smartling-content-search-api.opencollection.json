@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Content Search API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search strings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/strings-view-service-graphql-api/v2/projects/:projectId/graphql",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for strings in your project using GraphQL.\n\n**Example Query:**\n```graphql\n  query Search($searchStringsFilter: SearchStringsFilter!) {\n    searchStrings(searchStringsFilter: $searchStringsFilter) {\n      content {\n        source {\n          hashcode\n        }\n        translations {\n          translationForms {\n            translationText\n            pluralForm\n          }\n        }\n      }\n      totalCount\n      totalWordCount\n      __typename\n    }\n  }\n```"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

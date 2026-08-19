@@ -1,0 +1,692 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Files API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download source file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "Value that uniquely identifies the downloaded file."
+              }
+            ]
+          },
+          "docs": "This downloads the original version of the requested file from\nSmartling.\n\nIt is important to check the HTTP response status code. If Smartling\nfinds and returns the file normally, you will receive a `200` SUCCESS\nresponse. If you receive a response status code other than `200`, the\nrequested file will not be part of the response.\n\nWhen you upload a UTF-16 character encoded file, then /file/get requests\nfor that file will have a character encoding of UTF-16. All other\nuploaded files will return "
+        },
+        {
+          "info": {
+            "name": "Upload file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "fileUri",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "fileType",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "smartling.namespace",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "smartling.file_charset",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "smartling.[command]",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "callbackUrl",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "This uploads original source content to Smartling.\n\nThe curl example provided will upload your Java properties file directly\ninto the Smartling project identified by the `projectId`. Smartling will\ningest this file, parse out the keys and text as strings for\ntranslation. At this point, content is ready for translation.\n"
+        },
+        {
+          "info": {
+            "name": "Status of file for each locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file/status",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "Smartling value that uniquely identifies a file in Smartling"
+              }
+            ]
+          },
+          "docs": "Returns information on a specific file.\n\n**Example:**\n```bash\n  curl -X GET -H \"Authorization: Bearer {token}\" 'https://api.smartling.com/files-api/v2/projects/{projectId}/file/status?fileUri=file.properties'\n```\n"
+        },
+        {
+          "info": {
+            "name": "Status of file for a single locale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/:localeId/file/status",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "localeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for a locale."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "Smartling value that uniquely identifies a file in Smartling"
+              }
+            ]
+          },
+          "docs": "Returns detailed status information on a specific file.\n\n**Example:**\n```bash\ncurl -X GET -H \"Authorization: Bearer {token}\" 'https://api.smartling.com/files-api/v2/projects/{projectId}/locales/{localeId}/file/status?fileUri=file.properties'\n```\n"
+        },
+        {
+          "info": {
+            "name": "Download translated file (single locale or multi-locale)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/:localeIds/file",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "localeIds",
+                "value": "",
+                "type": "path",
+                "description": "One of:\n- A **single locale ID**, e.g. `fr-FR` → single-locale mode  \n- A **comma-separated list** of locale IDs, e.g. `fr-FR,de-DE` → multi-locale mode  \n- `all` → download translations for all available locales\n"
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "Value that uniquely identifies the downloaded file"
+              },
+              {
+                "name": "retrievalType",
+                "value": "",
+                "type": "query",
+                "description": "Determines the desired format for the download. Applies to translated files only.\n\n| retrievalType | Description |\n|---------------|-------------|\n| pending | Smartling returns any translations (including non-published translations)|\n| published | Smartling returns only published/pre-published translations.|\n| pseudo | Smartling returns a modified version of the original text with certain characters transformed and the text expanded. For example, the uploaded string \"This is a sample string\", will return as \"T~hís ~ís á s~ámpl~é str~íñg\". Pseudo translations enable you to test how a longer string integrates into your application.|\n| contextMatchingInstrumented | Smartling returns a modified version of the original file with strings wrapped in a specific set of Unicode symbols that can later be recognized and matched by the Chrome Context Capture Extension.|\n"
+              },
+              {
+                "name": "includeOriginalStrings",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether Smartling will return the original string or an\nempty string where no translation is available. This parameter is\nonly supported for ANDROID, ARB, GETTEXT, IDML, IOS, JAVA Properties, JSON, QT, STRINGSDICT,\nXLIFF, XML, and YAML files. If unset, the default is <code>true</code>.\n\n| Value | Description |\n|-------|-------------|\n| true | If there is no translation, Smartling returns the original string. |\n| false | If there is no translation, Smartling returns an empty string. |\n"
+              }
+            ]
+          },
+          "docs": "Downloads the requested translated file from Smartling.  \n\nThis endpoint supports two modes depending on the value of `localeIds`:\n\n### **Single-locale mode**\n- Provide a **single locale ID**, e.g. `fr-FR`\n- Smartling returns a file containing translations only for that locale\n- Supported for **all file types**.\n\n### **Multi-locale mode**\n- Provide a **comma-separated list of locale IDs**, e.g. `fr-FR,de-DE,es-ES`\n- Or specify `all` to include all available locales\n- Smartling returns a **combin"
+        },
+        {
+          "info": {
+            "name": "Download all translations of file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/all/file/zip",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "Smartling value that uniquely identifies a file in Smartling"
+              },
+              {
+                "name": "retrievalType",
+                "value": "",
+                "type": "query",
+                "description": "Determines the desired format for the download. Applies to translated files only.\n\n| retrievalType | Description |\n|---------------|-------------|\n| pending | Smartling returns any translations (including non-published translations).|\n| published | Smartling returns only published/pre-published translations.|\n| pseudo | Smartling returns a modified version of the original text with certain characters transformed, and the text expanded. For example, the uploaded string \"This is a sample string\", will return as \"T~hís ~ís á s~ámpl~é str~íñg\". Pseudo translations enable you to test how a longer string integrates into your application.|\n| contextMatchingInstrumented | Smartling returns a modified version of the original file with strings wrapped in a specific set of Unicode symbols that can later be recognized and matched by the Chrome Context Capture Extension.|\n"
+              },
+              {
+                "name": "includeOriginalStrings",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether Smartling will return the original string or an\nempty string where no translation is available. This parameter is\nonly supported for ANDROID, ARB, GETTEXT, IDML, IOS, JAVA Properties, JSON, QT, STRINGSDICT,\nXLIFF, XML, and YAML files. If unset, the default is <code>true</code>.\n\n| Value | Description |\n|-------|-------------|\n| true | If there is no translation, Smartling returns the original string. |\n| false | If there is no translation, Smartling returns an empty string. |\n"
+              },
+              {
+                "name": "zipFileName",
+                "value": "",
+                "type": "query",
+                "description": "Name for the downloaded zip file. If unset, the default is ```translations.zip```"
+              }
+            ]
+          },
+          "docs": "Download a ZIP archive with all translations for the requested file.\n\nUnlike the \"Download translated file\" endpoint, you get a ZIP archive\nwith all translations of a specific file.\n\nIt is important to check the HTTP response status code. If Smartling\nfinds and returns the file normally, you will receive a `200` SUCCESS\nresponse. If you receive any other response status code than `200`, the\nrequested files will not be part of the response.\n\nWhen you upload a UTF-16 character encoded file, then /"
+        },
+        {
+          "info": {
+            "name": "Download multiple translated files (DEPRECATED)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/files/zip",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fileUris[]",
+                "value": "",
+                "type": "query",
+                "description": "Smartling values that each uniquely identify a file. The limit is 300 files."
+              },
+              {
+                "name": "localeIds[]",
+                "value": "",
+                "type": "query",
+                "description": "List of locales to download."
+              },
+              {
+                "name": "retrievalType",
+                "value": "",
+                "type": "query",
+                "description": "Determines the desired format for the download. Applies only to\ntranslated files.\n\n| retrievalType | Description |\n|---------------|-------------|\n| pending | Smartling returns any translations (including non-published translations)|\n| published | Smartling returns only published/pre-published translations.|\n| pseudo | Smartling returns a modified version of the original text with certain characters transformed and the text expanded. For example, the uploaded string \"This is a sample string\", will return as \"T~hís ~ís á s~ámpl~é str~íñg\". Pseudo translations enable you to test how a longer string integrates into your application.|\n| contextMatchingInstrumented | Smartling returns a modified version of the original file with strings wrapped in a specific set of Unicode symbols that can later be recognized and matched by the Chrome Context Capture Extension.|\n"
+              },
+              {
+                "name": "includeOriginalStrings",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether Smartling will return the original string or an\nempty string where no translation is available. This parameter is\nonly supported for ANDROID, ARB, GETTEXT, IDML, IOS, JAVA Properties, JSON, QT, STRINGSDICT,\nXLIFF, XML, and YAML files. If unset, the default is <code>true</code>.\n\n| Value | Description |\n|-------|-------------|\n| true | If there is no translation, Smartling returns the original string. |\n| false | If there is no translation, Smartling returns an empty string. |\n"
+              },
+              {
+                "name": "fileNameMode",
+                "value": "",
+                "type": "query",
+                "description": "Determines how files in the ZIP file will be named. If not set, the\nfull original file path will be used as the filename.\n\n| fileNameMode | Description |\n|--------------|-------------|\n| UNCHANGED | Full original file path is used |\n| TRIM_LEADING | Remove all except the last path segment. e.g. ```/en/strings/nav.properties``` becomes ```nav.properties```|\n| LOCALE_LAST | Adds a locale folder to the file path directly before the filename. e.g. ```/strings/nav.properties``` becomes ```/strings/en/nav.properties``` |\n"
+              },
+              {
+                "name": "localeMode",
+                "value": "",
+                "type": "query",
+                "description": "Determines how locales will be handled in the downloaded zip\n\n| localeMode | Description |\n|------------|-------------|\n| LOCALE_IN_PATH | Locale code is added to the end of the file path. e.g. ```/strings/es-ES/nav.properties```. |\n| LOCALE_IN_NAME | Locale code is added to the end of the file name e.g. ```/strings/nav_es-ES.properties```. |\n| LOCALE_IN_NAME_AND_PATH | Locale code is added to both the path and the filename. e.g. ```/strings/es-ES/nav_es-ES.properties```. |\n"
+              },
+              {
+                "name": "zipFileName",
+                "value": "",
+                "type": "query",
+                "description": "Name for the downloaded ZIP file. If unset, default is ```translations.zip```"
+              }
+            ]
+          },
+          "docs": "Download ZIP archive with the requested translated files.\n\nUnlike \"Download all translations of the file\" you can specify multiple\nfile URIs (limit is 300 files) and locale IDs to select which files and languages you want to download.\n\nIt is important to check the HTTP response status code. If Smartling\nfinds and returns the file normally, you will receive a `200` SUCCESS\nresponse. If you receive any other response status code than `200`, the\nrequested files will not be part of the response.\n\nWh"
+        },
+        {
+          "info": {
+            "name": "Download multiple translated files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/files/zip",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Download ZIP archive with the requested translated files.\n\nThis endpoint allows you to specify multiple files and locales in the\nrequest body (limit is 500 file-locale combinations) to select which files\nand languages you want to download.\n\nIt is important to check the HTTP response status code. If Smartling\nfinds and returns the file normally, you will receive a `200` SUCCESS\nresponse. If you receive a `204` response, no files were included because\nthe requested files were not fully published a"
+        },
+        {
+          "info": {
+            "name": "List recently uploaded files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/files/list",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "uriMask",
+                "value": "",
+                "type": "query",
+                "description": "Returns only files with a URI containing the given substring. Case is ignored. For example, the value ```.json``` will match ```strings.json``` and ```STRINGS.JSON``` but not ```json.strings```\n"
+              },
+              {
+                "name": "fileTypes[]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lastUploadedAfter",
+                "value": "",
+                "type": "query",
+                "description": "Returns all files uploaded after the specified date."
+              },
+              {
+                "name": "lastUploadedBefore",
+                "value": "",
+                "type": "query",
+                "description": "Returns all files uploaded before the specified date."
+              },
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query",
+                "description": "Sets the name and direction of the parameter to order results by. If ascending or descending is not specified, the default is ascending\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "In order to get consistent pagination, make sure to specify the ```orderBy``` parameter.\n"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results."
+              }
+            ]
+          },
+          "docs": "This lists recently uploaded files, and returns a maximum of 100 files."
+        },
+        {
+          "info": {
+            "name": "List all file types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file-types",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ]
+          },
+          "docs": "This returns a list of all file types currently represented in the project.\n"
+        },
+        {
+          "info": {
+            "name": "Rename file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file/rename",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "fileUri",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "newFileUri",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "This renames an uploaded file by changing the `fileUri`. After renaming the file, it will only be identified by the new `fileUri` that you provide.\n"
+        },
+        {
+          "info": {
+            "name": "Delete file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file/delete",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "fileUri",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "This removes the file from Smartling. The file will no longer be available for download. Any complete translations for the file remain available for use within the system.\n\nSmartling deletes files asynchronously and it typically takes a few minutes to complete. While deleting a file, you can not upload a file with the same `fileUri`.\n"
+        },
+        {
+          "info": {
+            "name": "Last modified date (single locale)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/:localeId/file/last-modified",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "localeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for a locale."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "A unique identifier for a file in Smartling."
+              },
+              {
+                "name": "lastModifiedAfter",
+                "value": "",
+                "type": "query",
+                "description": "Limits the return to only those file and locale combinations that have a ```lastModified``` date after the ```lastModifiedAfter```parameter . The items array will be empty if the file has not been modified in any of the locales since the `lastModifiedAfter` date specified."
+              }
+            ]
+          },
+          "docs": "This returns the date that a file was last modified in a specified locale.\n"
+        },
+        {
+          "info": {
+            "name": "Last modified date (all locales)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/file/last-modified",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "A unique identifier for a file in Smartling."
+              },
+              {
+                "name": "lastModifiedAfter",
+                "value": "",
+                "type": "query",
+                "description": "Limits the return to only those file and locale combinations that have a ```lastModified``` date after the parameter ```lastModifiedAfter```. The items array will be empty if the file has not been modified in any of the locales since the `lastModifiedAfter` date specified."
+              }
+            ]
+          },
+          "docs": "This returns the date that a file was last modified in each locale.\n"
+        },
+        {
+          "info": {
+            "name": "Import translations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/:localeId/file/import",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "localeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for a locale."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "fileUri",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "fileType",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "translationState",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "overwrite",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Import translations"
+        },
+        {
+          "info": {
+            "name": "Export translations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/files-api/v2/projects/:projectId/locales/:localeId/file/get-translations",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "localeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for a locale."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "fileUri",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "retrievalType",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "includeOriginalStrings",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Temporarily uploads a file, then returns a translated version for requested locales.\n\nThis call can be used instead of a standard upload/download if you keep different versions of a file in multiple branches or are triggering rebuilds, and don’t want your files in Smartling to be overwritten by out-of-date versions of a file.\n\nTo use the call, you upload a file and identify the Smartling URI where the main version of that file is saved. Smartling will match strings shared between the uploaded fi"
+        },
+        {
+          "info": {
+            "name": "List recently published files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/published-files-api/v2/projects/:projectId/files/list/recently-published",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "publishedAfter",
+                "value": "",
+                "type": "query",
+                "description": "Limits the response to only those files that have a ```publishDate``` date after the ```publishedAfter``` parameter. The items array can be empty if no files match this criteria."
+              },
+              {
+                "name": "fileUris[]",
+                "value": "",
+                "type": "query",
+                "description": "A list of fileUris to filter the response list by. Value must be exact match. Up to 20 fileUris can be specified. See getRecentlyUploadedSourceFilesList to get a project's fileUris."
+              },
+              {
+                "name": "localeIds[]",
+                "value": "",
+                "type": "query",
+                "description": "A list of locale identifiers to filter the response list by. Up to 50 localeIds can be specified. See getProjectDetails to get a project's localeIds."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results. Default value is 0."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results. Limit is not applied if this parameter is not specified."
+              }
+            ]
+          },
+          "docs": "Response is limited to files published after 14 days from the time called.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

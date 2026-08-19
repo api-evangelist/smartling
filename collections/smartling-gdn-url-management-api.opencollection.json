@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects GDN url management API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GDN url management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of URLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/gdn-url-management-api/v2/projects/:projectId/web-pages/list",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get list of URLs."
+        },
+        {
+          "info": {
+            "name": "Get details for URLs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/gdn-url-management-api/v2/projects/:projectId/web-pages/details",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve details of the URLs."
+        },
+        {
+          "info": {
+            "name": "Get details for URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/gdn-url-management-api/v2/projects/:projectId/web-pages/:webPageUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "webPageUid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the URL"
+              }
+            ]
+          },
+          "docs": "Retrieve detail for the URL."
+        },
+        {
+          "info": {
+            "name": "Get domains for project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/gdn-url-management-api/v2/projects/:projectId/domains",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ]
+          },
+          "docs": "Get domains for project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,596 @@
+{
+  "item": [
+    {
+      "id": "0eb3bec1-5fbe-410b-ba23-dfe373c639a7",
+      "name": "Vendors",
+      "description": {
+        "content": "The Vendors API is for Language Service Providers to view work that's\navailable in Smartling.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b82aa935-aa51-4cdf-8347-0f5c4aaa4ad8",
+          "name": "List available jobs",
+          "request": {
+            "name": "List available jobs",
+            "description": {
+              "content": "Returns the list of jobs available for the agency.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendors-api",
+                "v2",
+                "agencies",
+                ":agencyUid",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agencyUid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81c7a6ed-57f9-475b-9ed9-e2f8938fd2fd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors-api",
+                    "v2",
+                    "agencies",
+                    ":agencyUid",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agencyUid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"lastUpdatedDate\": \"2017-01-05T23:41:44.054Z\",\n      \"agency\": {\n        \"agencyUid\": \"string\",\n        \"agencyName\": \"string\"\n      },\n      \"translationJobs\": [\n        {\n          \"account\": {\n            \"accountName\": \"string\",\n            \"accountUid\": \"string\"\n          },\n          \"project\": {\n            \"projectId\": \"string\",\n            \"projectName\": \"string\"\n          },\n          \"progressDetails\": {\n            \"aggregatedPerWorkflow\": {\n              \"workflows\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"translationJob\": {\n            \"translationJobAuthorizedDate\": \"1997-04-22T21:49:41.411Z\",\n            \"translationJobDueDate\": \"1946-09-22T17:41:32.705Z\",\n            \"translationJobName\": \"string\",\n            \"translationJobRisk\": {\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"translationJobUid\": \"string\",\n            \"translationJobCustomFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        {\n          \"account\": {\n            \"accountName\": \"string\",\n            \"accountUid\": \"string\"\n          },\n          \"project\": {\n            \"projectId\": \"string\",\n            \"projectName\": \"string\"\n          },\n          \"progressDetails\": {\n            \"aggregatedPerWorkflow\": {\n              \"workflows\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"translationJob\": {\n            \"translationJobAuthorizedDate\": \"2026-08-13T07:34:52.266Z\",\n            \"translationJobDueDate\": \"1996-06-04T09:35:53.813Z\",\n            \"translationJobName\": \"string\",\n            \"translationJobRisk\": {\n              \"status\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"translationJobUid\": \"string\",\n            \"translationJobCustomFields\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44ce76bc-9994-4dcc-9061-cffb0f7e8756",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors-api",
+                    "v2",
+                    "agencies",
+                    ":agencyUid",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agencyUid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec00e1cb-8f50-4f14-a81e-fd84b41831b6",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors-api",
+                    "v2",
+                    "agencies",
+                    ":agencyUid",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agencyUid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8769bcab-3cde-406b-9183-e9b5ba3c49de",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors-api",
+                    "v2",
+                    "agencies",
+                    ":agencyUid",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agencyUid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c887be54-bd29-48df-ae8f-220dfada3d75",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors-api",
+                    "v2",
+                    "agencies",
+                    ":agencyUid",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agencyUid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAINTENANCE_MODE_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f2a2dc7-2384-46da-a46d-ff4bcd21bbf7",
+          "name": "List content assignments",
+          "request": {
+            "name": "List content assignments",
+            "description": {
+              "content": "Returns the list of content assignments for the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vendors-api",
+                "v2",
+                "accounts",
+                ":accountUid",
+                "content-assignments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountUid",
+                  "description": "(Required) The account's unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc855a69-f397-4561-8361-b5bcf8bddf21",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    "content-assignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountUid",
+                      "description": "(Required) The account's unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"accountUid\": \"111222333\",\n          \"accountName\": \"Test account\",\n          \"projectUid\": \"111222333\",\n          \"projectName\": \"Test Project\",\n          \"localeId\": \"es-ES\",\n          \"workflowUid\": \"111222333444\",\n          \"workflowName\": \"Example Workflow\",\n          \"workflowStepUid\": \"111222333444\",\n          \"workflowStepName\": \"Translation\",\n          \"workflowStepType\": \"TRANSLATION\",\n          \"translationJobUid\": \"111222333444\",\n          \"translationJobName\": \"Example Job\",\n          \"translationJobWorkflowStepDueDate\": \"2025-01-20T18:01:00Z\",\n          \"translationJobOverallDueDate\": \"2025-01-20T18:01:00Z\",\n          \"userUid\": null,\n          \"userFirstName\": null,\n          \"userLastName\": null,\n          \"userEmail\": null,\n          \"agencyUid\": null,\n          \"agencyName\": null,\n          \"wordCount\": 300,\n          \"workflowStepOrder\": 2,\n          \"assignmentEnabled\": false\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7754d60b-6031-497b-b787-0a68c26fe1e5",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    "content-assignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountUid",
+                      "description": "(Required) The account's unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53788964-a957-49f8-97e6-081f1140dde1",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    "content-assignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountUid",
+                      "description": "(Required) The account's unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac1e2e16-3c99-4de4-a411-202dccf773d3",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    "content-assignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountUid",
+                      "description": "(Required) The account's unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26c26131-b215-457d-8afd-20a54c494534",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vendors-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    "content-assignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountUid",
+                      "description": "(Required) The account's unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAINTENANCE_MODE_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b4d1b568-624b-4cdf-9cae-cb61dc512240",
+    "name": "Smartling REST API Reference Account & Projects Vendors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

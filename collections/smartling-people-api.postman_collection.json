@@ -1,0 +1,307 @@
+{
+  "item": [
+    {
+      "id": "6e4202db-a9e9-4cd1-a601-2edd9578829c",
+      "name": "People",
+      "description": {
+        "content": "Smartling users, who process and translate content with the Smartling platform.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2566f6a6-02ef-4d97-9a14-80aa87f58ee6",
+          "name": "Get list of user information",
+          "request": {
+            "name": "Get list of user information",
+            "description": {
+              "content": "Smartling users, who process and translate content with the Smartling platform.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "people-api",
+                "v2",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userUids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excludeProfileImage\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f7252506-ddc8-46d5-88ab-baaf57fde969",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userUids\": [\n    \"ac48ht4qy\"\n  ],\n  \"excludeProfileImage\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"userUid\": \"ac48ht4qy\",\n          \"firstName\": \"user first name 1\",\n          \"lastName\": \"user last name 1\",\n          \"profileImage\": \"https://my.gravatar.net/avatar/eeca2d632c1weeeaf5dsd3e32e32ddsasd\",\n          \"createdDate\": 1704110400000\n        }\n      ],\n      \"totalCount\": 1\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3dd53c34-60f9-45cc-b7b2-4c70b7ded1dc",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userUids\": [\n    \"ac48ht4qy\"\n  ],\n  \"excludeProfileImage\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8fcac96-b0e4-4f7c-8b45-35b28ff8c36c",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userUids\": [\n    \"ac48ht4qy\"\n  ],\n  \"excludeProfileImage\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50c7f287-e15c-40de-a0f1-473a7bb667c3",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userUids\": [\n    \"ac48ht4qy\"\n  ],\n  \"excludeProfileImage\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "519cd9ca-bbc8-4278-906f-e000d7ae6eed",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userUids\": [\n    \"ac48ht4qy\"\n  ],\n  \"excludeProfileImage\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAINTENANCE_MODE_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "eec67330-3769-4eb3-afab-497c744725ee",
+    "name": "Smartling REST API Reference Account & Projects People API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

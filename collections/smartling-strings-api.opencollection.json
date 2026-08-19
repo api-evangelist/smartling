@@ -1,0 +1,205 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Strings API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Strings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add strings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads an array of strings to a Smartling project. A maximum of 100 strings can be created per request. A request with more than 100 items will return an error. Each string has a character limit of 10,000.\n\n**Note**: You cannot authorize a string via API. Once you have created the strings, they will need to be authorized by a content owner in the Smartling Dashboard.\n\nSmartling creates a unique hashcode for each string based on the parsed string text and any variant or namespace metadata provid"
+        },
+        {
+          "info": {
+            "name": "Check string status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId/processes/:processUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "processUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "If an **Add strings** request takes longer than 60 seconds to process, a `202` response will be returned, indicating that the process of creating strings is continuing but not yet complete. This response will include a `proccessUid` value which can be used to check the progress of the request.\n\nThis request can return:\n  * `\"processState\": \"OPEN\"` which indicates that the request is still continuing.\n  * `\"processState\": \"CLOSED\"` indicates the request has successfully completed.\n  * `\"processSt"
+        },
+        {
+          "info": {
+            "name": "List all source strings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId/source-strings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "hashcodes",
+                "value": "",
+                "type": "query",
+                "description": "Hashcodes for each string you want to get source strings for."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "URI of a file you want to get strings for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "By default, responses will be limited to 500 per request. This is also the maximum allowed value."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination setting. Default is 0."
+              }
+            ]
+          },
+          "docs": "Returns source strings from Smartling. You can get strings by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that are not added via the Strings API, you may see differences in the response.\n\nYou may see a value for `parsedStringText` but a `null` value for `stringText`. The `stringText` records"
+        },
+        {
+          "info": {
+            "name": "List all source strings (POST)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId/source-strings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns source strings from Smartling. You can get strings by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that are not added via the Strings API, you may see differences in the response.\n\nYou may see a value for `parsedStringText` but a `null` value for `stringText`. The `stringText` records"
+        },
+        {
+          "info": {
+            "name": "List all translations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId/translations",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "hashcodes",
+                "value": "",
+                "type": "query",
+                "description": "Hashcodes for each string you want to get translations for."
+              },
+              {
+                "name": "targetLocaleId",
+                "value": "",
+                "type": "query",
+                "description": "Smartling ID for the language you want to get translations for."
+              },
+              {
+                "name": "retrievalType",
+                "value": "",
+                "type": "query",
+                "description": "Sets the types of translations you want returned. `published` will only return translations that have completed their workflows and been published. `pending` will return any saved translations."
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query",
+                "description": "URI of a file you want to get translations for."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination setting. By default, responses will be limited to 500 per request. This is also the maximum allowed value."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination setting. Default is 0."
+              }
+            ]
+          },
+          "docs": "Returns translated strings from Smartling. You can get translations by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that were not created via the Strings API, you may see differences in the response.\n\nOnly authorized and active strings will be returned. Excluded, unauthorized, and inactive st"
+        },
+        {
+          "info": {
+            "name": "List all translations (POST)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/strings-api/v2/projects/:projectId/translations",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns translated strings from Smartling. You can get translations by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that were not created via the Strings API, you may see differences in the response.\n\nOnly authorized and active strings will be returned. Excluded, unauthorized, and inactive st"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

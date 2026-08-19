@@ -1,0 +1,1344 @@
+{
+  "item": [
+    {
+      "id": "3ac11752-0d44-4e4e-b75e-b7c7e8da7ebc",
+      "name": "Attachments",
+      "description": {
+        "content": "The Attachments API allows for file attachment upload, download and checking linked attachments for an entity.\nAttachment entities can be from three domains: strings, jobs or issues.\nEach entity is referenced by an entity UID. These UIDs have a specific form for each of the domains.\n- jobs: `<jobUid>`\n- issues: `<accountUid>-<issueUid>` or `<accountUid>-<issueUid>-<commentUid>`\n- strings: `<projectUid>:<stringHashcode>`\n\n**Attachments API Usage Limitations**:\n* Maximum attachment size is 500MB.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "19b15398-fbe3-4304-b3bf-f2e347cf846d",
+          "name": "Download binary attachment",
+          "request": {
+            "name": "Download binary attachment",
+            "description": {
+              "content": "Download attachment file",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments-api",
+                "v2",
+                "accounts",
+                ":accountUid",
+                ":type",
+                "attachments",
+                ":attachmentUid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "accountUid",
+                  "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) Attachment type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "attachmentUid",
+                  "description": "(Required) Attachment unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "77c4c3ea-f6ef-4e60-83a6-ca840b8c3756",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    "attachments",
+                    ":attachmentUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "attachmentUid",
+                      "description": "(Required) Attachment unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "991c9a0f-5e7e-4dd5-96d9-0671e0e0e7b1",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    "attachments",
+                    ":attachmentUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "attachmentUid",
+                      "description": "(Required) Attachment unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6763a964-881e-4663-bc79-4d109129f7db",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    "attachments",
+                    ":attachmentUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "attachmentUid",
+                      "description": "(Required) Attachment unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27336559-669d-4bf4-bbc9-58109ccee657",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    "attachments",
+                    ":attachmentUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "attachmentUid",
+                      "description": "(Required) Attachment unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0e6743a-7884-4707-bd89-9c4ecced4300",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    "attachments",
+                    ":attachmentUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "attachmentUid",
+                      "description": "(Required) Attachment unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "337244b3-83ac-4170-b676-aa24a5abc63a",
+          "name": "Get list of linked attachments",
+          "request": {
+            "name": "Get list of linked attachments",
+            "description": {
+              "content": "List of linked attachments with entity",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments-api",
+                "v2",
+                "accounts",
+                ":accountUid",
+                ":type",
+                ":entityUid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "accountUid",
+                  "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) Attachment type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "entityUid",
+                  "description": "(Required) Entity uid"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8cee5e3c-c60a-4b59-b533-512da547ef36",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    ":entityUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityUid",
+                      "description": "(Required) Entity uid"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"totalCount\": 2,\n      \"items\": [\n        {\n          \"attachmentUid\": \"1e2f4378324e\",\n          \"name\": \"my-attachment\",\n          \"description\": \"meta-for-my-attachment\",\n          \"createdDate\": \"2018-03-30T12:58:22Z\",\n          \"createdByUserUid\": \"5789003e276a\",\n          \"canDelete\": false\n        },\n        {\n          \"attachmentUid\": \"198eafe96267\",\n          \"name\": \"my-attachment\",\n          \"description\": \"meta-for-my-attachment\",\n          \"createdDate\": \"2018-03-30T12:58:22Z\",\n          \"createdByUserUid\": \"5789003e276a\",\n          \"canDelete\": true\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1600f53f-33be-4253-88ca-32a61280b947",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    ":entityUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityUid",
+                      "description": "(Required) Entity uid"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00e219a6-5a1e-4f67-a0d2-38bf2e7c0eb7",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    ":entityUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityUid",
+                      "description": "(Required) Entity uid"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f3a1457-8e72-440a-8ee1-e84bed636039",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    ":entityUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityUid",
+                      "description": "(Required) Entity uid"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6c2b121-1df7-4f3c-bc71-c54512d9bfa5",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    ":entityUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entityUid",
+                      "description": "(Required) Entity uid"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAINTENANCE_MODE_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8029c1e6-c277-497e-8281-735c040ed5bf",
+          "name": "Upload binary attachment",
+          "request": {
+            "name": "Upload binary attachment",
+            "description": {
+              "content": "Upload attachment file",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attachments-api",
+                "v2",
+                "accounts",
+                ":accountUid",
+                ":type",
+                "attachments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "accountUid",
+                  "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) Attachment type"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The attachment file contents to upload."
+                },
+                {
+                  "key": "name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Functional name of the file uploaded. This is not a unique identifier."
+                },
+                {
+                  "key": "entityUids",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "type": "text",
+                  "description": "(Optional) The list of entity uids attachment will be linked with (max 100)."
+                },
+                {
+                  "key": "description",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Optional) Description of uploaded binary file."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "85a61865-2d73-475d-a79e-b00afdaeb43d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The attachment file contents to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Functional name of the file uploaded. This is not a unique identifier.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Optional) The list of entity uids attachment will be linked with (max 100).",
+                        "type": "text/plain"
+                      },
+                      "key": "entityUids",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Optional) Description of uploaded binary file.",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"attachmentUid\": \"1e2f4378324e\",\n      \"name\": \"my-attachment\",\n      \"description\": \"meta-for-my-attachment\",\n      \"createdDate\": \"2018-03-30T12:58:22Z\",\n      \"createdByUserUid\": \"5789003e276a\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ca12cfa-7e2e-4348-8566-8987125417a6",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The attachment file contents to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Functional name of the file uploaded. This is not a unique identifier.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Optional) The list of entity uids attachment will be linked with (max 100).",
+                        "type": "text/plain"
+                      },
+                      "key": "entityUids",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Optional) Description of uploaded binary file.",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcb313ea-b6b7-406d-849a-39716eb33fc7",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The attachment file contents to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Functional name of the file uploaded. This is not a unique identifier.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Optional) The list of entity uids attachment will be linked with (max 100).",
+                        "type": "text/plain"
+                      },
+                      "key": "entityUids",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Optional) Description of uploaded binary file.",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91fa71f0-0ce3-4b4f-8e78-851a37113dd7",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The attachment file contents to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Functional name of the file uploaded. This is not a unique identifier.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Optional) The list of entity uids attachment will be linked with (max 100).",
+                        "type": "text/plain"
+                      },
+                      "key": "entityUids",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Optional) Description of uploaded binary file.",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b23a844-6529-4fa4-b1a1-3a643e4c2ece",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attachments-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    ":type",
+                    "attachments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) Attachment type"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The attachment file contents to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Functional name of the file uploaded. This is not a unique identifier.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Optional) The list of entity uids attachment will be linked with (max 100).",
+                        "type": "text/plain"
+                      },
+                      "key": "entityUids",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Optional) Description of uploaded binary file.",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAINTENANCE_MODE_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4f0d708c-6743-4296-a8fd-a977c982dbce",
+    "name": "Smartling REST API Reference Account & Projects Attachments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

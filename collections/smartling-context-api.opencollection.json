@@ -1,0 +1,380 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Context API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Context",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List contexts for the project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "nameFilter",
+                "value": "",
+                "type": "query",
+                "description": "Context name (or url) filter."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "If your original request returns an *offset* value, the set of results is incomplete.\nRun the request again, with the given offset value to see more results.\nWhen offset is null, there are no more results to return."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Context type filter."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of metadata for all contexts in a project.\n\nResponse is limited to *100* items, to retrieve all items the request\nshould be repeated with **offset** parameter specified.\n"
+        },
+        {
+          "info": {
+            "name": "Upload new context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "content",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "[Visual Context](https://help.smartling.com/hc/en-us/articles/360057484273-Overview-of-Visual-Context) provides a visual representation of the source content to Translators and Editors as\nthey are performing their work, and is a very effective way to ensure high-quality translations. Visual\nContext is displayed in the Smartling CAT Tool - the environment in which translations are performed.\n\nThe following context types are supported via the Smartling API:\n\n- **HTML**: HTML files or files with co"
+        },
+        {
+          "info": {
+            "name": "Get context info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/:contextUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "contextUid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a context"
+              }
+            ]
+          },
+          "docs": "Retrieves basic information about the context."
+        },
+        {
+          "info": {
+            "name": "Delete the context",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/:contextUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "contextUid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a context"
+              }
+            ]
+          },
+          "docs": "Deletes the context metadata and the content.\nAll linked context resources (e.g. CSS, images, and fonts) will also eventually be cleaned up if no other context has them linked.\nAs well, bindings of this context to strings are removed, and strings are marked as having no context."
+        },
+        {
+          "info": {
+            "name": "Delete contexts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/remove/async",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates an asynchronous process to delete the contexts.\nAll linked context resources (e.g. CSS, images, and fonts) will also eventually be cleaned up if no other context has them linked.\nAs well, bindings of these contexts to strings are removed, and strings are marked as having no context."
+        },
+        {
+          "info": {
+            "name": "Download context file content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/:contextUid/content",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "contextUid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a context"
+              }
+            ]
+          },
+          "docs": "Returns the context content:\n\n|Context Type|Content|\n|---------|--------|\n|`HTML`|HTML document enriched with `data-sl-anchor` attributes for most of the elements, also known as *binding anchors*.|\n|`IMAGE`| Binary image data. Response is accompanied with appropriate `Content-Type` header.|\n|`VIDEO`| Empty response.|"
+        },
+        {
+          "info": {
+            "name": "Run automatic context matching",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/:contextUid/match/async",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "contextUid",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a context"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Automatically matches context against strings in the project and creates corresponding bindings.\nOptionally, you can restrict matching to only a set of strings that you specify to ensure that no unwanted\nbindings are created.\n\nThe following endpoint does not support video contexts pointing to Youtube or Vimeo videos.\n\nOptical Character Recognition (OCR) is used for `IMAGE` and `VIDEO` contexts, while `HTML` context uses an approximate string matching algorithm.\n\nThis is a convenient method provi"
+        },
+        {
+          "info": {
+            "name": "Upload new context and run automatic context matching",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/contexts/upload-and-match-async",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "matchParams",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "content",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Combines two endpoints:\n- [Upload new context](/#operation/uploadNewVisualContext)\n- [Run automatic context matching](/#operation/runAutomaticContextMatching)\n\nThe following context types are supported via the Smartling API:\n\n- **HTML**: HTML files or files with content type text/html\n- **IMAGE**: Image files\n- **VIDEO**:\n  - Video file\n  - Link to video, such as:\n    - YouTube link\n    - Vimeo link\n    - Direct link to an .mp4 file\n\nStrings to match are retrieved from the project specified by t"
+        },
+        {
+          "info": {
+            "name": "Retrieve asynchronous match results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/match/:matchId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "matchId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the match request obtained when running asynchronous match request."
+              }
+            ]
+          },
+          "docs": "Check the status of the match request and get results once the match is completed.\nWhen the match has been completed, any newly created bindings are also returned in the response.\nThis endpoint is deprecated and will be deleted. We recommend to use `Retrieve asynchronous process results` endpoint"
+        },
+        {
+          "info": {
+            "name": "Retrieve asynchronous process results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/processes/:processUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "processUid",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the asynchronous process obtained when running asynchronous request."
+              }
+            ]
+          },
+          "docs": "Check the status of the asynchronous process and get the results once the process is completed"
+        },
+        {
+          "info": {
+            "name": "Create string to context bindings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/bindings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Link context files with the strings they contain.\n\nThe binding tells Smartling to show Translators which context images for which strings.\n\nA basic bindings request should contain an object with a `bindings` JSON array, with at least one element (binding) featuring `contextUid` and `stringHashcode` properties:\n```JSON\n{\n  \"bindings\": [\n    {\n       \"contextUid\": \"25137b65-e075-4341-8362-14b1a3e558f5\",\n       \"stringHashcode\": \"bd603147d945h3ec74d6874422ebe4e0\"\n    }\n  ]\n}\n```\n\nFor `IMAGE` contex"
+        },
+        {
+          "info": {
+            "name": "List string to context bindings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/bindings/list",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "If your original request returns an *offset* value, the set of results is incomplete.\nRun the request again, with the given offset value to see more results.\nWhen offset is null, there are no more results to return."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a paginated list of bindings according to specified parameters.\n\nResponse is limited to *5000* items, to retrieve all items the request\nshould be repeated with **offset** parameter specified."
+        },
+        {
+          "info": {
+            "name": "Delete string to context bindings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/context-api/v2/projects/:projectId/bindings/remove",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete bindings for specified parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

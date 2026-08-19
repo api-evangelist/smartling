@@ -1,0 +1,2303 @@
+{
+  "item": [
+    {
+      "id": "c88a2f22-32b6-4597-ba98-39209f3ed1c3",
+      "name": "Strings",
+      "description": {
+        "content": "A string is a piece of translation. Based on the source content, strings\ncan be parsed differently. A string is then broken down further, into one\nor more segments.\n\nThe Strings API allows you to directly upload strings to a Smartling\nproject and fetch original strings or translations.\n\nFor each string in a Smartling project, there is a unique identifier\ncreated by hashing together the parsed string text, [variant\nmetadata](https://help.smartling.com/hc/en-us/articles/360008143853), and\nin some cases,\n[namespace](https://help.smartling.com/hc/en-us/articles/360008143833).\nWhen adding strings via the Strings API, each string will be unique. If\nyou try to create a string with identical variant metadata and string text\nto a string that already exists in the project, the string will be\noverwritten.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "575d88fc-2af1-47b0-8627-041c00ccdd98",
+          "name": "Add strings",
+          "request": {
+            "name": "Add strings",
+            "description": {
+              "content": "Uploads an array of strings to a Smartling project. A maximum of 100 strings can be created per request. A request with more than 100 items will return an error. Each string has a character limit of 10,000.\n\n**Note**: You cannot authorize a string via API. Once you have created the strings, they will need to be authorized by a content owner in the Smartling Dashboard.\n\nSmartling creates a unique hashcode for each string based on the parsed string text and any variant or namespace metadata provided. If you upload a string with the same text, variant and namespace, and therefore the same hashcode, the existng string will be overwritten. This will not change the text of the string, but may update other metadata, such as placeholder and callback values. If the string is currently inactive, overwriting it will cause it to be reactivated. Overwritten strings return `\"overWritten\": \"true\"` in the response object.\n\nMost uploads will return a `200` response indicating success. If processing the request takes longer than 60 seconds, a `202` request will be returned, including a `processUid` value that can be used to check on the progress of the request.\n\nIf you set up a POST callback for the string, you can automatically receive the translation for a string as soon as it is complete. See [Callbacks](https://help.smartling.com/hc/en-us/articles/1260805504109) for more details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "strings-api",
+                "v2",
+                "projects",
+                ":projectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"strings (Required)\": [\n    {\n      \"stringText\": \"<string>\",\n      \"variant\": \"<string>\",\n      \"callbackUrl\": \"<string>\",\n      \"callbackMethod\": \"<string>\",\n      \"instruction\": \"<string>\",\n      \"maxLength\": \"<number>\",\n      \"format\": \"<string>\"\n    }\n  ],\n  \"placeholderFormat\": \"<string>\",\n  \"placeholderFormatCustom\": \"<string>\",\n  \"namespace\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "49be2c51-49b2-4b88-abeb-d18961a56b31",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strings (Required)\": [\n    {\n      \"stringText\": \"<string>\",\n      \"variant\": \"<string>\",\n      \"callbackUrl\": \"<string>\",\n      \"callbackMethod\": \"<string>\",\n      \"instruction\": \"<string>\",\n      \"maxLength\": \"<number>\",\n      \"format\": \"<string>\"\n    }\n  ],\n  \"placeholderFormat\": \"<string>\",\n  \"placeholderFormatCustom\": \"<string>\",\n  \"namespace\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"hashcode\": \"bd603147d945h3ec74d6874422ebe4e0\",\n          \"overWritten\": \"true\",\n          \"parsedStringText\": \"Search results for {0}:\",\n          \"stringText\": \"Search results for [city]:\",\n          \"variant\": \"variant value\"\n        }\n      ],\n      \"processUid\": \"d6414f8c-4gdf-4415-9a69-f8e7902ca9ec\",\n      \"stringCount\": 1,\n      \"wordCount\": 4\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "338a2605-f154-49b3-adb0-1147ac110c39",
+              "name": "ACCEPTED",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strings (Required)\": [\n    {\n      \"stringText\": \"<string>\",\n      \"variant\": \"<string>\",\n      \"callbackUrl\": \"<string>\",\n      \"callbackMethod\": \"<string>\",\n      \"instruction\": \"<string>\",\n      \"maxLength\": \"<number>\",\n      \"format\": \"<string>\"\n    }\n  ],\n  \"placeholderFormat\": \"<string>\",\n  \"placeholderFormatCustom\": \"<string>\",\n  \"namespace\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"hashcode\": \"string\",\n          \"overWritten\": \"string\",\n          \"parsedStringText\": \"string\",\n          \"stringText\": \"string\",\n          \"variant\": \"string\"\n        },\n        {\n          \"hashcode\": \"string\",\n          \"overWritten\": \"string\",\n          \"parsedStringText\": \"string\",\n          \"stringText\": \"string\",\n          \"variant\": \"string\"\n        }\n      ],\n      \"processUid\": \"string\",\n      \"stringCount\": 6434.742230822353,\n      \"totalCount\": 6917.1718245405955,\n      \"wordCount\": 7015.853163117761\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa4f78a9-d764-4584-9645-7f83b128ade7",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strings (Required)\": [\n    {\n      \"stringText\": \"<string>\",\n      \"variant\": \"<string>\",\n      \"callbackUrl\": \"<string>\",\n      \"callbackMethod\": \"<string>\",\n      \"instruction\": \"<string>\",\n      \"maxLength\": \"<number>\",\n      \"format\": \"<string>\"\n    }\n  ],\n  \"placeholderFormat\": \"<string>\",\n  \"placeholderFormatCustom\": \"<string>\",\n  \"namespace\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5a1581b-b6b6-47c8-a1e8-864b3de5f9b0",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strings (Required)\": [\n    {\n      \"stringText\": \"<string>\",\n      \"variant\": \"<string>\",\n      \"callbackUrl\": \"<string>\",\n      \"callbackMethod\": \"<string>\",\n      \"instruction\": \"<string>\",\n      \"maxLength\": \"<number>\",\n      \"format\": \"<string>\"\n    }\n  ],\n  \"placeholderFormat\": \"<string>\",\n  \"placeholderFormatCustom\": \"<string>\",\n  \"namespace\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9159cf80-fd4c-44f5-8df0-73b7e713ab2f",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strings (Required)\": [\n    {\n      \"stringText\": \"<string>\",\n      \"variant\": \"<string>\",\n      \"callbackUrl\": \"<string>\",\n      \"callbackMethod\": \"<string>\",\n      \"instruction\": \"<string>\",\n      \"maxLength\": \"<number>\",\n      \"format\": \"<string>\"\n    }\n  ],\n  \"placeholderFormat\": \"<string>\",\n  \"placeholderFormatCustom\": \"<string>\",\n  \"namespace\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0868e14c-23ea-4a30-8ac6-2f7c3b8e996c",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"strings (Required)\": [\n    {\n      \"stringText\": \"<string>\",\n      \"variant\": \"<string>\",\n      \"callbackUrl\": \"<string>\",\n      \"callbackMethod\": \"<string>\",\n      \"instruction\": \"<string>\",\n      \"maxLength\": \"<number>\",\n      \"format\": \"<string>\"\n    }\n  ],\n  \"placeholderFormat\": \"<string>\",\n  \"placeholderFormatCustom\": \"<string>\",\n  \"namespace\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAINTENANCE_MODE_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bbef7c9b-5aa8-455e-a900-4107d9f142ba",
+          "name": "Check string status",
+          "request": {
+            "name": "Check string status",
+            "description": {
+              "content": "If an **Add strings** request takes longer than 60 seconds to process, a `202` response will be returned, indicating that the process of creating strings is continuing but not yet complete. This response will include a `proccessUid` value which can be used to check the progress of the request.\n\nThis request can return:\n  * `\"processState\": \"OPEN\"` which indicates that the request is still continuing.\n  * `\"processState\": \"CLOSED\"` indicates the request has successfully completed.\n  * `\"processState\": \"FAILED\"` means the request could not be completed.\n\nProcesses have a limited lifespan after they are complete. This request will fail if you specify an expired `processUid`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "strings-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "processes",
+                ":processUid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "processUid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fee8c2c2-398a-4fa4-8d74-a33a20c41b1e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "processes",
+                    ":processUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processUid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"createdDate\": \"string\",\n      \"modifiedDate\": \"string\",\n      \"processState\": \"FAILED\",\n      \"processStatistics\": {\n        \"errored\": \"string\",\n        \"processed\": \"string\",\n        \"requested\": \"string\",\n        \"skipped\": \"string\"\n      },\n      \"processUid\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2ade0ab-0014-4701-8364-2a080d199e26",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "processes",
+                    ":processUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processUid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ad194ca-86ca-42b0-970e-80a695b05327",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "processes",
+                    ":processUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processUid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44e56a52-ba0b-4a7c-9284-9bb8b50db61a",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "processes",
+                    ":processUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processUid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "081c7bb5-79d3-402b-9be5-7e162f321a74",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "processes",
+                    ":processUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processUid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1605fd8c-63ad-4ac4-8014-31c2a3efe7bb",
+          "name": "List all source strings",
+          "request": {
+            "name": "List all source strings",
+            "description": {
+              "content": "Returns source strings from Smartling. You can get strings by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that are not added via the Strings API, you may see differences in the response.\n\nYou may see a value for `parsedStringText` but a `null` value for `stringText`. The `stringText` records the raw input received by the Strings API, and therefore will only appear for strings uploaded via the Strings API.\nIf you are getting a GDN string, the original placeholder values you used will not be returned as these are not saved by Smartling. GDN strings will have placeholders in the format `{0}`, `{1}`, etc.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "strings-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "source-strings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "hashcodes",
+                  "value": "<string>",
+                  "description": "Hashcodes for each string you want to get source strings for."
+                },
+                {
+                  "disabled": false,
+                  "key": "hashcodes",
+                  "value": "<string>",
+                  "description": "Hashcodes for each string you want to get source strings for."
+                },
+                {
+                  "disabled": false,
+                  "key": "fileUri",
+                  "value": "<string>",
+                  "description": "URI of a file you want to get strings for."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>",
+                  "description": "By default, responses will be limited to 500 per request. This is also the maximum allowed value."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>",
+                  "description": "Pagination setting. Default is 0."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef340ec6-b12d-43dd-9861-862df8ea7b9b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "source-strings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fileUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"hashcode\": \"string\",\n          \"keys\": [\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            }\n          ],\n          \"parsedStringText\": \"string\",\n          \"stringText\": \"string\",\n          \"stringVariant\": \"string\",\n          \"maxLength\": 1512.2887517847116,\n          \"stringInstructions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"contentFileStringInstructions\": [\n            {\n              \"fileUri\": \"string\",\n              \"contentFileStringInstruction\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"contentFileStringInstruction\": \"string\"\n            }\n          ]\n        },\n        {\n          \"hashcode\": \"string\",\n          \"keys\": [\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            }\n          ],\n          \"parsedStringText\": \"string\",\n          \"stringText\": \"string\",\n          \"stringVariant\": \"string\",\n          \"maxLength\": 4857.477602470019,\n          \"stringInstructions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"contentFileStringInstructions\": [\n            {\n              \"fileUri\": \"string\",\n              \"contentFileStringInstruction\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"contentFileStringInstruction\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"totalCount\": 2289.567171912691\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52113f63-928a-4d14-889a-093e20e29efd",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "source-strings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fileUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e461dde-f0d7-46ee-886c-e5c9af051d17",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "source-strings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fileUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82fd1da7-b036-4ba8-b9cd-2ab4f6eb218d",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "source-strings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fileUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "701e4b07-65dc-4a0e-82f0-6f9c3075f284",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "source-strings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fileUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b086116-37b0-423c-98bc-abb89e2d92c3",
+          "name": "List all source strings (POST)",
+          "request": {
+            "name": "List all source strings (POST)",
+            "description": {
+              "content": "Returns source strings from Smartling. You can get strings by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that are not added via the Strings API, you may see differences in the response.\n\nYou may see a value for `parsedStringText` but a `null` value for `stringText`. The `stringText` records the raw input received by the Strings API, and therefore will only appear for strings uploaded via the Strings API.\nIf you are getting a GDN string, the original placeholder values you used will not be returned as these are not saved by Smartling. GDN strings will have placeholders in the format `{0}`, `{1}`, etc.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "strings-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "source-strings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b6979f21-c0e0-48f3-9dde-c4d79996f423",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "source-strings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"hashcode\": \"string\",\n          \"keys\": [\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            }\n          ],\n          \"parsedStringText\": \"string\",\n          \"stringText\": \"string\",\n          \"stringVariant\": \"string\",\n          \"maxLength\": 1930.2322885321532,\n          \"stringInstructions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"contentFileStringInstructions\": [\n            {\n              \"fileUri\": \"string\",\n              \"contentFileStringInstruction\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"contentFileStringInstruction\": \"string\"\n            }\n          ]\n        },\n        {\n          \"hashcode\": \"string\",\n          \"keys\": [\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            }\n          ],\n          \"parsedStringText\": \"string\",\n          \"stringText\": \"string\",\n          \"stringVariant\": \"string\",\n          \"maxLength\": 9080.288165840186,\n          \"stringInstructions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"contentFileStringInstructions\": [\n            {\n              \"fileUri\": \"string\",\n              \"contentFileStringInstruction\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"contentFileStringInstruction\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"totalCount\": 6324.032187318908\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9742dd8c-99d5-40c0-8323-cb0ee8aee8ce",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "source-strings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df7a3d09-3804-4653-85f2-766100083cf4",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "source-strings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82f9c6a4-9a72-42c7-866f-f55f05657948",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "source-strings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e588213-5858-43b5-8c30-50bcfc476ecf",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "source-strings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ae82677-45c6-41c9-9f88-4f015a1b32d2",
+          "name": "List all translations",
+          "request": {
+            "name": "List all translations",
+            "description": {
+              "content": "Returns translated strings from Smartling. You can get translations by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that were not created via the Strings API, you may see differences in the response.\n\nOnly authorized and active strings will be returned. Excluded, unauthorized, and inactive strings will not be returned.\n\nYou may see a value for `parsedStringText` but a `null` value for `stringText`. The `stringText` records the raw input received by the Strings API, and therefore will only appear for strings uploaded via the Strings API.\nIf you are getting a GDN string, the original placeholder values you used will not be returned as these are not saved by Smartling. GDN strings will have placeholders in the format `{0}`, `{1}`, etc.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "strings-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "translations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "hashcodes",
+                  "value": "<string>",
+                  "description": "Hashcodes for each string you want to get translations for."
+                },
+                {
+                  "disabled": false,
+                  "key": "hashcodes",
+                  "value": "<string>",
+                  "description": "Hashcodes for each string you want to get translations for."
+                },
+                {
+                  "disabled": false,
+                  "key": "targetLocaleId",
+                  "value": "<string>",
+                  "description": "(Required) Smartling ID for the language you want to get translations for."
+                },
+                {
+                  "disabled": false,
+                  "key": "retrievalType",
+                  "value": "<string>",
+                  "description": "Sets the types of translations you want returned. `published` will only return translations that have completed their workflows and been published. `pending` will return any saved translations."
+                },
+                {
+                  "disabled": false,
+                  "key": "fileUri",
+                  "value": "<string>",
+                  "description": "URI of a file you want to get translations for."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>",
+                  "description": "Pagination setting. By default, responses will be limited to 500 per request. This is also the maximum allowed value."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>",
+                  "description": "Pagination setting. Default is 0."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "46eae05c-5092-446b-873f-dc25a28ad908",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "translations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retrievalType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fileUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"hashcode\": \"string\",\n          \"keys\": [\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            }\n          ],\n          \"parsedStringText\": \"string\",\n          \"stringText\": \"string\",\n          \"targetLocaleId\": \"string\",\n          \"translations\": [\n            {\n              \"modifiedDate\": \"string\",\n              \"pluralForm\": \"string\",\n              \"translation\": \"string\"\n            },\n            {\n              \"modifiedDate\": \"string\",\n              \"pluralForm\": \"string\",\n              \"translation\": \"string\"\n            }\n          ],\n          \"stringVariant\": \"string\",\n          \"workflowStepUid\": \"16f28779-84cf-0f03-38a8-8fb92ca5743e\"\n        },\n        {\n          \"hashcode\": \"string\",\n          \"keys\": [\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            }\n          ],\n          \"parsedStringText\": \"string\",\n          \"stringText\": \"string\",\n          \"targetLocaleId\": \"string\",\n          \"translations\": [\n            {\n              \"modifiedDate\": \"string\",\n              \"pluralForm\": \"string\",\n              \"translation\": \"string\"\n            },\n            {\n              \"modifiedDate\": \"string\",\n              \"pluralForm\": \"string\",\n              \"translation\": \"string\"\n            }\n          ],\n          \"stringVariant\": \"string\",\n          \"workflowStepUid\": \"f2dccde1-f1c6-f5be-7a02-284290a914d9\"\n        }\n      ],\n      \"totalCount\": 8108.215232920241\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e44190b-36bc-48e8-b6dd-9ff861d12213",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "translations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retrievalType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fileUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ada9f03-f677-4508-8562-6edc0121a412",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "translations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retrievalType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fileUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b373dac9-422d-4a72-ba6d-9ba423a019ad",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "translations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retrievalType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fileUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ca35fe2-4f64-411c-948c-63a3f6651ead",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "translations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hashcodes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "targetLocaleId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retrievalType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fileUri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6407a8c7-ee83-4d06-a587-4a8876a4bcff",
+          "name": "List all translations (POST)",
+          "request": {
+            "name": "List all translations (POST)",
+            "description": {
+              "content": "Returns translated strings from Smartling. You can get translations by specifying a file you want strings for, or you can specify individual strings by hashcode.\n\n_If you do not specify at least one of these parameters (`hashcodes` or `fileUri`) no results will be returned._\n\n**Note**: If you use this call to get strings that were not created via the Strings API, you may see differences in the response.\n\nOnly authorized and active strings will be returned. Excluded, unauthorized, and inactive strings will not be returned.\n\nYou may see a value for `parsedStringText` but a `null` value for `stringText`. The `stringText` records the raw input received by the Strings API, and therefore will only appear for strings uploaded via the Strings API.\nIf you are getting a GDN string, the original placeholder values you used will not be returned as these are not saved by Smartling. GDN strings will have placeholders in the format `{0}`, `{1}`, etc.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "strings-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "translations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetLocaleId\": \"<string>\",\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"retrievalType\": \"<string>\",\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "606e499c-0f02-4f5f-ad6e-7bd142e683b4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "translations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetLocaleId\": \"<string>\",\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"retrievalType\": \"<string>\",\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"hashcode\": \"string\",\n          \"keys\": [\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            }\n          ],\n          \"parsedStringText\": \"string\",\n          \"stringText\": \"string\",\n          \"targetLocaleId\": \"string\",\n          \"translations\": [\n            {\n              \"modifiedDate\": \"string\",\n              \"pluralForm\": \"string\",\n              \"translation\": \"string\"\n            },\n            {\n              \"modifiedDate\": \"string\",\n              \"pluralForm\": \"string\",\n              \"translation\": \"string\"\n            }\n          ],\n          \"stringVariant\": \"string\",\n          \"workflowStepUid\": \"d165b20c-d62a-f400-b436-4bb3a36fb799\"\n        },\n        {\n          \"hashcode\": \"string\",\n          \"keys\": [\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            },\n            {\n              \"fileUri\": \"string\",\n              \"key\": \"string\"\n            }\n          ],\n          \"parsedStringText\": \"string\",\n          \"stringText\": \"string\",\n          \"targetLocaleId\": \"string\",\n          \"translations\": [\n            {\n              \"modifiedDate\": \"string\",\n              \"pluralForm\": \"string\",\n              \"translation\": \"string\"\n            },\n            {\n              \"modifiedDate\": \"string\",\n              \"pluralForm\": \"string\",\n              \"translation\": \"string\"\n            }\n          ],\n          \"stringVariant\": \"string\",\n          \"workflowStepUid\": \"65c78e91-8d3b-71e6-2ed5-8dafc56ad030\"\n        }\n      ],\n      \"totalCount\": 2603.580793634349\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e4f4d5a-ddaf-41a8-81b0-aef930047dc3",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "translations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetLocaleId\": \"<string>\",\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"retrievalType\": \"<string>\",\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c15f9bb-1586-423b-856a-7cec42a44d0a",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "translations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetLocaleId\": \"<string>\",\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"retrievalType\": \"<string>\",\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a95390b-5d8f-4e29-b375-ac712a685f9f",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "translations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetLocaleId\": \"<string>\",\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"retrievalType\": \"<string>\",\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbf0358e-94dd-49cd-90d2-ef2c513e7422",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "strings-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "translations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"targetLocaleId\": \"<string>\",\n  \"hashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"retrievalType\": \"<string>\",\n  \"fileUri\": \"<string>\",\n  \"limit\": \"<number>\",\n  \"offset\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "888a0e2c-627b-4f90-868a-452ec848c12b",
+    "name": "Smartling REST API Reference Account & Projects Strings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

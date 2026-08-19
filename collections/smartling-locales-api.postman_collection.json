@@ -1,0 +1,344 @@
+{
+  "item": [
+    {
+      "id": "d79b38c3-0c63-4045-bf13-98da042cef34",
+      "name": "Locales",
+      "description": {
+        "content": "Locales are the language and country pairs that are used to identify the\nsource content and the desired target locale for your translated content.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e6466925-c148-4079-9c6a-0df9e191ffc9",
+          "name": "List locales",
+          "request": {
+            "name": "List locales",
+            "description": {
+              "content": "The list of available locales within Smartling.\n\nTo find out the `localedID` for a specific project, refer to [Get project\ndetails](/#operation/getProjectDetails).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "locales-api",
+                "v2",
+                "dictionary",
+                "locales"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "localeIds",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of locales."
+                },
+                {
+                  "disabled": false,
+                  "key": "localeIds",
+                  "value": "<string>",
+                  "description": "Optional parameter to filter to the specified list of locales."
+                },
+                {
+                  "disabled": false,
+                  "key": "supportedOnly",
+                  "value": "<boolean>",
+                  "description": "Fetch only supported locales. Otherwise fetch all locales. Default value is \"true\"."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12458f5a-5410-4596-b4fc-4bb89931fe1e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locales-api",
+                    "v2",
+                    "dictionary",
+                    "locales"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "localeIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "localeIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supportedOnly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"description\": \"English\",\n          \"mtSupported\": true,\n          \"language\": {\n            \"description\": \"English\",\n            \"direction\": \"RTL\",\n            \"languageId\": \"en\",\n            \"wordDelimiter\": \"CHARACTER\"\n          },\n          \"localeId\": \"en-US\",\n          \"direction\": \"RTL\",\n          \"country\": {\n            \"countryId\": \"US\",\n            \"description\": \"United States\"\n          }\n        },\n        {\n          \"description\": \"Italian (Italy) [it-IT]\",\n          \"mtSupported\": true,\n          \"language\": {\n            \"description\": \"Italian\",\n            \"direction\": \"RTL\",\n            \"languageId\": \"it\",\n            \"wordDelimiter\": \"CHARACTER\"\n          },\n          \"localeId\": \"it-IT\",\n          \"direction\": \"RTL\",\n          \"country\": {\n            \"countryId\": \"IT\",\n            \"description\": \"Italy\"\n          }\n        }\n      ],\n      \"totalCount\": 2\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "041d7d11-d02f-4c68-83a9-c7e98b7a20b1",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locales-api",
+                    "v2",
+                    "dictionary",
+                    "locales"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "localeIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "localeIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supportedOnly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63bf323f-ee50-45db-9dc6-9a2a341a9817",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locales-api",
+                    "v2",
+                    "dictionary",
+                    "locales"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "localeIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "localeIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supportedOnly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9155255-1244-47a1-b8db-c582f361d0b4",
+              "name": "Too many simultaneous API requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locales-api",
+                    "v2",
+                    "dictionary",
+                    "locales"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "localeIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "localeIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supportedOnly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAX_OPERATIONS_LIMIT_EXCEEDED\",\n    \"errors\": [\n      {\n        \"key\": \"too.many.requests\",\n        \"message\": \"The limit of 10 concurrent Smartling file API operations for this project has been exceeded.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ace47b7d-9b8d-4326-8557-0a475f2a889b",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locales-api",
+                    "v2",
+                    "dictionary",
+                    "locales"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "localeIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "localeIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supportedOnly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAINTENANCE_MODE_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1a2c8e9a-5f91-4b31-a849-c96305a21dbd",
+    "name": "Smartling REST API Reference Account & Projects Locales API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

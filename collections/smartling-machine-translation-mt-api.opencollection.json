@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Machine Translation (MT) API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Machine Translation (MT)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Machine Translation (MT) using a preconfigured MT or LLM Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/mt-router-api/v2/accounts/:accountUid/smartling-mt",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique account identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Machine Translation (MT) using a preconfigured MT or LLM Profile. Input and output text format is HTML."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

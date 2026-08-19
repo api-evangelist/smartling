@@ -1,0 +1,735 @@
+{
+  "item": [
+    {
+      "id": "f92d8431-5c9c-41a7-a1a2-5b1a419df219",
+      "name": "Tags",
+      "description": {
+        "content": "Tags can help you manage your strings. The Tags API allows you to\nadd/remove string tags, and search for tags in a project.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8d152535-79e9-4cdb-9b57-e5d9439c9548",
+          "name": "List tags within a account",
+          "request": {
+            "name": "List tags within a account",
+            "description": {
+              "content": "List / search tags within an account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tags-api",
+                "v2",
+                "accounts",
+                ":accountUid",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountUid",
+                  "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tagMask\": \"<string>\",\n  \"limit\": 1500,\n  \"offset\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fdd1eeac-a160-4f56-bfeb-6c4eecffe564",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags-api",
+                    "v2",
+                    "accounts",
+                    ":accountUid",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"projectIds\": [\n    \"12ddasds5\",\n    \"dsde3e3f4\"\n  ],\n  \"tagMask\": \"<string>\",\n  \"limit\": 30,\n  \"offset\": 30\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"projectId\": \"123jlkj8c\",\n          \"tag\": \"StringTag\"\n        },\n        {\n          \"projectId\": \"hjhjkh44f\",\n          \"tag\": \"AnotherTag\"\n        }\n      ],\n      \"totalCount\": 2\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d066f867-8e5f-4597-acbc-4b8c9ccefcb8",
+          "name": "List tags within a project",
+          "request": {
+            "name": "List tags within a project",
+            "description": {
+              "content": "List / search tags within a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tags-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tagMask",
+                  "value": "",
+                  "description": "Tag mask for search."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "The limit on the number of tags returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The offset to use when searching for tags."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "605e69c2-8532-424d-8f33-e247c8ed0881",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tagMask",
+                      "value": ""
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"tag\": \"StringTag\"\n        },\n        {\n          \"tag\": \"AnotherTag\"\n        }\n      ],\n      \"totalCount\": 2\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bde93035-ce79-41e5-9892-df505d5804ef",
+          "name": "Get all tags for strings",
+          "request": {
+            "name": "Get all tags for strings",
+            "description": {
+              "content": "Retrieve all tags linked to strings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tags-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "strings",
+                "tags",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"stringHashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "65f68ce5-0af5-46ec-bbe8-8f95dcfe372d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "strings",
+                    "tags",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"stringHashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"tags\": [\n            {\n              \"tag\": \"SomeTag\"\n            },\n            {\n              \"tag\": \"SomeTag\"\n            }\n          ],\n          \"stringHashcode\": \"stringHashcode\"\n        },\n        {\n          \"tags\": [\n            {\n              \"tag\": \"SomeTag\"\n            },\n            {\n              \"tag\": \"SomeTag\"\n            }\n          ],\n          \"stringHashcode\": \"stringHashcode\"\n        }\n      ],\n      \"totalCount\": 1\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ea9dd16-645f-4cdd-8400-02080a670534",
+          "name": "Add tags to strings",
+          "request": {
+            "name": "Add tags to strings",
+            "description": {
+              "content": "Add a list of tags to a list of strings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tags-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "strings",
+                "tags",
+                "add"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    \"<string>\"\n  ],\n  \"stringHashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "de25e619-ee5b-419c-9de1-0a7d3c86fa83",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "strings",
+                    "tags",
+                    "add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2782dc0e-9ce8-40aa-bb6f-1abaf04616ff",
+          "name": "Remove tags from strings",
+          "request": {
+            "name": "Remove tags from strings",
+            "description": {
+              "content": "Remove a list of tags from a list of strings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tags-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "strings",
+                "tags",
+                "remove"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    \"<string>\"\n  ],\n  \"stringHashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fcc5236a-dc0b-4b69-845b-6c8ddcc2a593",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "strings",
+                    "tags",
+                    "remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ef88b19-afcc-40d6-8bdd-2c10feb78f73",
+          "name": "Remove all tags from strings",
+          "request": {
+            "name": "Remove all tags from strings",
+            "description": {
+              "content": "Remove all tags from a list of strings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tags-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "strings",
+                "tags",
+                "remove",
+                "all"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"stringHashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "000ec561-2bf8-4680-8b2d-232d960f7e73",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "strings",
+                    "tags",
+                    "remove",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"stringHashcodes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a2084884-eddb-424e-b065-49d2607bf010",
+    "name": "Smartling REST API Reference Account & Projects Tags API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

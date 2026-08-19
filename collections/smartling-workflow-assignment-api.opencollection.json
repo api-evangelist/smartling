@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Workflow Assignment API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflow Assignment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Assignments removal status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/people-api/v3/accounts/:accountUid/processes/:processUid",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "processUid",
+                "value": "",
+                "type": "path",
+                "description": "The process unique identifier."
+              }
+            ]
+          },
+          "docs": "Checking state of workflow assignments removal process\n"
+        },
+        {
+          "info": {
+            "name": "Create Steps Assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/people-api/v3/accounts/:accountUid/users/:userUid/workflow-steps/assign",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "userUid",
+                "value": "",
+                "type": "path",
+                "description": "User identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create new workflow steps assignment"
+        },
+        {
+          "info": {
+            "name": "Remove Step Assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/people-api/v3/accounts/:accountUid/users/:userUid/workflow-steps/remove",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "userUid",
+                "value": "",
+                "type": "path",
+                "description": "User identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedule workflow steps assignment removal and returns process uid for status check."
+        },
+        {
+          "info": {
+            "name": "Search For Account Assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/people-api/v3/accounts/:accountUid/users/workflow-steps",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for workflow step assignments within account"
+        },
+        {
+          "info": {
+            "name": "Search For User Assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/people-api/v3/accounts/:accountUid/users/:userUid/workflow-steps",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "userUid",
+                "value": "",
+                "type": "path",
+                "description": "User identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for workflow step assignments for single user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

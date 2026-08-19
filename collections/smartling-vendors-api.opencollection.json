@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Vendors API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vendors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List available jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/vendors-api/v2/agencies/:agencyUid/jobs",
+            "params": [
+              {
+                "name": "agencyUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the list of jobs available for the agency."
+        },
+        {
+          "info": {
+            "name": "List content assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/vendors-api/v2/accounts/:accountUid/content-assignments",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account's unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ]
+          },
+          "docs": "Returns the list of content assignments for the account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

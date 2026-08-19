@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Locales API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Locales",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List locales",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/locales-api/v2/dictionary/locales",
+            "params": [
+              {
+                "name": "localeIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of locales."
+              },
+              {
+                "name": "supportedOnly",
+                "value": "",
+                "type": "query",
+                "description": "Fetch only supported locales. Otherwise fetch all locales. Default value is \"true\"."
+              }
+            ]
+          },
+          "docs": "The list of available locales within Smartling.\n\nTo find out the `localedID` for a specific project, refer to [Get project\ndetails](/#operation/getProjectDetails).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

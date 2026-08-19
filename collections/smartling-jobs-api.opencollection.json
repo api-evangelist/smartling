@@ -1,0 +1,920 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Jobs API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List jobs within an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/accounts/:accountUid/jobs",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique account identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "jobName",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by `jobName`. Any entry is treated as a LIKE query on the name of the job."
+              },
+              {
+                "name": "projectIds",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by `projectId`. Supports up to 500 `projectId`s."
+              },
+              {
+                "name": "translationJobStatus",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by their status."
+              },
+              {
+                "name": "withPriority",
+                "value": "",
+                "type": "query",
+                "description": "If set to `true`, returns jobs only with priority."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit on the number of jobs returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset to use when searching for jobs."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by."
+              },
+              {
+                "name": "sortDirection",
+                "value": "",
+                "type": "query",
+                "description": "The direction to sort."
+              }
+            ]
+          },
+          "docs": "List / search the jobs within an account. By default, only the last 50 jobs are returned. Use the <code>limit</code> and <code>offset</code> parameters to return more than 50 jobs. <a href=\"https://help.smartling.com/hc/en-us/articles/1260805176869-Pagination\" target=\"_blank\">Learn more.</a>"
+        },
+        {
+          "info": {
+            "name": "List jobs within a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "jobName",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by `jobName`. Any entry is treated as a LIKE query on the name of the job."
+              },
+              {
+                "name": "jobNumber",
+                "value": "SMTL-123",
+                "type": "query",
+                "description": "Used for searching jobs by `jobNumber`. Search works by exact comparison."
+              },
+              {
+                "name": "translationJobUids",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by `translationJobUid`. Supports up to 500 `translationJobUid`s."
+              },
+              {
+                "name": "translationJobStatus",
+                "value": "",
+                "type": "query",
+                "description": "Used for searching jobs by their status."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit on the number of jobs returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset to use when searching for jobs."
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by."
+              },
+              {
+                "name": "sortDirection",
+                "value": "",
+                "type": "query",
+                "description": "The direction to sort."
+              }
+            ]
+          },
+          "docs": "List / search the jobs within a project. By default, only the last 50 jobs are returned. Use the <code>limit</code> and <code>offset</code> parameters to return more than 50 jobs. <a href=\"https://help.smartling.com/hc/en-us/articles/1260805176869-Pagination\" target=\"_blank\">Learn more.</a>"
+        },
+        {
+          "info": {
+            "name": "Create job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a job within Smartling."
+        },
+        {
+          "info": {
+            "name": "Search Jobs By Hashcodes And Locales",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/find-jobs-by-strings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search Job(s), based on locales and hashcodes. We allow total 20000 records to be passed. Means it could be 10 locales * 2000 hashcodes or 1 locale * 20000 hashcodes or no locales and just 20000 hashcodes, etc\n"
+        },
+        {
+          "info": {
+            "name": "Get translation job strings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/strings",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "targetLocaleId",
+                "value": "",
+                "type": "query",
+                "description": "Target / translation locale id."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max amount of result items."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Amount of items to skip."
+              }
+            ]
+          },
+          "docs": "This gets translation job string hashcodes with locales\n"
+        },
+        {
+          "info": {
+            "name": "Add strings to job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/strings/add",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adding strings to a job is useful if you don't manage strings / content through files, but instead need to add strings by some other means other than files.\n\nWhen strings are successfully added to a job, a `200` status is returned. When the system can't quickly add strings to the job, a `202` response status is returned. The response contains a link and `processUid` to check the progress of the request. When a `202` is received, the process of adding the content to the job will not be complete u"
+        },
+        {
+          "info": {
+            "name": "Remove strings from job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/strings/remove",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove strings from a job. Any strings removed from the job will also be unauthorized within Smartling.\n\nIf strings are successfully removed from a job, a `200` status will be returned. When the system can't quickly add the strings to the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of removing the content from the job will not be complete until the returned process has completed.\n"
+        },
+        {
+          "info": {
+            "name": "Close job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/close",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This closes a completed job. In order for a job to be closed, it must be in a completed state. All content from the job will be removed when it is closed. Closing a job guarantees that no additional work will be done against the job."
+        },
+        {
+          "info": {
+            "name": "Cancel job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/cancel",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This cancels a job. All content within the job will be removed from the job and the content will be unauthorized.\n\nIf a job is successfully cancelled, a `200` response status will be returned. When the system can't quickly cancel the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of canceling and removing the content from the job will not be complete until the returned process has completed.\n"
+        },
+        {
+          "info": {
+            "name": "Authorize job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/authorize",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This authorizes all content within a job. A job can only be authorized when it has content and is in an AWAITING_AUTHORIZATION state."
+        },
+        {
+          "info": {
+            "name": "Get details of job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This gets the details of a job such as job name, description, due date, and reference number."
+        },
+        {
+          "info": {
+            "name": "Update job",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This updates the attributes of the job, such as job name, description, due date, and reference number. The API works in a replace-all fashion. Fields, that are not passed, will be overwritten with empty values."
+        },
+        {
+          "info": {
+            "name": "Delete job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This deletes a job. Only job that is in `CANCELLED` status can be deleted.\nIf a job is successfully deleted, a `200` response status will be returned.\n"
+        },
+        {
+          "info": {
+            "name": "Search for job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/search",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This searches for jobs based on hashcodes (string identifiers), `fileUri`s, and `translationJobUid`s. Will return max of 100 translation job list items."
+        },
+        {
+          "info": {
+            "name": "Check for an async process for job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/processes/:processUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "processUid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This checks for an asynchronous process for a job."
+        },
+        {
+          "info": {
+            "name": "Add file to job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/file/add",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This adds all non-published strings from a file to a job. By default, the file will be added for all locales of the job, but you can change this by specifying `targetLocaleId`s for the job you wish to add the file into.\n\n**Validation rules:**\n- A job can contain a maximum of 5000 files.\n- Content can't be added to the job if the job doesn't contain any locales, and the request to add a file doesn't specify any locales.\n- The file (specified by the `fileUri`) can't be in the process of being uplo"
+        },
+        {
+          "info": {
+            "name": "Remove file from job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/file/remove",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a file from a job. All content that is part of the file contained within that job will be removed from the job and will become unauthorized content.\n\nWhen the system can quickly remove the file and its content from the job synchronously, it responds with a `200` status. When the system cannot quickly remove the file and its content from the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of removi"
+        },
+        {
+          "info": {
+            "name": "List files within job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/files",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The limit on the number of files returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset to use when searching for files."
+              }
+            ]
+          },
+          "docs": "This lists all files within a job."
+        },
+        {
+          "info": {
+            "name": "Add locale to job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/locales/:targetLocaleId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "targetLocaleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This adds a locale to a job. When the system can quickly add the locale and any content to the job, it synchronously responds with status `200`. When the system can't quickly add the locale and any content to the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of adding the content to the job will not be complete until the returned process has completed.\n"
+        },
+        {
+          "info": {
+            "name": "Remove locale from job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/locales/:targetLocaleId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "targetLocaleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This removes a locale from a job. When removing a locale from a job (and thus any content within that job for that locale), the content being removed will be unauthorized.\n\nWhen the system can quickly remove the locale and any content from the job, it synchronously responds with status `200`. When the system cannot quickly remove the locale and any content from the job, then a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received,"
+        },
+        {
+          "info": {
+            "name": "Get progress of file within job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/file/progress",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fileUri",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This shows the progress of a file within a job."
+        },
+        {
+          "info": {
+            "name": "Get progress of job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/progress",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "targetLocaleId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This gets the progress of a job."
+        },
+        {
+          "info": {
+            "name": "Get last completion dates per locale of job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/locales-completion-dates",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a job."
+              }
+            ]
+          },
+          "docs": "Returns the last completion date for any locale completed within the job."
+        },
+        {
+          "info": {
+            "name": "Find schedule for translation job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/schedule",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a job."
+              }
+            ]
+          },
+          "docs": "Get all schedule items for a specific job."
+        },
+        {
+          "info": {
+            "name": "Modify schedule items for translation job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/jobs/:translationJobUid/schedule",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a job."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This modifies translation job schedule for provided items\n"
+        },
+        {
+          "info": {
+            "name": "Find custom fields for specified project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/custom-fields",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ]
+          },
+          "docs": "Returns custom fields assigned to the project. Order is the one that was specified during assignment operation."
+        },
+        {
+          "info": {
+            "name": "Assign new custom fields to project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/projects/:projectId/custom-fields",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Accepts new values for assignment. If empty list is passed - all assignments are deleted. Order of the fields in the request is preserved during saving."
+        },
+        {
+          "info": {
+            "name": "Find custom fields for specified account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/jobs-api/v3/accounts/:accountUid/custom-fields",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "searchableOnly",
+                "value": "",
+                "type": "query",
+                "description": "Get only searchable custom fields."
+              },
+              {
+                "name": "enabledOnly",
+                "value": "",
+                "type": "query",
+                "description": "Get only enabled custom fields."
+              }
+            ]
+          },
+          "docs": "Gets all custom fields for specified account."
+        },
+        {
+          "info": {
+            "name": "Create new custom field in account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/jobs-api/v3/accounts/:accountUid/custom-fields",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates new custom field in account."
+        },
+        {
+          "info": {
+            "name": "Update custom field in account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.smartling.com/jobs-api/v3/accounts/:accountUid/custom-fields/:fieldUid",
+            "params": [
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "path",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "fieldUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a custom field."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates custom field in account using field UID specified."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

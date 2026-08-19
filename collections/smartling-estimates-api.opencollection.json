@@ -1,0 +1,393 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Estimates API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Estimates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get List of Job Fuzzy Estimate Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/jobs/:translationJobUid/reports/fuzzy",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique translation job identifier."
+              },
+              {
+                "name": "reportStatus",
+                "value": "",
+                "type": "query",
+                "description": "Status of report."
+              },
+              {
+                "name": "contentCoverage",
+                "value": "",
+                "type": "query",
+                "description": "Specifies level of content coverage report should have."
+              },
+              {
+                "name": "creatorUserUids",
+                "value": "",
+                "type": "query",
+                "description": "Array of report creator uids."
+              },
+              {
+                "name": "translationJobSchemaContents",
+                "value": "",
+                "type": "query",
+                "description": "if report was generated for the job,."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Search is done via or logic, i.e. if a report has any of the given tags, it will be returned."
+              },
+              {
+                "name": "createdFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date filter for report."
+              },
+              {
+                "name": "createdTo",
+                "value": "",
+                "type": "query",
+                "description": "Date filter for report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Paging parameter. The number of reports to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Paging parameter. The index of the repor to start with."
+              }
+            ]
+          },
+          "docs": "List fuzzy estimate reports."
+        },
+        {
+          "info": {
+            "name": "Generate Fuzzy Estimate Report for the Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/jobs/:translationJobUid/reports/fuzzy",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique translation job identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate Fuzzy report for the Job."
+        },
+        {
+          "info": {
+            "name": "Get List of Job Cost Estimate Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/jobs/:translationJobUid/reports/cost",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique translation job identifier."
+              },
+              {
+                "name": "reportStatus",
+                "value": "",
+                "type": "query",
+                "description": "Status of report."
+              },
+              {
+                "name": "contentCoverage",
+                "value": "",
+                "type": "query",
+                "description": "Specifies level of content coverage report should have."
+              },
+              {
+                "name": "creatorUserUids",
+                "value": "",
+                "type": "query",
+                "description": "Array of report creator uids."
+              },
+              {
+                "name": "translationJobSchemaContents",
+                "value": "",
+                "type": "query",
+                "description": "if report was generated for the job,."
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "Search is done via or logic, i.e. if a report has any of the given tags, it will be returned."
+              },
+              {
+                "name": "createdFrom",
+                "value": "",
+                "type": "query",
+                "description": "Date filter for report."
+              },
+              {
+                "name": "createdTo",
+                "value": "",
+                "type": "query",
+                "description": "Date filter for report."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Paging parameter. The number of reports to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Paging parameter. The index of the repor to start with."
+              }
+            ]
+          },
+          "docs": "List cost estimate reports."
+        },
+        {
+          "info": {
+            "name": "Generate Cost Estimate Report for the Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/jobs/:translationJobUid/reports/cost",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "translationJobUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique translation job identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate Cost Estimate Report for the Job"
+        },
+        {
+          "info": {
+            "name": "Get Estimate Report Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/reports/:reportUid/status",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "reportUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique report identifier."
+              },
+              {
+                "name": "reportStatus",
+                "value": "",
+                "type": "query",
+                "description": "Status of report."
+              },
+              {
+                "name": "reportType",
+                "value": "",
+                "type": "query",
+                "description": "Report type."
+              }
+            ]
+          },
+          "docs": "Get Estimate Report Status"
+        },
+        {
+          "info": {
+            "name": "Get Estimate Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/reports/:reportUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "reportUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique report identifier."
+              },
+              {
+                "name": "reportStatus",
+                "value": "",
+                "type": "query",
+                "description": "Status of report."
+              },
+              {
+                "name": "reportType",
+                "value": "",
+                "type": "query",
+                "description": "Report type."
+              }
+            ]
+          },
+          "docs": "Get Estimate Report"
+        },
+        {
+          "info": {
+            "name": "Delete Estimation Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/reports/:reportUid",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "reportUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique report identifier."
+              }
+            ]
+          },
+          "docs": "Delete estimate report."
+        },
+        {
+          "info": {
+            "name": "Modify Tags of Estimation Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectId/reports/:reportUid/tags",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "reportUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique report identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The new set of tags completely replaces the old ones."
+        },
+        {
+          "info": {
+            "name": "Export Estimation Report as CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/estimates-api/v2/projects/:projectUid/reports/:reportUid/download",
+            "params": [
+              {
+                "name": "projectUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique project identifier."
+              },
+              {
+                "name": "reportUid",
+                "value": "",
+                "type": "path",
+                "description": "A unique report identifier."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "for now, only csv is supported."
+              }
+            ]
+          },
+          "docs": "Export Estimation Report as CSV"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

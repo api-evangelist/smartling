@@ -1,0 +1,1577 @@
+{
+  "item": [
+    {
+      "id": "3358fd3d-3505-4309-a040-f363f3940562",
+      "name": "Workflow Assignment",
+      "description": {
+        "content": "The Workflow Assignment API handles workflow step assignments for non agency users.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81f2ea46-7083-43a7-bd4d-475da3d7be17",
+          "name": "Assignments removal status",
+          "request": {
+            "name": "Assignments removal status",
+            "description": {
+              "content": "Checking state of workflow assignments removal process\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "people-api",
+                "v3",
+                "accounts",
+                ":accountUid",
+                "processes",
+                ":processUid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uid>",
+                  "key": "accountUid",
+                  "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "processUid",
+                  "description": "(Required) The process unique identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de9c5114-82bb-43c7-8a9d-60d602d05cb0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "processes",
+                    ":processUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processUid",
+                      "description": "(Required) The process unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"processUid\": \"67f4287b-895f-4fc6-b672-6e3f376b0cd5\",\n      \"processState\": \"RUNNING\",\n      \"createdDate\": \"2023-12-11T20:40:30Z\",\n      \"requested\": 10,\n      \"processed\": 5\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1e4bbd2-7d09-4534-9e90-195af1594c3d",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "processes",
+                    ":processUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processUid",
+                      "description": "(Required) The process unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffd5b0a2-5623-4b30-96b3-97d529df35ca",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "processes",
+                    ":processUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processUid",
+                      "description": "(Required) The process unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d211dc4b-fa0c-40f4-a3bc-dd1a0f15ce93",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "processes",
+                    ":processUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processUid",
+                      "description": "(Required) The process unique identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"MAINTENANCE_MODE_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9ceae17-b743-4fa0-b039-4c579631cc8a",
+          "name": "Create Steps Assignment",
+          "request": {
+            "name": "Create Steps Assignment",
+            "description": {
+              "content": "Create new workflow steps assignment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "people-api",
+                "v3",
+                "accounts",
+                ":accountUid",
+                "users",
+                ":userUid",
+                "workflow-steps",
+                "assign"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uid>",
+                  "key": "accountUid",
+                  "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uid>",
+                  "key": "userUid",
+                  "description": "(Required) User identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roleValue\": \"<string>\",\n  \"workflowStepAssignments\": [\n    {\n      \"workflowStepUid\": \"<string>\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"<string>\",\n        \"targetLocaleIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"workflowStepUid\": \"<string>\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"<string>\",\n        \"targetLocaleIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "12d344a5-70c7-41d8-bdaf-788334b2181c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps",
+                    "assign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"roleValue\": \"<string>\",\n  \"workflowStepAssignments\": [\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    },\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"totalCount\": 10,\n      \"items\": {\n        \"workflowStepUid\": \"8312172ed60d\",\n        \"localePais\": {\n          \"sourceLocaleId\": \"en-US\",\n          \"targetLocaleIds\": [\n            \"fr-FR\",\n            \"es-ES\"\n          ]\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63b4a818-245d-4097-a918-e26ed27e2fa6",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps",
+                    "assign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"roleValue\": \"<string>\",\n  \"workflowStepAssignments\": [\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    },\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "425f4e65-711c-48d0-9ee6-301cd403b699",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps",
+                    "assign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"roleValue\": \"<string>\",\n  \"workflowStepAssignments\": [\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    },\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfa02193-e803-4748-856d-4e8d47330b91",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps",
+                    "assign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"roleValue\": \"<string>\",\n  \"workflowStepAssignments\": [\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    },\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e42f8802-2d8a-4349-a8b1-65cd5db189b6",
+          "name": "Remove Step Assignments",
+          "request": {
+            "name": "Remove Step Assignments",
+            "description": {
+              "content": "Schedule workflow steps assignment removal and returns process uid for status check.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "people-api",
+                "v3",
+                "accounts",
+                ":accountUid",
+                "users",
+                ":userUid",
+                "workflow-steps",
+                "remove"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uid>",
+                  "key": "accountUid",
+                  "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uid>",
+                  "key": "userUid",
+                  "description": "(Required) User identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workflowStepAssignments\": [\n    {\n      \"workflowStepUid\": \"<string>\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"<string>\",\n        \"targetLocaleIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"workflowStepUid\": \"<string>\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"<string>\",\n        \"targetLocaleIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "52cb2bf5-a789-4923-9a8a-b5664a9f8658",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps",
+                    "remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowStepAssignments\": [\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    },\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"processUid\": \"67f4287b-895f-4fc6-b672-6e3f376b0cd5\",\n      \"processState\": \"RUNNING\",\n      \"createdDate\": \"2023-12-11T20:40:30Z\",\n      \"requested\": 10,\n      \"processed\": 5\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcd3e4d3-3312-435f-af66-cc180847bf8c",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps",
+                    "remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowStepAssignments\": [\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    },\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53b9863c-075c-4569-9559-ece4bc10a4be",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps",
+                    "remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowStepAssignments\": [\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    },\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ca1695c-c637-4239-a62a-28622dd26345",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps",
+                    "remove"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowStepAssignments\": [\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    },\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"localePairs\": {\n        \"sourceLocaleId\": \"en-US\",\n        \"targetLocaleIds\": [\n          \"fr-FR\",\n          \"es-ES\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b99304f8-f208-499e-b02e-2cbd8525c4dd",
+          "name": "Search For Account Assignments",
+          "request": {
+            "name": "Search For Account Assignments",
+            "description": {
+              "content": "Search for workflow step assignments within account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "people-api",
+                "v3",
+                "accounts",
+                ":accountUid",
+                "users",
+                "workflow-steps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uid>",
+                  "key": "accountUid",
+                  "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workflowStepUids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"userUid\": \"<string>\",\n  \"offsetToken\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b19ced55-c190-40c8-848f-763e84ae9030",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    "workflow-steps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowStepUids\": [\n    \"8312172ed60d\",\n    \"42121ad3df2c\"\n  ],\n  \"userUid\": \"ac48ht4qy\",\n  \"offsetToken\": \"d966008f-c341-4c75-a986-7e25a0135e01\",\n  \"limit\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"offsetToken\": \"67f4287b-895f-4fc6-b672-6e3f376b0cd5\",\n      \"workflowStepUserAssignments\": {\n        \"userUid\": \"ac48ht4qy\",\n        \"roleValue\": \"ROLE_TRANSLATION_RESOURCE\",\n        \"agencyUid\": null,\n        \"workflowStepAssignments\": {\n          \"workflowStepUid\": \"8312172ed60d\",\n          \"localePais\": {\n            \"sourceLocaleId\": \"en-US\",\n            \"targetLocaleIds\": [\n              \"fr-FR\",\n              \"es-ES\"\n            ]\n          }\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9585faef-c05b-4f7e-8aca-bdcf55b9d915",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    "workflow-steps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowStepUids\": [\n    \"8312172ed60d\",\n    \"42121ad3df2c\"\n  ],\n  \"userUid\": \"ac48ht4qy\",\n  \"offsetToken\": \"d966008f-c341-4c75-a986-7e25a0135e01\",\n  \"limit\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d04bc04-963c-4423-a17f-82e40dfdbf4a",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    "workflow-steps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowStepUids\": [\n    \"8312172ed60d\",\n    \"42121ad3df2c\"\n  ],\n  \"userUid\": \"ac48ht4qy\",\n  \"offsetToken\": \"d966008f-c341-4c75-a986-7e25a0135e01\",\n  \"limit\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1873b590-6bbe-4ce2-8a65-11919f22e738",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    "workflow-steps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflowStepUids\": [\n    \"8312172ed60d\",\n    \"42121ad3df2c\"\n  ],\n  \"userUid\": \"ac48ht4qy\",\n  \"offsetToken\": \"d966008f-c341-4c75-a986-7e25a0135e01\",\n  \"limit\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a75b502-4326-41b0-b47c-68b1f2568662",
+          "name": "Search For User Assignments",
+          "request": {
+            "name": "Search For User Assignments",
+            "description": {
+              "content": "Search for workflow step assignments for single user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "people-api",
+                "v3",
+                "accounts",
+                ":accountUid",
+                "users",
+                ":userUid",
+                "workflow-steps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uid>",
+                  "key": "accountUid",
+                  "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uid>",
+                  "key": "userUid",
+                  "description": "(Required) User identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offsetToken\": \"<string>\",\n  \"limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9e6f4a2a-fe11-426d-82a6-6654717ed621",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsetToken\": \"67f4287b-895f-4fc6-b672-6e3f376b0cd5\",\n  \"limit\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"offsetToken\": \"67f4287b-895f-4fc6-b672-6e3f376b0cd5\",\n      \"workflowStepUserAssignments\": {\n        \"userUid\": \"0d1ff048f7e7\",\n        \"roleValue\": \"ROLE_TRANSLATION_RESOURCE\",\n        \"agencyUid\": null,\n        \"workflowStepAssignments\": {\n          \"workflowStepUid\": \"8312172ed60d\",\n          \"localePais\": {\n            \"sourceLocaleId\": \"en-US\",\n            \"targetLocaleIds\": [\n              \"fr-FR\",\n              \"es-ES\"\n            ]\n          }\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98c1057a-2374-4b76-b235-fd21ec116c75",
+              "name": "Provided request parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsetToken\": \"67f4287b-895f-4fc6-b672-6e3f376b0cd5\",\n  \"limit\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"unknown.field\",\n        \"message\": \"The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.\",\n        \"details\": \"unknown.parameter\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42ba795f-3b1c-469a-a423-f12e2618bf0c",
+              "name": "Provided credentials are not valid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsetToken\": \"67f4287b-895f-4fc6-b672-6e3f376b0cd5\",\n  \"limit\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"AUTHENTICATION_ERROR\",\n    \"errors\": [\n      {\n        \"details\": {},\n        \"key\": \"invalid_token\",\n        \"message\": \"Invalid token\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38c2dad8-fdc3-4a77-90e8-c83244cac573",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "people-api",
+                    "v3",
+                    "accounts",
+                    ":accountUid",
+                    "users",
+                    ":userUid",
+                    "workflow-steps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "accountUid",
+                      "description": "(Required) The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uid>",
+                      "key": "userUid",
+                      "description": "(Required) User identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offsetToken\": \"67f4287b-895f-4fc6-b672-6e3f376b0cd5\",\n  \"limit\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"GENERAL_ERROR\",\n    \"errors\": [\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      },\n      {\n        \"key\": \"general_error\",\n        \"message\": \"Unexpected server error\",\n        \"details\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "be203ee8-5450-49e6-b0d6-d79303b68119",
+    "name": "Smartling REST API Reference Account & Projects Workflow Assignment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1398 @@
+{
+  "item": [
+    {
+      "id": "9a7a68ac-56d5-436b-b424-c0cb88942cba",
+      "name": "Estimates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cffa4af0-a5e8-4b64-8eb5-cd84a6e5fda3",
+          "name": "Get List of Job Fuzzy Estimate Reports",
+          "request": {
+            "name": "Get List of Job Fuzzy Estimate Reports",
+            "description": {
+              "content": "List fuzzy estimate reports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "estimates-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "jobs",
+                ":translationJobUid",
+                "reports",
+                "fuzzy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reportStatus",
+                  "value": "<string>",
+                  "description": "Status of report."
+                },
+                {
+                  "disabled": false,
+                  "key": "contentCoverage",
+                  "value": "<string>",
+                  "description": "Specifies level of content coverage report should have."
+                },
+                {
+                  "disabled": false,
+                  "key": "creatorUserUids",
+                  "value": "<string>",
+                  "description": "Array of report creator uids."
+                },
+                {
+                  "disabled": false,
+                  "key": "creatorUserUids",
+                  "value": "<string>",
+                  "description": "Array of report creator uids."
+                },
+                {
+                  "disabled": false,
+                  "key": "translationJobSchemaContents",
+                  "value": "<string>",
+                  "description": "if report was generated for the job,."
+                },
+                {
+                  "disabled": false,
+                  "key": "translationJobSchemaContents",
+                  "value": "<string>",
+                  "description": "if report was generated for the job,."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "Search is done via or logic, i.e. if a report has any of the given tags, it will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "Search is done via or logic, i.e. if a report has any of the given tags, it will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdFrom",
+                  "value": "<string>",
+                  "description": "Date filter for report."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdTo",
+                  "value": "<string>",
+                  "description": "Date filter for report."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Paging parameter. The number of reports to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Paging parameter. The index of the repor to start with."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "translationJobUid",
+                  "description": "(Required) A unique translation job identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88470ea1-054a-45f1-9f61-864de883adff",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "estimates-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "jobs",
+                    ":translationJobUid",
+                    "reports",
+                    "fuzzy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reportStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contentCoverage",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creatorUserUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creatorUserUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "translationJobSchemaContents",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "translationJobSchemaContents",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdTo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "translationJobUid",
+                      "description": "(Required) A unique translation job identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"totalCount\": 4,\n      \"items\": [\n        {\n          \"reportUid\": \"f84491fc\",\n          \"schemaType\": \"siteLocales\",\n          \"reportType\": \"FUZZY\",\n          \"schema\": \"{\\\"schema\\\":\\\"siteLocales\\\",\\\"projectId\\\":\\\"fd7244365\\\"}\",\n          \"reportStatus\": \"PROCESSING\",\n          \"totalStrings\": 27828,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": null,\n          \"localeEstimates\": null,\n          \"tags\": null,\n          \"warnings\": [\n            \"No rates specified for 'fr-FR' locale.\"\n          ],\n          \"errors\": [\n            \"Report generation failed. Rates of account defined in different currencies: USD, JPY. Only one should be used per account. Please fix this and re-run estimation.\"\n          ]\n        },\n        {\n          \"reportUid\": \"0ec805d4\",\n          \"schemaType\": \"job\",\n          \"reportType\": \"COST\",\n          \"schema\": \"{\\\"schema\\\":\\\"job\\\",\\\"jobUid\\\":\\\"e2f3dcac30cc\\\"}\",\n          \"reportStatus\": \"COMPLETED\",\n          \"totalStrings\": 3200,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": [\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"EUR\"\n            }\n          ],\n          \"localeEstimates\": null,\n          \"tags\": [\n            \"bbbbb456566\"\n          ],\n          \"warnings\": null,\n          \"errors\": null\n        },\n        {\n          \"reportUid\": \"702cdae5\",\n          \"schemaType\": \"listView\",\n          \"schema\": \"{\\\"schema\\\":\\\"listView\\\",\\\"projectId\\\":\\\"fd7244365\\\",\\\"localeList\\\":[\\\"hy-AM\\\"],\\\"stringState\\\":\\\"IN_TRANSLATION\\\",\\\"stringIds\\\":[\\\"5086f27e4a123ac0e573b7d45240b674\\\",\\\"9d67960622910cb2e6ab0525fb8ec747\\\",\\\"816a4bf2e30577ea2cfcb2eec231e50e\\\"],\\\"workflowStepIds\\\":[\\\"19565\\\",\\\"120859\\\",\\\"120860\\\",\\\"19567\\\",\\\"19571\\\",\\\"19570\\\",\\\"19569\\\",\\\"57497\\\",\\\"65867\\\",\\\"57499\\\",\\\"61329\\\",\\\"67758\\\",\\\"67760\\\",\\\"109463\\\",\\\"109465\\\",\\\"136550\\\",\\\"110388\\\",\\\"136548\\\",\\\"136549\\\"]}\",\n          \"reportStatus\": \"COMPLETED\",\n          \"reportType\": \"COST\",\n          \"totalStrings\": 2,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": [\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"USD\"\n            }\n          ],\n          \"localeEstimates\": null,\n          \"tags\": null,\n          \"warnings\": null,\n          \"errors\": null\n        },\n        {\n          \"reportUid\": \"8532918d\",\n          \"schemaType\": \"unauthorized\",\n          \"schema\": \"{\\\"schema\\\":\\\"unauthorized\\\",\\\"projectId\\\":\\\"fd7244365\\\",\\\"localeList\\\":[\\\"hy-AM\\\",\\\"zh-TW\\\",\\\"nl-BE\\\",\\\"pt-BR\\\",\\\"ru-RU\\\",\\\"uk-UA\\\",\\\"cy-GB\\\"],\\\"stringState\\\":\\\"AWAITING_APPROVAL\\\",\\\"stringIds\\\":[\\\"975d88fd8c9290c8356364b91f88af02\\\",\\\"33eb5a93062cb5981168533500668a49\\\",\\\"a781299a67d7bd57511a14cffce40257\\\",\\\"afdf1b5d0aa538184cd67372c0acc7c2\\\",\\\"302d3f85228cd41d2267c7505dafb9e5\\\"]}\",\n          \"reportStatus\": \"COMPLETED\",\n          \"reportType\": \"COST\",\n          \"totalStrings\": 700,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": [\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"USD\"\n            },\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"EUR\"\n            }\n          ],\n          \"localeEstimates\": null,\n          \"tags\": [\n            \"new label\"\n          ],\n          \"warnings\": null,\n          \"errors\": null\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4cc0e208-0db7-4d7d-a37d-7ce302fe921d",
+          "name": "Generate Fuzzy Estimate Report for the Job",
+          "request": {
+            "name": "Generate Fuzzy Estimate Report for the Job",
+            "description": {
+              "content": "Generate Fuzzy report for the Job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "estimates-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "jobs",
+                ":translationJobUid",
+                "reports",
+                "fuzzy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "translationJobUid",
+                  "description": "(Required) A unique translation job identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contentType\": \"ALL_CONTENT\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"localeWorkflows\": [\n    {\n      \"workflowUid\": \"<string>\",\n      \"targetLocaleId\": \"<string>\"\n    },\n    {\n      \"workflowUid\": \"<string>\",\n      \"targetLocaleId\": \"<string>\"\n    }\n  ],\n  \"fuzzyProfileUid\": \"<string>\",\n  \"localeWorkflowStepsFilter\": [\n    {\n      \"workflowStepUid\": \"<string>\",\n      \"targetLocaleId\": \"<string>\"\n    },\n    {\n      \"workflowStepUid\": \"<string>\",\n      \"targetLocaleId\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0803f1a7-12f9-4aac-ac69-9a59b99dce49",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "estimates-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "jobs",
+                    ":translationJobUid",
+                    "reports",
+                    "fuzzy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "translationJobUid",
+                      "description": "(Required) A unique translation job identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contentType\": \"ALL_CONTENT\",\n  \"tags\": [\n    \"tag1\",\n    \"tag2\"\n  ],\n  \"localeWorkflows\": [\n    {\n      \"workflowUid\": \"8312172ed60d\",\n      \"targetLocaleId\": \"de-DE\"\n    },\n    {\n      \"workflowUid\": \"8312172ed60d\",\n      \"targetLocaleId\": \"de-DE\"\n    }\n  ],\n  \"fuzzyProfileUid\": \"<string>\",\n  \"localeWorkflowStepsFilter\": [\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"targetLocaleId\": \"de-DE\"\n    },\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"targetLocaleId\": \"de-DE\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"reportUid\": \"f84491fc\",\n      \"reportType\": \"FUZZY\",\n      \"reportStatus\": \"PENDING\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "785eed7d-7328-4586-933a-db05b2120241",
+          "name": "Get List of Job Cost Estimate Reports",
+          "request": {
+            "name": "Get List of Job Cost Estimate Reports",
+            "description": {
+              "content": "List cost estimate reports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "estimates-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "jobs",
+                ":translationJobUid",
+                "reports",
+                "cost"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reportStatus",
+                  "value": "<string>",
+                  "description": "Status of report."
+                },
+                {
+                  "disabled": false,
+                  "key": "contentCoverage",
+                  "value": "<string>",
+                  "description": "Specifies level of content coverage report should have."
+                },
+                {
+                  "disabled": false,
+                  "key": "creatorUserUids",
+                  "value": "<string>",
+                  "description": "Array of report creator uids."
+                },
+                {
+                  "disabled": false,
+                  "key": "creatorUserUids",
+                  "value": "<string>",
+                  "description": "Array of report creator uids."
+                },
+                {
+                  "disabled": false,
+                  "key": "translationJobSchemaContents",
+                  "value": "<string>",
+                  "description": "if report was generated for the job,."
+                },
+                {
+                  "disabled": false,
+                  "key": "translationJobSchemaContents",
+                  "value": "<string>",
+                  "description": "if report was generated for the job,."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "Search is done via or logic, i.e. if a report has any of the given tags, it will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags",
+                  "value": "<string>",
+                  "description": "Search is done via or logic, i.e. if a report has any of the given tags, it will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdFrom",
+                  "value": "<string>",
+                  "description": "Date filter for report."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdTo",
+                  "value": "<string>",
+                  "description": "Date filter for report."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Paging parameter. The number of reports to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Paging parameter. The index of the repor to start with."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "translationJobUid",
+                  "description": "(Required) A unique translation job identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "833bed34-e0bd-4bb3-934a-0a6b46e25993",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "estimates-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "jobs",
+                    ":translationJobUid",
+                    "reports",
+                    "cost"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reportStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contentCoverage",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creatorUserUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "creatorUserUids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "translationJobSchemaContents",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "translationJobSchemaContents",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdTo",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "translationJobUid",
+                      "description": "(Required) A unique translation job identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"totalCount\": 4,\n      \"items\": [\n        {\n          \"reportUid\": \"f84491fc\",\n          \"schemaType\": \"siteLocales\",\n          \"reportType\": \"FUZZY\",\n          \"schema\": \"{\\\"schema\\\":\\\"siteLocales\\\",\\\"projectId\\\":\\\"fd7244365\\\"}\",\n          \"reportStatus\": \"PROCESSING\",\n          \"totalStrings\": 27828,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": null,\n          \"localeEstimates\": null,\n          \"tags\": null,\n          \"warnings\": [\n            \"No rates specified for 'fr-FR' locale.\"\n          ],\n          \"errors\": [\n            \"Report generation failed. Rates of account defined in different currencies: USD, JPY. Only one should be used per account. Please fix this and re-run estimation.\"\n          ]\n        },\n        {\n          \"reportUid\": \"0ec805d4\",\n          \"schemaType\": \"job\",\n          \"reportType\": \"COST\",\n          \"schema\": \"{\\\"schema\\\":\\\"job\\\",\\\"jobUid\\\":\\\"e2f3dcac30cc\\\"}\",\n          \"reportStatus\": \"COMPLETED\",\n          \"totalStrings\": 3200,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": [\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"EUR\"\n            }\n          ],\n          \"localeEstimates\": null,\n          \"tags\": [\n            \"bbbbb456566\"\n          ],\n          \"warnings\": null,\n          \"errors\": null\n        },\n        {\n          \"reportUid\": \"702cdae5\",\n          \"schemaType\": \"listView\",\n          \"schema\": \"{\\\"schema\\\":\\\"listView\\\",\\\"projectId\\\":\\\"fd7244365\\\",\\\"localeList\\\":[\\\"hy-AM\\\"],\\\"stringState\\\":\\\"IN_TRANSLATION\\\",\\\"stringIds\\\":[\\\"5086f27e4a123ac0e573b7d45240b674\\\",\\\"9d67960622910cb2e6ab0525fb8ec747\\\",\\\"816a4bf2e30577ea2cfcb2eec231e50e\\\"],\\\"workflowStepIds\\\":[\\\"19565\\\",\\\"120859\\\",\\\"120860\\\",\\\"19567\\\",\\\"19571\\\",\\\"19570\\\",\\\"19569\\\",\\\"57497\\\",\\\"65867\\\",\\\"57499\\\",\\\"61329\\\",\\\"67758\\\",\\\"67760\\\",\\\"109463\\\",\\\"109465\\\",\\\"136550\\\",\\\"110388\\\",\\\"136548\\\",\\\"136549\\\"]}\",\n          \"reportStatus\": \"COMPLETED\",\n          \"reportType\": \"COST\",\n          \"totalStrings\": 2,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": [\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"USD\"\n            }\n          ],\n          \"localeEstimates\": null,\n          \"tags\": null,\n          \"warnings\": null,\n          \"errors\": null\n        },\n        {\n          \"reportUid\": \"8532918d\",\n          \"schemaType\": \"unauthorized\",\n          \"schema\": \"{\\\"schema\\\":\\\"unauthorized\\\",\\\"projectId\\\":\\\"fd7244365\\\",\\\"localeList\\\":[\\\"hy-AM\\\",\\\"zh-TW\\\",\\\"nl-BE\\\",\\\"pt-BR\\\",\\\"ru-RU\\\",\\\"uk-UA\\\",\\\"cy-GB\\\"],\\\"stringState\\\":\\\"AWAITING_APPROVAL\\\",\\\"stringIds\\\":[\\\"975d88fd8c9290c8356364b91f88af02\\\",\\\"33eb5a93062cb5981168533500668a49\\\",\\\"a781299a67d7bd57511a14cffce40257\\\",\\\"afdf1b5d0aa538184cd67372c0acc7c2\\\",\\\"302d3f85228cd41d2267c7505dafb9e5\\\"]}\",\n          \"reportStatus\": \"COMPLETED\",\n          \"reportType\": \"COST\",\n          \"totalStrings\": 700,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": [\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"USD\"\n            },\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"EUR\"\n            }\n          ],\n          \"localeEstimates\": null,\n          \"tags\": [\n            \"new label\"\n          ],\n          \"warnings\": null,\n          \"errors\": null\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b601b661-c4ac-4064-9b69-213e8205034e",
+          "name": "Generate Cost Estimate Report for the Job",
+          "request": {
+            "name": "Generate Cost Estimate Report for the Job",
+            "description": {
+              "content": "Generate Cost Estimate Report for the Job",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "estimates-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "jobs",
+                ":translationJobUid",
+                "reports",
+                "cost"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "translationJobUid",
+                  "description": "(Required) A unique translation job identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contentType\": \"ALL_CONTENT\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"localeWorkflows\": [\n    {\n      \"workflowUid\": \"<string>\",\n      \"targetLocaleId\": \"<string>\"\n    },\n    {\n      \"workflowUid\": \"<string>\",\n      \"targetLocaleId\": \"<string>\"\n    }\n  ],\n  \"fuzzyProfileUid\": \"<string>\",\n  \"localeWorkflowStepsFilter\": [\n    {\n      \"workflowStepUid\": \"<string>\",\n      \"targetLocaleId\": \"<string>\"\n    },\n    {\n      \"workflowStepUid\": \"<string>\",\n      \"targetLocaleId\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7667e392-a5da-4cbd-bf8c-01fa02a76a92",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "estimates-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "jobs",
+                    ":translationJobUid",
+                    "reports",
+                    "cost"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "translationJobUid",
+                      "description": "(Required) A unique translation job identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contentType\": \"ALL_CONTENT\",\n  \"tags\": [\n    \"tag1\",\n    \"tag2\"\n  ],\n  \"localeWorkflows\": [\n    {\n      \"workflowUid\": \"8312172ed60d\",\n      \"targetLocaleId\": \"de-DE\"\n    },\n    {\n      \"workflowUid\": \"8312172ed60d\",\n      \"targetLocaleId\": \"de-DE\"\n    }\n  ],\n  \"fuzzyProfileUid\": \"<string>\",\n  \"localeWorkflowStepsFilter\": [\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"targetLocaleId\": \"de-DE\"\n    },\n    {\n      \"workflowStepUid\": \"8312172ed60d\",\n      \"targetLocaleId\": \"de-DE\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"reportUid\": \"f84491fc\",\n      \"reportType\": \"FUZZY\",\n      \"reportStatus\": \"PENDING\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef0234f7-86fd-405d-8747-7d997460b4ef",
+          "name": "Get Estimate Report Status",
+          "request": {
+            "name": "Get Estimate Report Status",
+            "description": {},
+            "url": {
+              "path": [
+                "estimates-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "reports",
+                ":reportUid",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reportStatus",
+                  "value": "<string>",
+                  "description": "Status of report."
+                },
+                {
+                  "disabled": false,
+                  "key": "reportType",
+                  "value": "<string>",
+                  "description": "Report type."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reportUid",
+                  "description": "(Required) A unique report identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e9a3c610-e47f-4816-a2cc-56c323b53b75",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "estimates-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "reports",
+                    ":reportUid",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reportStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reportType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportUid",
+                      "description": "(Required) A unique report identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"reportUid\": \"f84491fc\",\n      \"reportStatus\": \"PROCESSING\",\n      \"totalStrings\": 27828,\n      \"percentComplete\": 18,\n      \"reportType\": \"FUZZY\",\n      \"createdDate\": \"2016-03-21T15:00:48Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79c341bc-acb9-4387-8407-bb651af40290",
+          "name": "Get Estimate Report",
+          "request": {
+            "name": "Get Estimate Report",
+            "description": {},
+            "url": {
+              "path": [
+                "estimates-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "reports",
+                ":reportUid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reportStatus",
+                  "value": "<string>",
+                  "description": "Status of report."
+                },
+                {
+                  "disabled": false,
+                  "key": "reportType",
+                  "value": "<string>",
+                  "description": "Report type."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reportUid",
+                  "description": "(Required) A unique report identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16b6ae39-0b30-4b29-a503-3b7c73d5fd86",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "estimates-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "reports",
+                    ":reportUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reportStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reportType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportUid",
+                      "description": "(Required) A unique report identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"totalCount\": 4,\n      \"items\": [\n        {\n          \"reportUid\": \"f84491fc\",\n          \"schemaType\": \"siteLocales\",\n          \"reportType\": \"FUZZY\",\n          \"schema\": \"{\\\"schema\\\":\\\"siteLocales\\\",\\\"projectId\\\":\\\"fd7244365\\\"}\",\n          \"reportStatus\": \"PROCESSING\",\n          \"totalStrings\": 27828,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": null,\n          \"localeEstimates\": null,\n          \"tags\": null,\n          \"warnings\": [\n            \"No rates specified for 'fr-FR' locale.\"\n          ],\n          \"errors\": [\n            \"Report generation failed. Rates of account defined in different currencies: USD, JPY. Only one should be used per account. Please fix this and re-run estimation.\"\n          ]\n        },\n        {\n          \"reportUid\": \"0ec805d4\",\n          \"schemaType\": \"job\",\n          \"reportType\": \"COST\",\n          \"schema\": \"{\\\"schema\\\":\\\"job\\\",\\\"jobUid\\\":\\\"e2f3dcac30cc\\\"}\",\n          \"reportStatus\": \"COMPLETED\",\n          \"totalStrings\": 3200,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": [\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"EUR\"\n            }\n          ],\n          \"localeEstimates\": null,\n          \"tags\": [\n            \"bbbbb456566\"\n          ],\n          \"warnings\": null,\n          \"errors\": null\n        },\n        {\n          \"reportUid\": \"702cdae5\",\n          \"schemaType\": \"listView\",\n          \"schema\": \"{\\\"schema\\\":\\\"listView\\\",\\\"projectId\\\":\\\"fd7244365\\\",\\\"localeList\\\":[\\\"hy-AM\\\"],\\\"stringState\\\":\\\"IN_TRANSLATION\\\",\\\"stringIds\\\":[\\\"5086f27e4a123ac0e573b7d45240b674\\\",\\\"9d67960622910cb2e6ab0525fb8ec747\\\",\\\"816a4bf2e30577ea2cfcb2eec231e50e\\\"],\\\"workflowStepIds\\\":[\\\"19565\\\",\\\"120859\\\",\\\"120860\\\",\\\"19567\\\",\\\"19571\\\",\\\"19570\\\",\\\"19569\\\",\\\"57497\\\",\\\"65867\\\",\\\"57499\\\",\\\"61329\\\",\\\"67758\\\",\\\"67760\\\",\\\"109463\\\",\\\"109465\\\",\\\"136550\\\",\\\"110388\\\",\\\"136548\\\",\\\"136549\\\"]}\",\n          \"reportStatus\": \"COMPLETED\",\n          \"reportType\": \"COST\",\n          \"totalStrings\": 2,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": [\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"USD\"\n            }\n          ],\n          \"localeEstimates\": null,\n          \"tags\": null,\n          \"warnings\": null,\n          \"errors\": null\n        },\n        {\n          \"reportUid\": \"8532918d\",\n          \"schemaType\": \"unauthorized\",\n          \"schema\": \"{\\\"schema\\\":\\\"unauthorized\\\",\\\"projectId\\\":\\\"fd7244365\\\",\\\"localeList\\\":[\\\"hy-AM\\\",\\\"zh-TW\\\",\\\"nl-BE\\\",\\\"pt-BR\\\",\\\"ru-RU\\\",\\\"uk-UA\\\",\\\"cy-GB\\\"],\\\"stringState\\\":\\\"AWAITING_APPROVAL\\\",\\\"stringIds\\\":[\\\"975d88fd8c9290c8356364b91f88af02\\\",\\\"33eb5a93062cb5981168533500668a49\\\",\\\"a781299a67d7bd57511a14cffce40257\\\",\\\"afdf1b5d0aa538184cd67372c0acc7c2\\\",\\\"302d3f85228cd41d2267c7505dafb9e5\\\"]}\",\n          \"reportStatus\": \"COMPLETED\",\n          \"reportType\": \"COST\",\n          \"totalStrings\": 700,\n          \"projectId\": \"fd7244365\",\n          \"creatorUserUid\": \"58870b8ee965\",\n          \"creatorUserRole\": \"ROLE_ACCOUNT_OWNER\",\n          \"contentCoverage\": \"FULL\",\n          \"creatorAgencyUid\": \"\",\n          \"createdDate\": \"2016-03-21T15:00:48Z\",\n          \"totalWordCount\": 3634,\n          \"totalWeightedWordCount\": 3614,\n          \"priceInformation\": [\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"USD\"\n            },\n            {\n              \"priceMin\": 999.35,\n              \"priceMax\": 1090.2,\n              \"currencyCode\": \"EUR\"\n            }\n          ],\n          \"localeEstimates\": null,\n          \"tags\": [\n            \"new label\"\n          ],\n          \"warnings\": null,\n          \"errors\": null\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a490decb-be16-4a37-b308-5f39803d38d2",
+          "name": "Delete Estimation Report",
+          "request": {
+            "name": "Delete Estimation Report",
+            "description": {
+              "content": "Delete estimate report.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "estimates-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "reports",
+                ":reportUid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reportUid",
+                  "description": "(Required) A unique report identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a85fa8b-106f-47e3-bb5b-29a8cb5ceb8f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "estimates-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "reports",
+                    ":reportUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportUid",
+                      "description": "(Required) A unique report identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0c5db51-e02e-4eef-bf0c-75eb470404c7",
+          "name": "Modify Tags of Estimation Report",
+          "request": {
+            "name": "Modify Tags of Estimation Report",
+            "description": {
+              "content": "The new set of tags completely replaces the old ones.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "estimates-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "reports",
+                ":reportUid",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reportUid",
+                  "description": "(Required) A unique report identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ddbf0c7-d10c-457a-a6fa-5415d99523c5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "estimates-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "reports",
+                    ":reportUid",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportUid",
+                      "description": "(Required) A unique report identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    \"tag1\",\n    \"tag2\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"tags\": [\n        \"AdminJob\",\n        \"NEWTAG1\",\n        \"NEWTAG2\"\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65478f3a-60c1-4454-88f9-035ce60360b3",
+          "name": "Export Estimation Report as CSV",
+          "request": {
+            "name": "Export Estimation Report as CSV",
+            "description": {},
+            "url": {
+              "path": [
+                "estimates-api",
+                "v2",
+                "projects",
+                ":projectUid",
+                "reports",
+                ":reportUid",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "(Required) for now, only csv is supported."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectUid",
+                  "description": "(Required) A unique project identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reportUid",
+                  "description": "(Required) A unique report identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "946d671b-706f-47ae-9869-a7b5dd37a559",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "estimates-api",
+                    "v2",
+                    "projects",
+                    ":projectUid",
+                    "reports",
+                    ":reportUid",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectUid",
+                      "description": "(Required) A unique project identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reportUid",
+                      "description": "(Required) A unique report identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5997322f-eae2-4f59-83d3-24764e0f51df",
+    "name": "Smartling REST API Reference Account & Projects Estimates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

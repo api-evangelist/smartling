@@ -1,0 +1,470 @@
+{
+  "item": [
+    {
+      "id": "696a2f70-692a-4ca6-b721-0aa06aba1e8a",
+      "name": "GDN url management",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f94ad574-2b70-4cb6-8a3d-02c0e786246e",
+          "name": "Get list of URLs",
+          "request": {
+            "name": "Get list of URLs",
+            "description": {
+              "content": "Get list of URLs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gdn-url-management-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "web-pages",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"domainName\": \"<string>\",\n  \"limit\": 100,\n  \"localeIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"offset\": 0,\n  \"orderBy\": {\n    \"items\": [\n      {\n        \"direction\": \"<string>\"\n      },\n      {\n        \"direction\": \"<string>\"\n      }\n    ]\n  },\n  \"orderDirection\": \"ASC\",\n  \"urlCaptureDateAfter\": \"<dateTime>\",\n  \"urlCaptureDateBefore\": \"<dateTime>\",\n  \"urlPath\": \"<string>\",\n  \"urlPathExactMatch\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "75f046f9-571c-481d-9ad4-dcabe78d4d30",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gdn-url-management-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "web-pages",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domainName\": \"my.domain.com\",\n  \"limit\": 30,\n  \"localeIds\": [\n    \"ru-RU\"\n  ],\n  \"offset\": 0,\n  \"orderBy\": {\n    \"items\": [\n      {\n        \"direction\": \"<string>\"\n      },\n      {\n        \"direction\": \"<string>\"\n      }\n    ]\n  },\n  \"orderDirection\": \"ASC\",\n  \"urlCaptureDateAfter\": \"2020-11-21T01:51:17Z\",\n  \"urlCaptureDateBefore\": \"2020-11-21T01:51:17Z\",\n  \"urlPath\": \"/home/page.htm\",\n  \"urlPathExactMatch\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"created\": \"2015-11-21T11:51:17Z\",\n          \"domain\": {\n            \"name\": \"my.domain.com\"\n          },\n          \"urlPath\": \"/home/page.htm\",\n          \"webPageUid\": \"23dsd23md\"\n        }\n      ],\n      \"totalCount\": 1\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ccbe9b1-b5d1-41e5-a541-6bd80721efd4",
+          "name": "Get details for URLs",
+          "request": {
+            "name": "Get details for URLs",
+            "description": {
+              "content": "Retrieve details of the URLs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gdn-url-management-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "web-pages",
+                "details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"webPageUids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f61f8908-07d6-4c67-943d-c492f2dcd11f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gdn-url-management-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "web-pages",
+                    "details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webPageUids\": [\n    \"4423d44\",\n    \"123jd44\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"items\": [\n        {\n          \"details\": {\n            \"contextUids\": [\n              \"122ssasa323\",\n              \"334asds3434\"\n            ],\n            \"created\": \"2015-11-21T01:51:17Z\",\n            \"stringCount\": 10,\n            \"wordCount\": 25\n          },\n          \"domain\": {\n            \"name\": \"my.domain.com\"\n          },\n          \"urlPath\": \"/home/page.htm\",\n          \"webPageUid\": \"23dsd23md\"\n        }\n      ],\n      \"totalCount\": 1\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e5f80b9-01b9-4bf4-bbc5-6730e4c7a03f",
+          "name": "Get details for URL",
+          "request": {
+            "name": "Get details for URL",
+            "description": {
+              "content": "Retrieve detail for the URL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gdn-url-management-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "web-pages",
+                ":webPageUid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "webPageUid",
+                  "description": "(Required) Unique identifier of the URL"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e89ac8d3-af73-43ec-8530-00efad655ce8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gdn-url-management-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "web-pages",
+                    ":webPageUid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webPageUid",
+                      "description": "(Required) Unique identifier of the URL"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"details\": {\n        \"contextUids\": [\n          \"122ssasa323\",\n          \"334asds3434\"\n        ],\n        \"created\": \"2015-11-21T01:51:17Z\",\n        \"stringCount\": 10,\n        \"wordCount\": 25\n      },\n      \"domain\": {\n        \"name\": \"my.domain.com\"\n      },\n      \"urlPath\": \"/home/page.htm\",\n      \"webPageUid\": \"23dsd23md\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a61efbb5-4921-48da-bf0a-4722432dbb0e",
+          "name": "Get domains for project",
+          "request": {
+            "name": "Get domains for project",
+            "description": {
+              "content": "Get domains for project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gdn-url-management-api",
+                "v2",
+                "projects",
+                ":projectId",
+                "domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8d35681b-c15b-44db-af56-b64520b319f0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gdn-url-management-api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response\": {\n    \"code\": \"SUCCESS\",\n    \"data\": {\n      \"totalCount\": 1,\n      \"items\": [\n        {\n          \"name\": \"my.domain.com\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.smartling.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cc916aae-719d-4c9e-a0b9-b89c03547ab0",
+    "name": "Smartling REST API Reference Account & Projects GDN url management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).\n\n\nContact Support:\n Email: support@smartling.com",
+      "type": "text/plain"
+    }
+  }
+}

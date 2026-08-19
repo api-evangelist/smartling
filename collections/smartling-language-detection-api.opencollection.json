@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Language Detection API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Language Detection",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Detect language",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.smartling.com/language-detection-api/v2/bulk/detect/language",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request language detection for multiple texts. The request may include texts in multiple languages."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

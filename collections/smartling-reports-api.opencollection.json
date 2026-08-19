@@ -1,0 +1,248 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smartling REST API Reference Account & Projects Reports API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Word Count Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/reports-api/v3/word-count",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "A parameter to limit words processed on or after the ```startDate```, in America/New_York timezone."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "A parameter to limit words processed on or before the ```endDate```, in America/New_York timezone."
+              },
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "query",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "projectIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "jobUids",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation jobs."
+              },
+              {
+                "name": "agencyUid",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter of unique agency identifier."
+              },
+              {
+                "name": "userUids",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation resources."
+              },
+              {
+                "name": "targetLocaleIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation locale IDs."
+              },
+              {
+                "name": "workflowStepTypes",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of workflow step types.\n\nThe supported list of workflow step types is:\n\n  - Translation\n\n  - Edit\n\n  - Review\n\n  - Post-Edit\n\n  - Transcreation\n\n  - Transcreation review\n\n  - AI Review\n\n  - Quality Evaluation\n\n  - LQA\n\n  - Internal Review\n\n  - Desktop Publishing\n\n  - AI Translation\n\n  - Light Post-Edit"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated list of fields names to be returned by the endpoint. If this parameter is not set then the list of fields returned is defined by `include...` parameters.\n\nBoth `fields` and `include...` parameters are not allowed at the same time.\n\nThe supported list of fields names is:\n\n  - accountUid\n\n  - accountName\n\n  - projectId\n\n  - projectName\n\n  - targetLocaleId\n\n  - targetLocale\n\n  - jobUid\n\n  - jobName\n\n  - jobReferenceNumber\n  \n  - jobNumber\n\n  - translationResourceUid\n\n  - translationResourceName\n\n  - agencyUid\n\n  - agencyName\n\n  - workflowStepType\n\n  - workflowStepUid\n\n  - workflowStepName\n\n  - fuzzyProfileName\n\n  - fuzzyTier\n\n  - wordCount\n\n  - weightedWordCount\n\n  - characterCount. Please note: the column shows correct data since 2022-10-01.\n"
+              },
+              {
+                "name": "includeTranslationResource",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation resource name.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJob",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job name.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJobReferenceNumber",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job and include reference number in the response.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJobNumber",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job and include job number in the response.  \nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeFuzzyMatchProfile",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by fuzzy match profile and tier.          \n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeWorkflowStep",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by workflow step uid and name.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results. Default value is 10000."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Standard Smartling limit and offset to paginate through results. Default value is 0."
+              }
+            ]
+          },
+          "docs": "Word Count report data for the specified parameters."
+        },
+        {
+          "info": {
+            "name": "Export Word Count in CSV format",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.smartling.com/reports-api/v3/word-count/csv",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "A parameter to limit words processed on or after the ```startDate```, in America/New_York timezone."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "A parameter to limit words processed on or before the ```endDate```, in America/New_York timezone."
+              },
+              {
+                "name": "accountUid",
+                "value": "",
+                "type": "query",
+                "description": "The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "projectIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional array of unique project identifiers. This can be found in the Smartling Dashboard under Account Settings > API."
+              },
+              {
+                "name": "jobUids",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation jobs."
+              },
+              {
+                "name": "agencyUid",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter of unique agency identifier."
+              },
+              {
+                "name": "userUids",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation resources."
+              },
+              {
+                "name": "targetLocaleIds",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of translation locale IDs."
+              },
+              {
+                "name": "workflowStepTypes",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to filter to the specified list of workflow step types.\n\nThe supported list of workflow step types is:\n\n  - Translation\n\n  - Edit\n\n  - Review\n\n  - Post-Edit\n\n  - Transcreation\n\n  - Transcreation review\n\n  - AI Review\n\n  - Quality Evaluation\n\n  - LQA\n\n  - Internal Review\n\n  - Desktop Publishing\n\n  - AI Translation\n\n  - Light Post-Edit"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Optional comma-separated list of fields names to be returned by the endpoint. If this parameter is not set then the list of fields returned is defined by `include...` parameters.\n\nBoth `fields` and `include...` parameters are not allowed at the same time.\n\nThe supported list of fields names is:\n\n  - accountUid\n\n  - accountName\n\n  - projectId\n\n  - projectName\n\n  - targetLocaleId\n\n  - targetLocale\n\n  - jobUid\n\n  - jobName\n\n  - jobReferenceNumber\n  \n  - jobNumber\n\n  - translationResourceUid\n\n  - translationResourceName\n\n  - agencyUid\n\n  - agencyName\n\n  - workflowStepType\n\n  - workflowStepUid\n\n  - workflowStepName\n\n  - fuzzyProfileName\n\n  - fuzzyTier\n\n  - wordCount\n\n  - weightedWordCount\n\n  - characterCount. Please note: the column shows correct data since 2022-10-01.\n"
+              },
+              {
+                "name": "includeTranslationResource",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation resource name.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJob",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job name.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJobReferenceNumber",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job and include reference number in the response.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeJobNumber",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by translation job and include job number in the response.                        \nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeFuzzyMatchProfile",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by fuzzy match profile and tier.\n\nDeprecated, use parameter `fields` instead.\n"
+              },
+              {
+                "name": "includeWorkflowStep",
+                "value": "",
+                "type": "query",
+                "description": "Optional parameter to specify whether the report should group word count by workflow step uid and name.\n\nDeprecated, use parameter `fields` instead.\n"
+              }
+            ]
+          },
+          "docs": "Export Word Count report in CSV format."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
