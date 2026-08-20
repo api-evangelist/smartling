@@ -45,6 +45,16 @@ apis:
   baseURL: https://api.smartling.com
   tags:
   - REST
+  - Authentication
+  - Project
+  - File
+  - Translations
+  - Job
+  - Glossary
+  - Quality
+  - MT
+  tags_raw:
+  - REST
   - OAuth
   - Projects
   - Files
@@ -274,6 +284,8 @@ apis:
   humanURL: https://api-reference.smartling.com/
   baseURL: https://api.smartling.com
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -317,6 +329,8 @@ apis:
   humanURL: https://api-reference.smartling.com/
   baseURL: https://api.smartling.com
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
