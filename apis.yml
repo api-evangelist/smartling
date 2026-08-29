@@ -8,6 +8,18 @@ description: Smartling is an enterprise translation management platform combinin
   strings, translations, jobs, glossary, issues, quality checks, MT, and reports.
   Authentication uses an OAuth-style userIdentifier + secret pair that returns a short-lived
   bearer access token (~5-10 minute TTL) with a refresh token.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: unknown
