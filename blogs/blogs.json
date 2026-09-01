@@ -5,9 +5,14 @@
       "source": "https://www.smartling.com/blog/rss.xml",
       "feed_url": "https://www.smartling.com/blog/rss.xml",
       "title": "Smartling Blog",
-      "saved": 1
+      "saved": 1,
+      "nature": "vendor-blog",
+      "nature_basis": "path_blog"
     }
   ],
   "fetched": "2026-08-30T22:05:13Z",
-  "post_count": 45
+  "post_count": 45,
+  "feed_nature": "vendor-blog",
+  "feed_nature_basis": "path_blog",
+  "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
 }
