@@ -60,7 +60,7 @@ apis:
   - Authentication
   - Project
   - File
-  - Translations
+  - Translation
   - Job
   - Glossary
   - Quality
