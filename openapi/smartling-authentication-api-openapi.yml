@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects Authentication API
+  title: Smartling REST API Reference Authentication API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -14,7 +12,7 @@ servers:
 - url: https://api.smartling.com
 tags:
 - name: Authentication
-  description: "Smartling uses OAuth2 for [authentication](https://help.smartling.com/hc/en-us/articles/1260805176849).\nTo access the Smartling APIs, you'll first need to authenticate with your\nuser identifier and user secret. An access token is returned that can be\nattached to the header of any API request. A refresh token is also returned.\n\nTo obtain your [user identifier and user secret](https://help.smartling.com/hc/en-us/articles/115004187694),\nlog in to Smartling.com and go to **API > Create Token**. Authenticating is as\nsimple as calling the `/api.smartling.com/auth-api/v2/authenticate` with\nyour `userIdentifier` and `userSecret`. The access token returned is valid\nfor 5-minutes, and is used in the header of all subsequent requests.\n\n**Example for generating your access token:**\n\n```bash\ncurl -X POST https://api.smartling.com/auth-api/v2/authenticate  -H 'content-type: application/json' -d '{\"userIdentifier\": \"userIdasdklj4348dk34!\", \"userSecret\": \"userSecret34i34kkd5634f\"}'\n```\n\n```\n{\n    \"response\": {\n        \"code\": \"SUCCESS\",\n        \"data\": {\n                \"accessToken\": \"eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOasdlkjn\",\n                \"refreshToken\": \"eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJkMTdkMmEw\",\n                \"expiresIn\": 480,\n                \"refreshExpiresIn\": 3660,\n                \"tokenType\": \"Bearer\"\n        }\n    }\n}\n```\n\n**Example of using your access token to list all projects for your account:**\n\n```bash\ncurl -X GET -H \"Authorization: Bearer {accessToken}\" https://api.smartling.com/accounts-api/v2/accounts/{accountUid}/projects\n```\n\n```\n{\n    \"response\": {\n        \"code\": \"SUCCESS\",\n        \"data\": {\n            \"totalCount\": 1,\n            \"items\": [{\n                         \"projectId\": \"df324sdf5\",\n                         \"projectName\": \"iOS Strings files\",\n                         \"accountUid\": \"ab5f1939\",\n                         \"archived\": false,\n                         \"projectTypeCode\": \"APPLICATION_RESOURCES\",\n                         \"sourceLocaleId\": \"en\",\n                         \"sourceLocaleDescription\": \"English\"\n                     }\n            ]\n        }\n    }\n}\n```"
+  description: Smartling uses OAuth2 for authentication.
 paths:
   /auth-api/v2/authenticate:
     post:
@@ -63,7 +61,7 @@ paths:
     post:
       tags:
       - Authentication
-      description: A [renewed access token](https://help.smartling.com/hc/en-us/articles/1260805176849) that can be attached to the header of any API request.
+      description: A renewed access token that can be attached to the header of any API request.
       summary: Refresh access token
       operationId: refreshAccessToken
       requestBody:
@@ -93,15 +91,43 @@ paths:
         source: "curl -X POST https://api.smartling.com/auth-api/v2/authenticate/refresh \\\n  -H 'content-type: application/json' \\\n  -d '{\"refreshToken\": \"eyJhbGciO...\"}'\n"
 components:
   schemas:
-    Error500Response:
+    Error401Response:
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    AuthenticationRefreshRequest:
+      properties:
+        refreshToken:
+          description: The refresh token returned from a previous authentication request.
+          type: string
+      required:
+      - refreshToken
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
               type: string
             errors:
               items:
@@ -134,56 +160,6 @@ components:
           type: object
       required:
       - response
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    AuthenticationRefreshRequest:
-      properties:
-        refreshToken:
-          description: The refresh token returned from a previous authentication request.
-          type: string
-      required:
-      - refreshToken
-      type: object
-    AuthenticationResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                $ref: '#/components/schemas/Authentication'
-            type: object
     AuthenticationRequest:
       properties:
         userIdentifier:
@@ -198,15 +174,25 @@ components:
       - userIdentifier
       - userSecret
       type: object
-    Error401Response:
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Error500Response:
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
               type: string
             errors:
               items:
@@ -219,21 +205,6 @@ components:
       required:
       - response
       type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
     Authentication:
       properties:
         accessToken:
@@ -257,6 +228,33 @@ components:
       - accessToken
       - refreshToken
       type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    AuthenticationResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                $ref: '#/components/schemas/Authentication'
+            type: object
   responses:
     Error400ResponseDefinition:
       description: Provided request parameters are invalid.
@@ -273,6 +271,21 @@ components:
                   - key: unknown.field
                     message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
                     details: unknown.parameter
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
     Error500ResponseDefinition:
       description: Unexpected error
       content:
@@ -293,21 +306,6 @@ components:
                   errors:
                   - key: too.many.requests
                     message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
-    Error401ResponseDefinition:
-      description: Provided credentials are not valid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error401Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: AUTHENTICATION_ERROR
-                  errors:
-                  - details: {}
-                    key: invalid_token
-                    message: Invalid token
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

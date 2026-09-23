@@ -1,10 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
   title: Smartling REST API Reference Account & Projects API
   version: 2.0.0
@@ -25,9 +23,9 @@ tags:
     within your account.
 
 
-    You may wish to reference the [Key Concepts for
+    You may wish to reference the Key Concepts for
 
-    Developers](https://help.smartling.com/hc/en-us/articles/1260805481390) article
+    Developers article
 
     to better understand how content is organized within Smartling.'
 paths:
@@ -35,9 +33,7 @@ paths:
     get:
       tags:
       - Account & Projects
-      description: 'Returns the list of projects for the account.
-
-        '
+      description: Returns the list of projects for the account.
       summary: List projects
       operationId: getProjectsByAccount
       parameters:
@@ -131,9 +127,7 @@ paths:
     get:
       tags:
       - Account & Projects
-      description: 'Returns the details of a project.
-
-        '
+      description: Returns the details of a project.
       summary: Get project details
       operationId: getProjectDetails
       parameters:
@@ -191,9 +185,7 @@ paths:
       summary: Add a new target locale
       tags:
       - Account & Projects
-      description: 'Add a new target locale to the project.
-
-        '
+      description: Add a new target locale to the project.
       operationId: addLocaleToProject
       parameters:
       - name: projectId
@@ -256,9 +248,7 @@ paths:
       summary: Copy an existing project
       tags:
       - Account & Projects
-      description: 'Make a copy of an existing project, thereby creating a new one with a new name
-
-        '
+      description: Make a copy of an existing project, thereby creating a new one with a new name
       operationId: copyProject
       parameters:
       - description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
@@ -310,9 +300,7 @@ paths:
     get:
       tags:
       - Account & Projects
-      description: 'Used to check if the copy project request is complete and to retrieve the new projectId
-
-        '
+      description: Used to check if the copy project request is complete and to retrieve the new projectId
       summary: Get the status of the project copy request
       operationId: getProjectCopyRequestStatus
       parameters:
@@ -361,27 +349,6 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
   schemas:
-    Error500Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
     ProjectDetailsLocaleItem:
       example:
         description: Russian (Russia)
@@ -402,44 +369,15 @@ components:
       - description
       - enabled
       type: object
-    Error400Response:
-      type: object
+    Error401Response:
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
               type: string
             errors:
               items:
@@ -452,6 +390,24 @@ components:
       required:
       - response
       type: object
+    ProjectCopySuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  processUid:
+                    description: A unique identifier for a long running process
+                    type: string
+                required:
+                - processUid
+                type: object
+            type: object
     ProjectCopyProcessSuccessResponse:
       type: object
       required:
@@ -507,6 +463,26 @@ components:
                 - processStatistics
                 type: object
             type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
     AccountAPIProjectListSuccessResponse:
       type: object
       required:
@@ -530,15 +506,15 @@ components:
                 - items
                 type: object
             type: object
-    Error401Response:
+    Error400Response:
+      type: object
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
+              - VALIDATION_ERROR
               type: string
             errors:
               items:
@@ -550,80 +526,6 @@ components:
           type: object
       required:
       - response
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
-    AccountAPIListProjectItem:
-      example:
-        accountUid: ab5f1939
-        archived: false
-        projectId: fd7244365
-        projectName: fd7244365
-        projectTypeCode: APPLICATION_RESOURCES
-        sourceLocaleDescription: English
-        sourceLocaleId: en-US
-      properties:
-        accountUid:
-          description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
-          type: string
-        archived:
-          description: Indicator whether or not the project has been archived. Archived projects are typically hidden from a user's view, but can still be accessible
-          type: boolean
-        projectId:
-          description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
-          type: string
-        projectName:
-          description: The name of the project. Names of projects are not guaranteed to be unique within an account.
-          type: string
-        projectTypeCode:
-          description: Indicator for the type of the project.
-          type: string
-        sourceLocaleDescription:
-          description: The full name of the sourceLocaleId
-          type: string
-        sourceLocaleId:
-          description: The locale identifier for the source locale of the project. This indicates the base locale for which content should be uploaded to the project.
-          type: string
-      required:
-      - projectId
-      - projectName
-      - accountUid
-      - archived
-      - projectTypeCode
-      - sourceLocaleId
-      - sourceLocaleDescription
-      type: object
-    ProjectCopySuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  processUid:
-                    description: A unique identifier for a long running process
-                    type: string
-                required:
-                - processUid
-                type: object
-            type: object
     ProjectDetailsSuccessResponse:
       type: object
       required:
@@ -680,6 +582,92 @@ components:
                 - targetLocales
                 type: object
             type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    AccountAPIListProjectItem:
+      example:
+        accountUid: ab5f1939
+        archived: false
+        projectId: fd7244365
+        projectName: fd7244365
+        projectTypeCode: APPLICATION_RESOURCES
+        sourceLocaleDescription: English
+        sourceLocaleId: en-US
+      properties:
+        accountUid:
+          description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+          type: string
+        archived:
+          description: Indicator whether or not the project has been archived. Archived projects are typically hidden from a user's view, but can still be accessible
+          type: boolean
+        projectId:
+          description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+          type: string
+        projectName:
+          description: The name of the project. Names of projects are not guaranteed to be unique within an account.
+          type: string
+        projectTypeCode:
+          description: Indicator for the type of the project.
+          type: string
+        sourceLocaleDescription:
+          description: The full name of the sourceLocaleId
+          type: string
+        sourceLocaleId:
+          description: The locale identifier for the source locale of the project. This indicates the base locale for which content should be uploaded to the project.
+          type: string
+      required:
+      - projectId
+      - projectName
+      - accountUid
+      - archived
+      - projectTypeCode
+      - sourceLocaleId
+      - sourceLocaleDescription
+      type: object
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
   responses:
     Error400ResponseDefinition:
       description: Provided request parameters are invalid.
@@ -696,26 +684,6 @@ components:
                   - key: unknown.field
                     message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
                     details: unknown.parameter
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
     Error401ResponseDefinition:
       description: Provided credentials are not valid.
       content:
@@ -731,6 +699,26 @@ components:
                   - details: {}
                     key: invalid_token
                     message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

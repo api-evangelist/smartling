@@ -1,24 +1,7 @@
 {
   "provider": "smartling",
   "sources": [
-    "smartling-account-projects-api-openapi.yml",
-    "smartling-attachments-api-openapi.yml",
-    "smartling-authentication-api-openapi.yml",
-    "smartling-content-search-api-openapi.yml",
-    "smartling-context-api-openapi.yml",
-    "smartling-estimates-api-openapi.yml",
-    "smartling-files-api-openapi.yml",
-    "smartling-gdn-url-management-api-openapi.yml",
-    "smartling-jobs-api-openapi.yml",
-    "smartling-language-detection-api-openapi.yml",
-    "smartling-locales-api-openapi.yml",
-    "smartling-machine-translation-mt-api-openapi.yml",
-    "smartling-people-api-openapi.yml",
-    "smartling-reports-api-openapi.yml",
-    "smartling-strings-api-openapi.yml",
-    "smartling-tags-api-openapi.yml",
-    "smartling-vendors-api-openapi.yml",
-    "smartling-workflow-assignment-api-openapi.yml"
+    "_original/smartling-openapi.json"
   ],
   "outputs": [
     "smartling-account-projects-api-openapi.yml",
@@ -43,6 +26,32 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "smartling-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "smartling-openapi.json: declared missing tag: Estimates",
+    "smartling-openapi.json: declared missing tag: GDN url management",
+    "smartling-openapi.json: declared missing tag: Language Detection",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "smartling-account-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-attachments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-content-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-context-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-estimates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-gdn-url-management-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-jobs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-language-detection-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-locales-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-machine-translation-mt-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-people-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-strings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-vendors-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smartling-workflow-assignment-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

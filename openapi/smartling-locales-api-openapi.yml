@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects Locales API
+  title: Smartling REST API Reference Locales API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -26,11 +24,9 @@ paths:
       description: 'The list of available locales within Smartling.
 
 
-        To find out the `localedID` for a specific project, refer to [Get project
+        To find out the `localedID` for a specific project, refer to Get project
 
-        details](/#operation/getProjectDetails).
-
-        '
+        details.'
       operationId: getAvailableLocalesList
       parameters:
       - description: Optional parameter to filter to the specified list of locales.
@@ -96,15 +92,35 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
   schemas:
-    Error500Response:
+    Error401Response:
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
               type: string
             errors:
               items:
@@ -137,57 +153,6 @@ components:
           type: object
       required:
       - response
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Error401Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
     LocalesAPISuccessResponse:
       type: object
       required:
@@ -211,6 +176,37 @@ components:
                 - items
                 type: object
             type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
     Error:
       type: object
       properties:
@@ -306,26 +302,6 @@ components:
                   - key: unknown.field
                     message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
                     details: unknown.parameter
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
     Error401ResponseDefinition:
       description: Provided credentials are not valid.
       content:
@@ -341,6 +317,26 @@ components:
                   - details: {}
                     key: invalid_token
                     message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

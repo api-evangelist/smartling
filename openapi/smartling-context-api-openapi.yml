@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects Context API
+  title: Smartling REST API Reference Context API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -14,7 +12,7 @@ servers:
 - url: https://api.smartling.com
 tags:
 - name: Context
-  description: '[Visual context](https://help.smartling.com/hc/en-us/articles/360057484273)
+  description: 'Visual context
 
     helps Translators make linguistic, layout, and spacing decisions based on
 
@@ -27,7 +25,39 @@ paths:
   /context-api/v2/projects/{projectId}/contexts:
     post:
       summary: Upload new context
-      description: "[Visual Context](https://help.smartling.com/hc/en-us/articles/360057484273-Overview-of-Visual-Context) provides a visual representation of the source content to Translators and Editors as\nthey are performing their work, and is a very effective way to ensure high-quality translations. Visual\nContext is displayed in the Smartling CAT Tool - the environment in which translations are performed.\n\nThe following context types are supported via the Smartling API:\n\n- **HTML**: HTML files or files with content type text/html\n- **IMAGE**: Image files\n- **VIDEO**:\n  - Video file\n  - Link to video, such as:\n    - YouTube link\n    - Vimeo link\n    - Direct link to an .mp4 file\n\nContext type is not specified directly, but rather, inferred via\nanalyzing the request body.\n\nThis endpoint accepts *multipart/form-data* request body."
+      description: 'Visual Context provides a visual representation of the source content to Translators and Editors as
+
+        they are performing their work, and is a very effective way to ensure high-quality translations. Visual
+
+        Context is displayed in the Smartling CAT Tool - the environment in which translations are performed.
+
+
+        The following context types are supported via the Smartling API:
+
+
+        - **HTML**: HTML files or files with content type text/html
+
+        - **IMAGE**: Image files
+
+        - **VIDEO**:
+
+        - Video file
+
+        - Link to video, such as:
+
+        - YouTube link
+
+        - Vimeo link
+
+        - Direct link to an .mp4 file
+
+
+        Context type is not specified directly, but rather, inferred via
+
+        analyzing the request body.
+
+
+        This endpoint accepts *multipart/form-data* request body.'
       tags:
       - Context
       operationId: uploadNewVisualContext
@@ -117,9 +147,7 @@ paths:
 
         Response is limited to *100* items, to retrieve all items the request
 
-        should be repeated with **offset** parameter specified.
-
-        '
+        should be repeated with **offset** parameter specified.'
       tags:
       - Context
       operationId: getVisualContextsListByProject
@@ -448,7 +476,7 @@ paths:
 
         Although that our OCR functionality is advanced, it cannot match 100% of strings. If you need complete context coverage,
 
-        use either [Create string to context bindings](/#operation/createStringToContextBindings) endpoint to bind
+        use either Create string to context bindings endpoint to bind
 
         strings manually or check your image contexts in the Smartling Dashboard after
 
@@ -529,7 +557,80 @@ paths:
   /context-api/v2/projects/{projectId}/contexts/upload-and-match-async:
     post:
       summary: Upload new context and run automatic context matching
-      description: "Combines two endpoints:\n- [Upload new context](/#operation/uploadNewVisualContext)\n- [Run automatic context matching](/#operation/runAutomaticContextMatching)\n\nThe following context types are supported via the Smartling API:\n\n- **HTML**: HTML files or files with content type text/html\n- **IMAGE**: Image files\n- **VIDEO**:\n  - Video file\n  - Link to video, such as:\n    - YouTube link\n    - Vimeo link\n    - Direct link to an .mp4 file\n\nStrings to match are retrieved from the project specified by the `projectId` and\ncan be filtered further by the optional `matchParams` parameter.\n\nIf the uploaded file doesn't match any string, the context may not be created.\n\nExample of the raw request accepted by this API:\n```\nContent-Type: multipart/form-data; boundary\n----------------------------293641908835402749402839\nContent-Disposition: form-data; name=\"content\"; filename=\"example.html\"\nContent-Type: text/html\n<html>\n  <body>\n    <div> bla</div>\n  </body>\n</html>\n----------------------------293641908835402749402839\nContent-Disposition: form-data; name=\"name\"\nhttps://your.domain.com/path/example.html\n----------------------------293641908835402749402839\nContent-Disposition: form-data; name=\"matchParams\"\nContent-Type: application/json\n{\n  \"contentFileUri\":\"example.properties\",\n  \"stringHashcodes\": [],\n  \"overrideContextOlderThanDays\": 1\n}\n```"
+      description: 'Combines two endpoints:
+
+        - Upload new context
+
+        - Run automatic context matching
+
+
+        The following context types are supported via the Smartling API:
+
+
+        - **HTML**: HTML files or files with content type text/html
+
+        - **IMAGE**: Image files
+
+        - **VIDEO**:
+
+        - Video file
+
+        - Link to video, such as:
+
+        - YouTube link
+
+        - Vimeo link
+
+        - Direct link to an .mp4 file
+
+
+        Strings to match are retrieved from the project specified by the `projectId` and
+
+        can be filtered further by the optional `matchParams` parameter.
+
+
+        If the uploaded file doesn''t match any string, the context may not be created.
+
+
+        Example of the raw request accepted by this API:
+
+        ```
+
+        Content-Type: multipart/form-data; boundary
+
+        ----------------------------293641908835402749402839
+
+        Content-Disposition: form-data; name="content"; filename="example.html"
+
+        Content-Type: text/html
+
+
+        bla
+
+
+        ----------------------------293641908835402749402839
+
+        Content-Disposition: form-data; name="name"
+
+        https://your.domain.com/path/example.html
+
+        ----------------------------293641908835402749402839
+
+        Content-Disposition: form-data; name="matchParams"
+
+        Content-Type: application/json
+
+        {
+
+        "contentFileUri":"example.properties",
+
+        "stringHashcodes": [],
+
+        "overrideContextOlderThanDays": 1
+
+        }
+
+        ```'
       tags:
       - Context
       operationId: uploadAndMatchVisualContext
@@ -770,7 +871,132 @@ paths:
   /context-api/v2/projects/{projectId}/bindings:
     post:
       summary: Create string to context bindings
-      description: "Link context files with the strings they contain.\n\nThe binding tells Smartling to show Translators which context images for which strings.\n\nA basic bindings request should contain an object with a `bindings` JSON array, with at least one element (binding) featuring `contextUid` and `stringHashcode` properties:\n```JSON\n{\n  \"bindings\": [\n    {\n       \"contextUid\": \"25137b65-e075-4341-8362-14b1a3e558f5\",\n       \"stringHashcode\": \"bd603147d945h3ec74d6874422ebe4e0\"\n    }\n  ]\n}\n```\n\nFor `IMAGE` context, each binding may have additional `coordinates` data that specifies a rectangular area where the string is located in the image. If not specified, binding will still be created with coordinates `[0,0,0,0]`:\n```JSON\n{\n  \"bindings\": [\n    {\n       \"contextUid\": \"25137b65-e075-4341-8362-14b1a3e558f5\",\n       \"stringHashcode\": \"bd603147d945h3ec74d6874422ebe4e0\",\n       \"coordinates\": {\n          \"top\": 50,\n          \"left\": 50,\n          \"width\": 400,\n          \"height\": 400\n       }\n    }\n  ]\n}\n```\n\nFor `HTML` context, each binding may have the `selector` element with `anchors` array, specifying the enclosing the string HTML elements with the corresponding value of the `data-sl-anchor` attribute.\nEach `anchor` value can have up to 20 characters and consist of the following characters: `0-9` (more preferably), `A-Z`, `a-z`, `.-_`.\nIf not specified, binding will still be created with the empty `anchors` array, effectively making it not anchored to a particular element and thus invisible in CAT Tool:\n```JSON\n{\n  \"bindings\": [\n    {\n       \"contextUid\": \"25137b65-e075-4341-8362-14b1a3e558f5\",\n       \"stringHashcode\": \"bd603147d945h3ec74d6874422ebe4e0\",\n       \"selector\": {\n          \"anchors\": [\"11\", \"22\", \"aa-33\"]\n       }\n    }\n  ]\n}\n```\n\nFor `VIDEO` context, each binding has the `timecode` data, specifying the start and end time of the string appearance in the video:\n```JSON\n{\n  \"bindings\": [\n    {\n        \"contextUid\": \"25137b65-e075-4341-8362-14b1a3e558f5\",\n        \"stringHashcode\": \"bd603147d945h3ec74d6874422ebe4e0\",\n        \"timecode\": {\n           \"startTime\": 1203,\n           \"endTime\": 1450\n        }\n    }\n  ]\n}\n```"
+      description: 'Link context files with the strings they contain.
+
+
+        The binding tells Smartling to show Translators which context images for which strings.
+
+
+        A basic bindings request should contain an object with a `bindings` JSON array, with at least one element (binding) featuring `contextUid` and `stringHashcode` properties:
+
+        ```JSON
+
+        {
+
+        "bindings": [
+
+        {
+
+        "contextUid": "25137b65-e075-4341-8362-14b1a3e558f5",
+
+        "stringHashcode": "bd603147d945h3ec74d6874422ebe4e0"
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        For `IMAGE` context, each binding may have additional `coordinates` data that specifies a rectangular area where the string is located in the image. If not specified, binding will still be created with coordinates `[0,0,0,0]`:
+
+        ```JSON
+
+        {
+
+        "bindings": [
+
+        {
+
+        "contextUid": "25137b65-e075-4341-8362-14b1a3e558f5",
+
+        "stringHashcode": "bd603147d945h3ec74d6874422ebe4e0",
+
+        "coordinates": {
+
+        "top": 50,
+
+        "left": 50,
+
+        "width": 400,
+
+        "height": 400
+
+        }
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        For `HTML` context, each binding may have the `selector` element with `anchors` array, specifying the enclosing the string HTML elements with the corresponding value of the `data-sl-anchor` attribute.
+
+        Each `anchor` value can have up to 20 characters and consist of the following characters: `0-9` (more preferably), `A-Z`, `a-z`, `.-_`.
+
+        If not specified, binding will still be created with the empty `anchors` array, effectively making it not anchored to a particular element and thus invisible in CAT Tool:
+
+        ```JSON
+
+        {
+
+        "bindings": [
+
+        {
+
+        "contextUid": "25137b65-e075-4341-8362-14b1a3e558f5",
+
+        "stringHashcode": "bd603147d945h3ec74d6874422ebe4e0",
+
+        "selector": {
+
+        "anchors": ["11", "22", "aa-33"]
+
+        }
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+
+        For `VIDEO` context, each binding has the `timecode` data, specifying the start and end time of the string appearance in the video:
+
+        ```JSON
+
+        {
+
+        "bindings": [
+
+        {
+
+        "contextUid": "25137b65-e075-4341-8362-14b1a3e558f5",
+
+        "stringHashcode": "bd603147d945h3ec74d6874422ebe4e0",
+
+        "timecode": {
+
+        "startTime": 1203,
+
+        "endTime": 1450
+
+        }
+
+        }
+
+        ]
+
+        }
+
+        ```'
       tags:
       - Context
       operationId: createStringToContextBindings
@@ -959,57 +1185,231 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
   schemas:
-    MatchParams:
-      type: object
-      description: '*Uncollapse this block to get the detailed description of `matchParams`.*
-
-        <br/><br/>
-
-        If none of `stringHashcodes`, `contentFileUri`, `translationJobUids` are specified, **all strings from the project** will be included in the match.
-
-        <br/>
-
-        If `overrideContextOlderThanDays` is not specified, **strings with context will not be bound to this context**.'
+    ContextResponse:
       properties:
-        contentFileUri:
-          description: 'File URI containing strings to perform matching with the context: <br/> Example: `"contentFileUri": "example.properties"` <br/> Can''t be used along with the `stringHashcodes` or `translationJobUids` parameter.'
+        response:
+          properties:
+            code:
+              description: Code of the completed operation.
+              enum:
+              - SUCCESS
+              type: string
+            data:
+              description: Basic information about the context.
+              properties:
+                contextType:
+                  description: Type of context file.
+                  enum:
+                  - IMAGE
+                  - HTML
+                  - VIDEO
+                  type: string
+                contextUid:
+                  description: Unique identifier for the context.
+                  type: string
+                created:
+                  description: 'A date when the context was created. Format: ISO8601 date and time string'
+                  format: date-time
+                  type: string
+                name:
+                  description: File name for IMAGE context, URL for HTML Context and video URL for VIDEO context.
+                  type: string
+              type: object
+          type: object
+      type: object
+    Coordinates:
+      description: Describes the location and size of a box enclosing the string in a context image. ‘top’ and ‘left’ are the distances in pixels of the top left corner of the string (from the top left of the image). ‘width’ and ‘height’ are the dimensions of the string in pixels. This information is used to highlight the position of the string when displaying the context image in the translation interface (CAT tool). If coordinates are not provided, Smartling will attempt to locate the string on the image using Optical Character Recognition. If OCR fails, coordinates will default to 0, 0, 0, 0. This meaans that the image will be displayed when the string is translated, without any highlighting to show the position of the string.
+      properties:
+        height:
+          type: number
+        left:
+          type: number
+        top:
+          type: number
+        width:
+          type: number
+      required:
+      - top
+      - left
+      - height
+      - width
+      type: object
+    MatchAsyncResult:
+      properties:
+        bindings:
+          items:
+            $ref: '#/components/schemas/Binding'
+          type: array
+        contextUid:
+          description: Unique identifier for the context.
           type: string
-        stringHashcodes:
-          description: 'An array of string hashcodes to perform matching with the context: <br/> Example: `"stringHashcodes": ["hashcode1", "hashcode2"]` <br/> Can''t be used along with the `contentFileUri` or `translationJobUids` parameter.'
-          items:
-            format: hash
-            type: string
-          type: array
-        translationJobUids:
-          description: 'A translation job UID to perform matching with the context. Only one UID can be specified: <br/> Example: `"translationJobUids": ["translationJobUid"]` <br/> Can''t be used along with the `contentFileUri` or `stringHashcodes` parameter.'
-          items:
-            format: hash
-            type: string
-          type: array
-        overrideContextOlderThanDays:
-          description: Specifies whether to override context for strings that were already bound to other context, and that context is at least as "overrideContextOlderThanDays" old.
-          minimum: 1
+        checkedStringsCount:
           type: integer
-        videoMatchingMode:
-          description: 'Specifies the behavior of string matching for video contexts.
-
-
-            | videoMatchingMode | Description |
-
-            |----------------------|-------------|
-
-            | `SUBTITLES` | In this mode you should provide the property `contentFileUri` that points to the subtitles content file. Strings will be bound by the subtitle''s timestamps. |
-
-            | `OCR_WITH_SPLITTING` | Detects key frames and checks each frame for text using OCR. If string matches, an image context is created for that frame. Frames without matches and the original video are deleted. |
-
-            | `OCR` | Detects key frames and checks each frame for text using OCR. If string matches, we bind the string to the original video using the key frame''s timestamp and text coordinates. |
-
-            '
+      type: object
+    CreateBindingsResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  created:
+                    properties:
+                      items:
+                        items:
+                          $ref: '#/components/schemas/Binding'
+                        type: array
+                      totalCount:
+                        type: integer
+                    required:
+                    - items
+                    type: object
+                  errors:
+                    properties:
+                      items:
+                        items:
+                          properties:
+                            message:
+                              type: string
+                          required:
+                          - message
+                          type: object
+                        type: array
+                      totalCount:
+                        type: integer
+                    required:
+                    - items
+                    type: object
+                required:
+                - created
+                type: object
+            type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
           enum:
-          - SUBTITLES
-          - OCR_WITH_SPLITTING
-          - OCR
+          - SUCCESS
           type: string
+      required:
+      - code
+      type: object
+    DeleteContextsAsyncResult:
+      description: Empty object
+      properties: {}
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    AsyncMatchStatsResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Code of the completed operation.
+              enum:
+              - SUCCESS
+              type: string
+            data:
+              properties:
+                bindings:
+                  items:
+                    $ref: '#/components/schemas/Binding'
+                  type: array
+                createdDate:
+                  format: date-time
+                  type: string
+                matchId:
+                  description: Identifier of the started match operation. Should be specified for getting matching stats.
+                  format: uuid
+                  type: string
+                modifiedDate:
+                  format: date-time
+                  type: string
+                status:
+                  enum:
+                  - IN_PROGRESS
+                  - COMPLETED
+                  - FAILED
+                  type: string
+              type: object
+          type: object
+      type: object
+    DeleteBatchBindingsRequest:
+      type: object
+      description: Parameters for bindings to delete search
+      properties:
+        stringHashcodes:
+          description: List of the hashcodes for the strings to delete bindings for.
+          items:
+            type: string
+          type: array
+        contentFileUri:
+          description: Content file name to delete bindings for.
+          type: string
+        contextUid:
+          description: ContextUID to delete bindings for.
+          format: uuid
+          type: string
+        bindingUids:
+          description: Unique binding identifier to delete.
+          items:
+            type: string
+          type: array
+    AsyncProcessResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Code of the completed operation.
+              enum:
+              - SUCCESS
+              type: string
+            data:
+              properties:
+                processUid:
+                  description: Identifier of the started asynchronous process.
+                  format: uuid
+                  type: string
+              type: object
+          type: object
+      type: object
     Context:
       description: Basic information about the context.
       properties:
@@ -1028,6 +1428,71 @@ components:
           type: string
       required:
       - name
+      type: object
+    Error401Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    BatchBindingsRequest:
+      type: object
+      description: Parameters for bindings search
+      properties:
+        stringHashcodes:
+          description: List of the hashcodes for the strings to get bindings for.
+          items:
+            type: string
+          type: array
+        contentFileUri:
+          description: Content file name to get bindings for.
+          type: string
+        contextUid:
+          description: ContextUID to get bindings for.
+          format: uuid
+          type: string
+        bindingUids:
+          description: List of unique binding identifiers.
+          items:
+            type: string
+          type: array
+    AsyncMatchResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Code of the completed operation.
+              enum:
+              - SUCCESS
+              type: string
+            data:
+              properties:
+                processUid:
+                  description: Identifier of the started asynchronous process. Should be specified for getting matching stats.
+                  format: uuid
+                  type: string
+                matchId:
+                  description: Identifier of the started match operation. Should be specified for getting matching stats. Deprecated, use `processUid` property
+                  format: uuid
+                  deprecated: true
+                  type: string
+              type: object
+          type: object
       type: object
     Binding:
       description: String to context binding
@@ -1090,113 +1555,13 @@ components:
             type: object
           type: array
       type: object
-    Error:
-      type: object
+    DeleteContextsRequest:
       properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
-    Error401Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    CreateBindingsResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  created:
-                    properties:
-                      items:
-                        items:
-                          $ref: '#/components/schemas/Binding'
-                        type: array
-                      totalCount:
-                        type: integer
-                    required:
-                    - items
-                    type: object
-                  errors:
-                    properties:
-                      items:
-                        items:
-                          properties:
-                            message:
-                              type: string
-                          required:
-                          - message
-                          type: object
-                        type: array
-                      totalCount:
-                        type: integer
-                    required:
-                    - items
-                    type: object
-                required:
-                - created
-                type: object
-            type: object
-    Error404Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - NOT_FOUND_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Timecode:
-      description: Number of seconds for the period of time that a string appears in a video, relative to the video start time.
-      properties:
-        endTime:
-          format: int64
-          type: integer
-        startTime:
-          format: int64
-          type: integer
+        contextUids:
+          description: List of contexts UIDs to delete. List size is limited to 100 items.
+          type: array
+          items:
+            type: string
       type: object
     ContextListResponse:
       type: object
@@ -1220,118 +1585,6 @@ components:
                 - items
                 type: object
             type: object
-    DeleteBatchBindingsRequest:
-      type: object
-      description: Parameters for bindings to delete search
-      properties:
-        stringHashcodes:
-          description: List of the hashcodes for the strings to delete bindings for.
-          items:
-            type: string
-          type: array
-        contentFileUri:
-          description: Content file name to delete bindings for.
-          type: string
-        contextUid:
-          description: ContextUID to delete bindings for.
-          format: uuid
-          type: string
-        bindingUids:
-          description: Unique binding identifier to delete.
-          items:
-            type: string
-          type: array
-    MatchAsyncResult:
-      properties:
-        bindings:
-          items:
-            $ref: '#/components/schemas/Binding'
-          type: array
-        contextUid:
-          description: Unique identifier for the context.
-          type: string
-        checkedStringsCount:
-          type: integer
-      type: object
-    Error500Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Coordinates:
-      description: Describes the location and size of a box enclosing the string in a context image. ‘top’ and ‘left’ are the distances in pixels of the top left corner of the string (from the top left of the image). ‘width’ and ‘height’ are the dimensions of the string in pixels. This information is used to highlight the position of the string when displaying the context image in the translation interface (CAT tool). If coordinates are not provided, Smartling will attempt to locate the string on the image using Optical Character Recognition. If OCR fails, coordinates will default to 0, 0, 0, 0. This meaans that the image will be displayed when the string is translated, without any highlighting to show the position of the string.
-      properties:
-        height:
-          type: number
-        left:
-          type: number
-        top:
-          type: number
-        width:
-          type: number
-      required:
-      - top
-      - left
-      - height
-      - width
-      type: object
-    AsyncMatchResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Code of the completed operation.
-              enum:
-              - SUCCESS
-              type: string
-            data:
-              properties:
-                processUid:
-                  description: Identifier of the started asynchronous process. Should be specified for getting matching stats.
-                  format: uuid
-                  type: string
-                matchId:
-                  description: Identifier of the started match operation. Should be specified for getting matching stats. Deprecated, use `processUid` property
-                  format: uuid
-                  deprecated: true
-                  type: string
-              type: object
-          type: object
-      type: object
-    AsyncProcessResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Code of the completed operation.
-              enum:
-              - SUCCESS
-              type: string
-            data:
-              properties:
-                processUid:
-                  description: Identifier of the started asynchronous process.
-                  format: uuid
-                  type: string
-              type: object
-          type: object
-      type: object
     BindingListResponse:
       type: object
       required:
@@ -1354,155 +1607,6 @@ components:
                 - items
                 type: object
             type: object
-    DeleteContextsAsyncResult:
-      description: Empty object
-      properties: {}
-      type: object
-    DeleteContextsRequest:
-      properties:
-        contextUids:
-          description: List of contexts UIDs to delete. List size is limited to 100 items.
-          type: array
-          items:
-            type: string
-      type: object
-    AsyncMatchStatsResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Code of the completed operation.
-              enum:
-              - SUCCESS
-              type: string
-            data:
-              properties:
-                bindings:
-                  items:
-                    $ref: '#/components/schemas/Binding'
-                  type: array
-                createdDate:
-                  format: date-time
-                  type: string
-                matchId:
-                  description: Identifier of the started match operation. Should be specified for getting matching stats.
-                  format: uuid
-                  type: string
-                modifiedDate:
-                  format: date-time
-                  type: string
-                status:
-                  enum:
-                  - IN_PROGRESS
-                  - COMPLETED
-                  - FAILED
-                  type: string
-              type: object
-          type: object
-      type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    Error400Response:
-      type: object
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    BatchBindingsRequest:
-      type: object
-      description: Parameters for bindings search
-      properties:
-        stringHashcodes:
-          description: List of the hashcodes for the strings to get bindings for.
-          items:
-            type: string
-          type: array
-        contentFileUri:
-          description: Content file name to get bindings for.
-          type: string
-        contextUid:
-          description: ContextUID to get bindings for.
-          format: uuid
-          type: string
-        bindingUids:
-          description: List of unique binding identifiers.
-          items:
-            type: string
-          type: array
-    ContextResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Code of the completed operation.
-              enum:
-              - SUCCESS
-              type: string
-            data:
-              description: Basic information about the context.
-              properties:
-                contextType:
-                  description: Type of context file.
-                  enum:
-                  - IMAGE
-                  - HTML
-                  - VIDEO
-                  type: string
-                contextUid:
-                  description: Unique identifier for the context.
-                  type: string
-                created:
-                  description: 'A date when the context was created. Format: ISO8601 date and time string'
-                  format: date-time
-                  type: string
-                name:
-                  description: File name for IMAGE context, URL for HTML Context and video URL for VIDEO context.
-                  type: string
-              type: object
-          type: object
-      type: object
     AsyncProcessResultResponse:
       properties:
         response:
@@ -1534,7 +1638,144 @@ components:
               - $ref: '#/components/schemas/DeleteContextsAsyncResult'
           type: object
       type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    MatchParams:
+      type: object
+      description: '*Uncollapse this block to get the detailed description of `matchParams`.*
+
+        <br/><br/>
+
+        If none of `stringHashcodes`, `contentFileUri`, `translationJobUids` are specified, **all strings from the project** will be included in the match.
+
+        <br/>
+
+        If `overrideContextOlderThanDays` is not specified, **strings with context will not be bound to this context**.'
+      properties:
+        contentFileUri:
+          description: 'File URI containing strings to perform matching with the context: <br/> Example: `"contentFileUri": "example.properties"` <br/> Can''t be used along with the `stringHashcodes` or `translationJobUids` parameter.'
+          type: string
+        stringHashcodes:
+          description: 'An array of string hashcodes to perform matching with the context: <br/> Example: `"stringHashcodes": ["hashcode1", "hashcode2"]` <br/> Can''t be used along with the `contentFileUri` or `translationJobUids` parameter.'
+          items:
+            format: hash
+            type: string
+          type: array
+        translationJobUids:
+          description: 'A translation job UID to perform matching with the context. Only one UID can be specified: <br/> Example: `"translationJobUids": ["translationJobUid"]` <br/> Can''t be used along with the `contentFileUri` or `stringHashcodes` parameter.'
+          items:
+            format: hash
+            type: string
+          type: array
+        overrideContextOlderThanDays:
+          description: Specifies whether to override context for strings that were already bound to other context, and that context is at least as "overrideContextOlderThanDays" old.
+          minimum: 1
+          type: integer
+        videoMatchingMode:
+          description: 'Specifies the behavior of string matching for video contexts.
+
+
+            | videoMatchingMode | Description |
+
+            |----------------------|-------------|
+
+            | `SUBTITLES` | In this mode you should provide the property `contentFileUri` that points to the subtitles content file. Strings will be bound by the subtitle''s timestamps. |
+
+            | `OCR_WITH_SPLITTING` | Detects key frames and checks each frame for text using OCR. If string matches, an image context is created for that frame. Frames without matches and the original video are deleted. |
+
+            | `OCR` | Detects key frames and checks each frame for text using OCR. If string matches, we bind the string to the original video using the key frame''s timestamp and text coordinates. |
+
+            '
+          enum:
+          - SUBTITLES
+          - OCR_WITH_SPLITTING
+          - OCR
+          type: string
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error404Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - NOT_FOUND_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Timecode:
+      description: Number of seconds for the period of time that a string appears in a video, relative to the video start time.
+      properties:
+        endTime:
+          format: int64
+          type: integer
+        startTime:
+          format: int64
+          type: integer
+      type: object
   responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
     Error401ResponseDefinition:
       description: Provided credentials are not valid.
       content:
@@ -1556,21 +1797,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error500Response'
-    Error400ResponseDefinition:
-      description: Provided request parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error400Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: VALIDATION_ERROR
-                  errors:
-                  - key: unknown.field
-                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
-                    details: unknown.parameter
     Error429ResponseDefinition:
       description: Too many simultaneous API requests.
       content:

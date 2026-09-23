@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects Strings API
+  title: Smartling REST API Reference Strings API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -14,35 +12,7 @@ servers:
 - url: https://api.smartling.com
 tags:
 - name: Strings
-  description: 'A string is a piece of translation. Based on the source content, strings
-
-    can be parsed differently. A string is then broken down further, into one
-
-    or more segments.
-
-
-    The Strings API allows you to directly upload strings to a Smartling
-
-    project and fetch original strings or translations.
-
-
-    For each string in a Smartling project, there is a unique identifier
-
-    created by hashing together the parsed string text, [variant
-
-    metadata](https://help.smartling.com/hc/en-us/articles/360008143853), and
-
-    in some cases,
-
-    [namespace](https://help.smartling.com/hc/en-us/articles/360008143833).
-
-    When adding strings via the Strings API, each string will be unique. If
-
-    you try to create a string with identical variant metadata and string text
-
-    to a string that already exists in the project, the string will be
-
-    overwritten.'
+  description: A string is a piece of translation.
 paths:
   /strings-api/v2/projects/{projectId}:
     post:
@@ -59,7 +29,7 @@ paths:
         Most uploads will return a `200` response indicating success. If processing the request takes longer than 60 seconds, a `202` request will be returned, including a `processUid` value that can be used to check on the progress of the request.
 
 
-        If you set up a POST callback for the string, you can automatically receive the translation for a string as soon as it is complete. See [Callbacks](https://help.smartling.com/hc/en-us/articles/1260805504109) for more details.'
+        If you set up a POST callback for the string, you can automatically receive the translation for a string as soon as it is complete. See Callbacks for more details.'
       tags:
       - Strings
       operationId: addStringsToProject
@@ -163,7 +133,19 @@ paths:
   /strings-api/v2/projects/{projectId}/processes/{processUid}:
     get:
       summary: Check string status
-      description: "If an **Add strings** request takes longer than 60 seconds to process, a `202` response will be returned, indicating that the process of creating strings is continuing but not yet complete. This response will include a `proccessUid` value which can be used to check the progress of the request.\n\nThis request can return:\n  * `\"processState\": \"OPEN\"` which indicates that the request is still continuing.\n  * `\"processState\": \"CLOSED\"` indicates the request has successfully completed.\n  * `\"processState\": \"FAILED\"` means the request could not be completed.\n\nProcesses have a limited lifespan after they are complete. This request will fail if you specify an expired `processUid`."
+      description: 'If an **Add strings** request takes longer than 60 seconds to process, a `202` response will be returned, indicating that the process of creating strings is continuing but not yet complete. This response will include a `proccessUid` value which can be used to check the progress of the request.
+
+
+        This request can return:
+
+        * `"processState": "OPEN"` which indicates that the request is still continuing.
+
+        * `"processState": "CLOSED"` indicates the request has successfully completed.
+
+        * `"processState": "FAILED"` means the request could not be completed.
+
+
+        Processes have a limited lifespan after they are complete. This request will fail if you specify an expired `processUid`.'
       tags:
       - Strings
       operationId: getAddStringsToProjectRequestStatus
@@ -497,15 +479,60 @@ paths:
           '
 components:
   schemas:
-    Error500Response:
+    CreateStringStatusResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  createdDate:
+                    description: Total number of strings captured as a result of the request.
+                    type: string
+                  modifiedDate:
+                    description: If the request takes longer than 60 seconds to process, a `202` response will be returned, indicating the request has not failed, but is not yet complete. Use the processUid value to check the status of the request using the Check Create String Status request.
+                    type: string
+                  processState:
+                    description: State of the request
+                    enum:
+                    - OPEN
+                    - CLOSED
+                    - FAILED
+                    type: string
+                  processStatistics:
+                    description: Information on the created or updated string
+                    properties:
+                      errored:
+                        description: strings that had errors
+                        type: string
+                      processed:
+                        description: strings processed
+                        type: string
+                      requested:
+                        description: strings requested
+                        type: string
+                      skipped:
+                        description: strings skipped
+                        type: string
+                    type: object
+                  processUid:
+                    description: Unique identifer for a create string request.
+                    type: string
+                type: object
+            type: object
+    Error401Response:
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
               type: string
             errors:
               items:
@@ -518,25 +545,45 @@ components:
       required:
       - response
       type: object
-    StringResponse:
-      type: object
-      required:
-      - response
+    Error429Response:
       properties:
         response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/StringInfo'
-                    type: array
-                  totalCount:
-                    type: number
-                type: object
-            type: object
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    CreatedString:
+      description: Information on the created or updated string
+      properties:
+        hashcode:
+          description: The generated unique idenitfier for this created or updated string.
+          type: string
+        overWritten:
+          description: Idenitfies if the string was already in the system.
+          type: string
+        parsedStringText:
+          description: The text for this string used to define its uniqueness in the Smartling system.  This is after placeholders have been processed and escaping normalization has been applied.
+          type: string
+        stringText:
+          description: The text for this string
+          type: string
+        variant:
+          description: String variant
+          type: string
+      type: object
     Error400Response:
       type: object
       properties:
@@ -557,6 +604,74 @@ components:
           type: object
       required:
       - response
+    TranslationResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/Translation'
+                    type: array
+                  totalCount:
+                    type: number
+                type: object
+            type: object
+    StringInfo:
+      description: Information on string
+      properties:
+        hashcode:
+          description: The generated unique idenitfier for this created or updated string.
+          type: string
+        keys:
+          description: If this string is associated with one or more resource files this is a list of the associated resource keys.
+          items:
+            properties:
+              fileUri:
+                description: resource key
+                type: string
+              key:
+                description: fileUri of the key
+                type: string
+            type: object
+          type: array
+        parsedStringText:
+          description: The text for this string used to define its uniqueness in the Smartling system.  This is after placeholders have been processed and escaping normalization has been applied.
+          type: string
+        stringText:
+          description: The text for this string
+          type: string
+        stringVariant:
+          description: String variant
+          type: string
+        maxLength:
+          description: Maximum character length
+          type: number
+        stringInstructions:
+          description: String instructions that were added to the string in the Dashboard.
+          items:
+            description: The text of the instruction.
+            type: string
+          type: array
+        contentFileStringInstructions:
+          description: String instructions that were included in the uploaded file if any.
+          items:
+            properties:
+              fileUri:
+                description: URI of the file that contained the instruction.
+                type: string
+              contentFileStringInstruction:
+                description: The text of the instruction.
+                type: string
+            type: object
+          type: array
+      type: object
     SuccessResponse:
       properties:
         code:
@@ -616,54 +731,15 @@ components:
           format: uuid
           type: string
       type: object
-    Error429Response:
+    Error500Response:
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    CreatedString:
-      description: Information on the created or updated string
-      properties:
-        hashcode:
-          description: The generated unique idenitfier for this created or updated string.
-          type: string
-        overWritten:
-          description: Idenitfies if the string was already in the system.
-          type: string
-        parsedStringText:
-          description: The text for this string used to define its uniqueness in the Smartling system.  This is after placeholders have been processed and escaping normalization has been applied.
-          type: string
-        stringText:
-          description: The text for this string
-          type: string
-        variant:
-          description: String variant
-          type: string
-      type: object
-    Error401Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
               type: string
             errors:
               items:
@@ -691,25 +767,6 @@ components:
       required:
       - key
       - message
-    TranslationResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/Translation'
-                    type: array
-                  totalCount:
-                    type: number
-                type: object
-            type: object
     CreateStringResponse:
       type: object
       required:
@@ -738,56 +795,7 @@ components:
                     type: number
                 type: object
             type: object
-    StringInfo:
-      description: Information on string
-      properties:
-        hashcode:
-          description: The generated unique idenitfier for this created or updated string.
-          type: string
-        keys:
-          description: If this string is associated with one or more resource files this is a list of the associated resource keys.
-          items:
-            properties:
-              fileUri:
-                description: resource key
-                type: string
-              key:
-                description: fileUri of the key
-                type: string
-            type: object
-          type: array
-        parsedStringText:
-          description: The text for this string used to define its uniqueness in the Smartling system.  This is after placeholders have been processed and escaping normalization has been applied.
-          type: string
-        stringText:
-          description: The text for this string
-          type: string
-        stringVariant:
-          description: String variant
-          type: string
-        maxLength:
-          description: Maximum character length
-          type: number
-        stringInstructions:
-          description: String instructions that were added to the string in the Dashboard.
-          items:
-            description: The text of the instruction.
-            type: string
-          type: array
-        contentFileStringInstructions:
-          description: String instructions that were included in the uploaded file if any.
-          items:
-            properties:
-              fileUri:
-                description: URI of the file that contained the instruction.
-                type: string
-              contentFileStringInstruction:
-                description: The text of the instruction.
-                type: string
-            type: object
-          type: array
-      type: object
-    CreateStringStatusResponse:
+    StringResponse:
       type: object
       required:
       - response
@@ -798,38 +806,12 @@ components:
           - properties:
               data:
                 properties:
-                  createdDate:
-                    description: Total number of strings captured as a result of the request.
-                    type: string
-                  modifiedDate:
-                    description: If the request takes longer than 60 seconds to process, a `202` response will be returned, indicating the request has not failed, but is not yet complete. Use the processUid value to check the status of the request using the Check Create String Status request.
-                    type: string
-                  processState:
-                    description: State of the request
-                    enum:
-                    - OPEN
-                    - CLOSED
-                    - FAILED
-                    type: string
-                  processStatistics:
-                    description: Information on the created or updated string
-                    properties:
-                      errored:
-                        description: strings that had errors
-                        type: string
-                      processed:
-                        description: strings processed
-                        type: string
-                      requested:
-                        description: strings requested
-                        type: string
-                      skipped:
-                        description: strings skipped
-                        type: string
-                    type: object
-                  processUid:
-                    description: Unique identifer for a create string request.
-                    type: string
+                  items:
+                    items:
+                      $ref: '#/components/schemas/StringInfo'
+                    type: array
+                  totalCount:
+                    type: number
                 type: object
             type: object
   responses:
@@ -848,26 +830,6 @@ components:
                   - key: unknown.field
                     message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
                     details: unknown.parameter
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
     Error401ResponseDefinition:
       description: Provided credentials are not valid.
       content:
@@ -883,6 +845,26 @@ components:
                   - details: {}
                     key: invalid_token
                     message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

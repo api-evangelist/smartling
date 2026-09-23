@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects Tags API
+  title: Smartling REST API Reference Tags API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -347,15 +345,14 @@ components:
           type: string
       required:
       - tag
-    SuccessResponse:
+    TagInfo:
       properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
+        tag:
+          description: Tag text
+          example: SomeTag
           type: string
       required:
-      - code
+      - tag
       type: object
     GetProjectTagsResponse:
       properties:
@@ -378,6 +375,16 @@ components:
       required:
       - response
       type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
     GetAccountTagsResponse:
       properties:
         response:
@@ -398,15 +405,6 @@ components:
             type: object
       required:
       - response
-      type: object
-    TagInfo:
-      properties:
-        tag:
-          description: Tag text
-          example: SomeTag
-          type: string
-      required:
-      - tag
       type: object
   requestBodies:
     TagsWithStrings:

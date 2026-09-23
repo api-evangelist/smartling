@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects GDN url management API
+  title: Smartling REST API Reference GDN url management API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -197,54 +195,6 @@ paths:
           '
 components:
   schemas:
-    WebPageDomainsResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      properties:
-                        name:
-                          description: url domain name
-                          example: my.domain.com
-                          type: string
-                      type: object
-                    type: array
-                  totalCount:
-                    description: Total element count
-                    type: integer
-                type: object
-            type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    WebPageDetailListRequest:
-      properties:
-        webPageUids:
-          description: list of url identifiers
-          example:
-          - 4423d44
-          - 123jd44
-          items:
-            type: string
-          maximum: 200
-          minimum: 1
-          type: array
-      type: object
     WebPageListRequest:
       properties:
         domainName:
@@ -316,6 +266,54 @@ components:
           description: Should or should not apply exact match.
           example: false
           type: boolean
+      type: object
+    WebPageDomainsResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      properties:
+                        name:
+                          description: url domain name
+                          example: my.domain.com
+                          type: string
+                      type: object
+                    type: array
+                  totalCount:
+                    description: Total element count
+                    type: integer
+                type: object
+            type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    WebPageDetailListRequest:
+      properties:
+        webPageUids:
+          description: list of url identifiers
+          example:
+          - 4423d44
+          - 123jd44
+          items:
+            type: string
+          maximum: 200
+          minimum: 1
+          type: array
       type: object
     WebPageListResponse:
       type: object

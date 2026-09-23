@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects Workflow Assignment API
+  title: Smartling REST API Reference Workflow Assignment API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -19,9 +17,7 @@ paths:
   /people-api/v3/accounts/{accountUid}/processes/{processUid}:
     get:
       summary: Assignments removal status
-      description: 'Checking state of workflow assignments removal process
-
-        '
+      description: Checking state of workflow assignments removal process
       operationId: workflowAssignmentsProcess
       tags:
       - Workflow Assignment
@@ -318,28 +314,31 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
   schemas:
-    WorkflowAssignmentCreate:
+    WorkflowAssignmentUserAssignment:
       type: object
       properties:
-        roleValue:
-          enum:
-          - ROLE_TRANSLATION_RESOURCE
-          - ROLE_TRANSLATION_RESOURCE_MANAGER
+        userUid:
           type: string
-          description: User role name
+          description: User identifier.
+        roleValue:
+          type: string
+          description: User role name.
+        agencyUid:
+          type: string
+          description: Agency identifier.
         workflowStepAssignments:
           type: array
           items:
             $ref: '#/components/schemas/WorkflowAssignmentWorkflowStep'
-    Error500Response:
+    Error401Response:
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
               type: string
             errors:
               items:
@@ -381,21 +380,6 @@ components:
                   processed:
                     type: integer
                     description: Number of processed workers within process
-    WorkflowAssignmentLocalePairs:
-      type: object
-      properties:
-        sourceLocaleId:
-          type: string
-          description: source locale ID
-          example: en-US
-        targetLocaleIds:
-          type: array
-          description: The array of target locale IDs
-          example:
-          - fr-FR
-          - es-ES
-          items:
-            type: string
     WorkflowAssignmentWorkflowStep:
       type: object
       properties:
@@ -415,6 +399,106 @@ components:
       required:
       - code
       type: object
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    WorkflowAssignmentCreate:
+      type: object
+      properties:
+        roleValue:
+          enum:
+          - ROLE_TRANSLATION_RESOURCE
+          - ROLE_TRANSLATION_RESOURCE_MANAGER
+          type: string
+          description: User role name
+        workflowStepAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowAssignmentWorkflowStep'
+    WorkflowAssignmentSearchResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  offsetToken:
+                    type: string
+                    description: Offset token for next search operation
+                  workflowStepUserAssignments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WorkflowAssignmentUserAssignment'
+    WorkflowAssignmentLocalePairs:
+      type: object
+      properties:
+        sourceLocaleId:
+          type: string
+          description: source locale ID
+          example: en-US
+        targetLocaleIds:
+          type: array
+          description: The array of target locale IDs
+          example:
+          - fr-FR
+          - es-ES
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    WorkflowAssignmentCreateResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  totalCount:
+                    type: integer
+                    description: Number of created workflow step assignments
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WorkflowAssignmentWorkflowStep'
     Error400Response:
       type: object
       properties:
@@ -435,94 +519,6 @@ components:
           type: object
       required:
       - response
-    Error401Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
-    WorkflowAssignmentUserAssignment:
-      type: object
-      properties:
-        userUid:
-          type: string
-          description: User identifier.
-        roleValue:
-          type: string
-          description: User role name.
-        agencyUid:
-          type: string
-          description: Agency identifier.
-        workflowStepAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowAssignmentWorkflowStep'
-    WorkflowAssignmentCreateResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  totalCount:
-                    type: integer
-                    description: Number of created workflow step assignments
-                  items:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/WorkflowAssignmentWorkflowStep'
-    WorkflowAssignmentSearchResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  offsetToken:
-                    type: string
-                    description: Offset token for next search operation
-                  workflowStepUserAssignments:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/WorkflowAssignmentUserAssignment'
   responses:
     Error400ResponseDefinition:
       description: Provided request parameters are invalid.
@@ -539,12 +535,6 @@ components:
                   - key: unknown.field
                     message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
                     details: unknown.parameter
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
     Error401ResponseDefinition:
       description: Provided credentials are not valid.
       content:
@@ -560,6 +550,12 @@ components:
                   - details: {}
                     key: invalid_token
                     message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects Files API
+  title: Smartling REST API Reference Files API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -16,16 +14,16 @@ tags:
 - name: Files
   description: 'Files are typically how you can exchange your content with Smartling to
 
-    get translations. Smartling supports a wide variety of [file
+    get translations. Smartling supports a wide variety of file
 
-    types](https://help.smartling.com/hc/en-us/articles/360007998893). When
+    types. When
 
     you upload a file to Smartling, it gets parsed into strings, which will
 
     then be sent into the translation queue.
 
 
-    The complete list of supported file types is available [here](https://help.smartling.com/hc/en-us/articles/360007998893). For information on file directives, please refer to the documentation for each specific file type.'
+    The complete list of supported file types is available here. For information on file directives, please refer to the documentation for each specific file type.'
 paths:
   /files-api/v2/projects/{projectId}/file:
     post:
@@ -39,9 +37,7 @@ paths:
 
         ingest this file, parse out the keys and text as strings for
 
-        translation. At this point, content is ready for translation.
-
-        '
+        translation. At this point, content is ready for translation.'
       operationId: uploadSourceFile
       tags:
       - Files
@@ -280,9 +276,7 @@ paths:
 
         exception to this is with .pot gettext files. When a .pot file is
 
-        specified as the fileUri, Smartling returns a .po file.
-
-        '
+        specified as the fileUri, Smartling returns a .po file.'
       tags:
       - Files
       operationId: downloadSourceFile
@@ -325,7 +319,16 @@ paths:
       summary: Status of file for each locale
       tags:
       - Files
-      description: "Returns information on a specific file.\n\n**Example:**\n```bash\n  curl -X GET -H \"Authorization: Bearer {token}\" 'https://api.smartling.com/files-api/v2/projects/{projectId}/file/status?fileUri=file.properties'\n```\n"
+      description: 'Returns information on a specific file.
+
+
+        **Example:**
+
+        ```bash
+
+        curl -X GET -H "Authorization: Bearer {token}" ''https://api.smartling.com/files-api/v2/projects/{projectId}/file/status?fileUri=file.properties''
+
+        ```'
       operationId: getFileTranslationStatusAllLocales
       parameters:
       - name: projectId
@@ -396,9 +399,7 @@ paths:
 
         curl -X GET -H "Authorization: Bearer {token}" ''https://api.smartling.com/files-api/v2/projects/{projectId}/locales/{localeId}/file/status?fileUri=file.properties''
 
-        ```
-
-        '
+        ```'
       tags:
       - Files
       operationId: getFileTranslationStatusSingleLocale
@@ -463,7 +464,67 @@ paths:
       summary: Download translated file (single locale or multi-locale)
       tags:
       - Files
-      description: "Downloads the requested translated file from Smartling.  \n\nThis endpoint supports two modes depending on the value of `localeIds`:\n\n### **Single-locale mode**\n- Provide a **single locale ID**, e.g. `fr-FR`\n- Smartling returns a file containing translations only for that locale\n- Supported for **all file types**.\n\n### **Multi-locale mode**\n- Provide a **comma-separated list of locale IDs**, e.g. `fr-FR,de-DE,es-ES`\n- Or specify `all` to include all available locales\n- Smartling returns a **combined multi-locale file** with translations for all specified locales inside one file\n- Supported only for:\n  **MADCAP, DITA_ZIP, CSV, XLSX_TEMPLATE, XCSTRINGS**\n\n\n---\n\nIt is important to check the HTTP response status code. If Smartling\nfinds and returns the file normally, you will receive a `200` SUCCESS\nresponse. If you receive any other response status code other than\n`200`, the requested file will not be part of the response.\n\nWhen you upload a UTF-16 character encoded file, then /file/get requests\nfor that file will have a character encoding of UTF-16. All other\nuploaded files will be returned with a character encoding of UTF-8.\n\nYou can always use the content-type header in the response of a file/get\nrequest to determine the character encoding.\n\n**Note**: The filename in the response header is based on the fileUri\nassociated with the requested file. In most cases, the filename is\nexactly the fileUri provided. The only exception to this is with .pot\ngettext files. When a .pot file is specified as the fileUri, Smartling\nreturns a .po file.\n"
+      description: 'Downloads the requested translated file from Smartling.
+
+
+        This endpoint supports two modes depending on the value of `localeIds`:
+
+
+        ### **Single-locale mode**
+
+        - Provide a **single locale ID**, e.g. `fr-FR`
+
+        - Smartling returns a file containing translations only for that locale
+
+        - Supported for **all file types**.
+
+
+        ### **Multi-locale mode**
+
+        - Provide a **comma-separated list of locale IDs**, e.g. `fr-FR,de-DE,es-ES`
+
+        - Or specify `all` to include all available locales
+
+        - Smartling returns a **combined multi-locale file** with translations for all specified locales inside one file
+
+        - Supported only for:
+
+        **MADCAP, DITA_ZIP, CSV, XLSX_TEMPLATE, XCSTRINGS**
+
+
+        ---
+
+
+        It is important to check the HTTP response status code. If Smartling
+
+        finds and returns the file normally, you will receive a `200` SUCCESS
+
+        response. If you receive any other response status code other than
+
+        `200`, the requested file will not be part of the response.
+
+
+        When you upload a UTF-16 character encoded file, then /file/get requests
+
+        for that file will have a character encoding of UTF-16. All other
+
+        uploaded files will be returned with a character encoding of UTF-8.
+
+
+        You can always use the content-type header in the response of a file/get
+
+        request to determine the character encoding.
+
+
+        **Note**: The filename in the response header is based on the fileUri
+
+        associated with the requested file. In most cases, the filename is
+
+        exactly the fileUri provided. The only exception to this is with .pot
+
+        gettext files. When a .pot file is specified as the fileUri, Smartling
+
+        returns a .po file.'
       operationId: downloadTranslatedFile
       parameters:
       - name: projectId
@@ -583,9 +644,7 @@ paths:
 
         You can always use the content-type header in the response of a file/get
 
-        request to determine the character encoding.
-
-        '
+        request to determine the character encoding.'
       tags:
       - Files
       operationId: downloadTranslatedFilesAllLocales
@@ -681,7 +740,43 @@ paths:
   /files-api/v2/projects/{projectId}/files/zip:
     get:
       summary: Download multiple translated files (DEPRECATED)
-      description: "Download ZIP archive with the requested translated files.\n\nUnlike \"Download all translations of the file\" you can specify multiple\nfile URIs (limit is 300 files) and locale IDs to select which files and languages you want to download.\n\nIt is important to check the HTTP response status code. If Smartling\nfinds and returns the file normally, you will receive a `200` SUCCESS\nresponse. If you receive any other response status code than `200`, the\nrequested files will not be part of the response.\n\nWhen you upload a UTF-16 character encoded file, then /file/get requests\nfor that file will have a character encoding of UTF-16. All other\nuploaded files will return with a character encoding of UTF-8.\n\nYou can always use the content-type header in the response of a file/get\nrequest to determine the character encoding.\n\n**Example:**\n\n```bash\n  curl -X GET -H \"Authorization: Bearer {token}\" 'https://api.smartling.com/files-api/v2/projects/{projectId}/files/zip?localeIds[]=de-DE&fileUris[]=yourfile.json'\n```\n"
+      description: 'Download ZIP archive with the requested translated files.
+
+
+        Unlike "Download all translations of the file" you can specify multiple
+
+        file URIs (limit is 300 files) and locale IDs to select which files and languages you want to download.
+
+
+        It is important to check the HTTP response status code. If Smartling
+
+        finds and returns the file normally, you will receive a `200` SUCCESS
+
+        response. If you receive any other response status code than `200`, the
+
+        requested files will not be part of the response.
+
+
+        When you upload a UTF-16 character encoded file, then /file/get requests
+
+        for that file will have a character encoding of UTF-16. All other
+
+        uploaded files will return with a character encoding of UTF-8.
+
+
+        You can always use the content-type header in the response of a file/get
+
+        request to determine the character encoding.
+
+
+        **Example:**
+
+
+        ```bash
+
+        curl -X GET -H "Authorization: Bearer {token}" ''https://api.smartling.com/files-api/v2/projects/{projectId}/files/zip?localeIds[]=de-DE&fileUris[]=yourfile.json''
+
+        ```'
       tags:
       - Files
       operationId: downloadMultipleTranslatedFiles
@@ -833,7 +928,91 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
     post:
       summary: Download multiple translated files
-      description: "Download ZIP archive with the requested translated files.\n\nThis endpoint allows you to specify multiple files and locales in the\nrequest body (limit is 500 file-locale combinations) to select which files\nand languages you want to download.\n\nIt is important to check the HTTP response status code. If Smartling\nfinds and returns the file normally, you will receive a `200` SUCCESS\nresponse. If you receive a `204` response, no files were included because\nthe requested files were not fully published and `fileFilter` was set to\n`PUBLISHED_FILES_ONLY`. If you receive any other response status code\nthan `200`, the requested files will not be part of the response.\n\nWhen you upload a UTF-16 character encoded file, then /file/get requests\nfor that file will have a character encoding of UTF-16. All other\nuploaded files will return with a character encoding of UTF-8.\n\nYou can always use the content-type header in the response of a file/get\nrequest to determine the character encoding.\n\n**Example:**\n\n```bash\n  curl -X POST \\\n    -H \"Authorization: Bearer {token}\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n      \"files\": [\n        {\n          \"fileUri\": \"yourfile.json\",\n          \"localeIds\": [\"de-DE\", \"fr-FR\"]\n        },\n        {\n          \"fileUri\": \"anotherfile.xml\",\n          \"localeIds\": [\"es-ES\"]\n        }\n      ],\n      \"retrievalType\": \"published\",\n      \"includeOriginalStrings\": true,\n      \"fileNameMode\": \"LOCALE_LAST\",\n      \"localeMode\": \"LOCALE_IN_PATH\",\n      \"zipFileName\": \"translations.zip\",\n      \"fileFilter\": \"ALL_FILES\"\n    }' \\\n    'https://api.smartling.com/files-api/v2/projects/{projectId}/files/zip'\n```\n"
+      description: 'Download ZIP archive with the requested translated files.
+
+
+        This endpoint allows you to specify multiple files and locales in the
+
+        request body (limit is 500 file-locale combinations) to select which files
+
+        and languages you want to download.
+
+
+        It is important to check the HTTP response status code. If Smartling
+
+        finds and returns the file normally, you will receive a `200` SUCCESS
+
+        response. If you receive a `204` response, no files were included because
+
+        the requested files were not fully published and `fileFilter` was set to
+
+        `PUBLISHED_FILES_ONLY`. If you receive any other response status code
+
+        than `200`, the requested files will not be part of the response.
+
+
+        When you upload a UTF-16 character encoded file, then /file/get requests
+
+        for that file will have a character encoding of UTF-16. All other
+
+        uploaded files will return with a character encoding of UTF-8.
+
+
+        You can always use the content-type header in the response of a file/get
+
+        request to determine the character encoding.
+
+
+        **Example:**
+
+
+        ```bash
+
+        curl -X POST \
+
+        -H "Authorization: Bearer {token}" \
+
+        -H "Content-Type: application/json" \
+
+        -d ''{
+
+        "files": [
+
+        {
+
+        "fileUri": "yourfile.json",
+
+        "localeIds": ["de-DE", "fr-FR"]
+
+        },
+
+        {
+
+        "fileUri": "anotherfile.xml",
+
+        "localeIds": ["es-ES"]
+
+        }
+
+        ],
+
+        "retrievalType": "published",
+
+        "includeOriginalStrings": true,
+
+        "fileNameMode": "LOCALE_LAST",
+
+        "localeMode": "LOCALE_IN_PATH",
+
+        "zipFileName": "translations.zip",
+
+        "fileFilter": "ALL_FILES"
+
+        }'' \
+
+        ''https://api.smartling.com/files-api/v2/projects/{projectId}/files/zip''
+
+        ```'
       tags:
       - Files
       operationId: downloadMultipleTranslatedFilesPost
@@ -1121,9 +1300,7 @@ paths:
   /files-api/v2/projects/{projectId}/file-types:
     get:
       summary: List all file types
-      description: 'This returns a list of all file types currently represented in the project.
-
-        '
+      description: This returns a list of all file types currently represented in the project.
       tags:
       - Files
       operationId: getFileTypesList
@@ -1166,9 +1343,7 @@ paths:
   /files-api/v2/projects/{projectId}/file/rename:
     post:
       summary: Rename file
-      description: 'This renames an uploaded file by changing the `fileUri`. After renaming the file, it will only be identified by the new `fileUri` that you provide.
-
-        '
+      description: This renames an uploaded file by changing the `fileUri`. After renaming the file, it will only be identified by the new `fileUri` that you provide.
       tags:
       - Files
       operationId: renameUploadedSourceFile
@@ -1228,9 +1403,7 @@ paths:
       description: 'This removes the file from Smartling. The file will no longer be available for download. Any complete translations for the file remain available for use within the system.
 
 
-        Smartling deletes files asynchronously and it typically takes a few minutes to complete. While deleting a file, you can not upload a file with the same `fileUri`.
-
-        '
+        Smartling deletes files asynchronously and it typically takes a few minutes to complete. While deleting a file, you can not upload a file with the same `fileUri`.'
       tags:
       - Files
       operationId: deleteUploadedSourceFile
@@ -1280,9 +1453,7 @@ paths:
   /files-api/v2/projects/{projectId}/locales/{localeId}/file/last-modified:
     get:
       summary: Last modified date (single locale)
-      description: 'This returns the date that a file was last modified in a specified locale.
-
-        '
+      description: This returns the date that a file was last modified in a specified locale.
       tags:
       - Files
       operationId: getTranslatedFileLastModifiedDateSingleLocale
@@ -1343,9 +1514,7 @@ paths:
   /files-api/v2/projects/{projectId}/file/last-modified:
     get:
       summary: Last modified date (all locales)
-      description: 'This returns the date that a file was last modified in each locale.
-
-        '
+      description: This returns the date that a file was last modified in each locale.
       tags:
       - Files
       operationId: getTranslatedFileLastModifiedDateAllLocales
@@ -1504,9 +1673,7 @@ paths:
         This call can be used instead of a standard upload/download if you keep different versions of a file in multiple branches or are triggering rebuilds, and don’t want your files in Smartling to be overwritten by out-of-date versions of a file.
 
 
-        To use the call, you upload a file and identify the Smartling URI where the main version of that file is saved. Smartling will match strings shared between the uploaded file and the main file and return any available translations.
-
-        '
+        To use the call, you upload a file and identify the Smartling URI where the main version of that file is saved. Smartling will match strings shared between the uploaded file and the main file and return any available translations.'
       tags:
       - Files
       operationId: exportFileTranslations
@@ -1609,9 +1776,7 @@ paths:
   /published-files-api/v2/projects/{projectId}/files/list/recently-published:
     get:
       summary: List recently published files
-      description: 'Response is limited to files published after 14 days from the time called.
-
-        '
+      description: Response is limited to files published after 14 days from the time called.
       tags:
       - Files
       operationId: getRecentlyPublishedFilesList
@@ -1690,8 +1855,59 @@ paths:
 
           '
 components:
+  responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
   schemas:
-    EmptyResponse:
+    FilesAPILastModifiedAllLocalesSuccessResponse:
       type: object
       required:
       - response
@@ -1701,7 +1917,17 @@ components:
           - $ref: '#/components/schemas/SuccessResponse'
           - properties:
               data:
-                description: Always null.
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/FilesAPILastModifiedResponseItem'
+                    type: array
+                  totalCount:
+                    description: ''
+                    type: integer
+                required:
+                - totalCount
+                - items
                 type: object
             type: object
     FileType:
@@ -1734,19 +1960,6 @@ components:
       - xliff
       - xml
       - yaml
-    FilesAPILastModifiedResponseItem:
-      properties:
-        lastModified:
-          description: The date the file was last modified for the specified locale
-          format: YYYY-MM-DDThh:mm:ssZ
-          type: string
-        localeId:
-          description: A unique identifier for the uploaded file
-          type: string
-      required:
-      - localeId
-      - lastModified
-      type: object
     FilesAPIListFileItem:
       example:
         created: '2016-12-31T00:00:00Z'
@@ -1778,357 +1991,6 @@ components:
       - fileType
       - hasInstructions
       type: object
-    FilesAPIStatusAllLocalesSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  created:
-                    description: The time and date of the first upload
-                    format: YYYY-MM-DDThh:mm:ssZ
-                    type: string
-                  fileType:
-                    $ref: '#/components/schemas/FileType'
-                  fileUri:
-                    description: A unique identifier for the uploaded file
-                    type: string
-                  hasInstructions:
-                    description: Whether translator instructions have been captured for the file
-                    type: boolean
-                  items:
-                    items:
-                      $ref: '#/components/schemas/FilesAPIStatusAllLocalesItem'
-                    type: array
-                  lastUploaded:
-                    description: The time and date of the last upload
-                    format: YYYY-MM-DDThh:mm:ssZ
-                    type: string
-                  parserVersion:
-                    description: Records the version of Smartling's File Parser used to parse the file
-                    type: integer
-                  totalCount:
-                    description: Total number of locales status is returned for
-                    type: integer
-                  totalStringCount:
-                    description: The number of strings in the uploaded file, minus any excluded content
-                    type: integer
-                  totalPageCount:
-                    description: The number of pages in the uploaded file
-                    type: integer
-                  pageCountStatus:
-                    description: "Represents the current state of the page count field. Possible values:\n  - NOT_AVAILABLE_UNSUPPORTED - The file type does not support pages.\n  - PROCESSING - The page count is currently being calculated.\n  - AVAILABLE - The page count has been successfully computed.\n  - NOT_AVAILABLE_LEGACY - The file was uploaded using an older parser version that does not support page counting.\n  - NOT_AVAILABLE_PROCESSING_FAILED - The attempt to calculate the page count has failed."
-                    type: string
-                    enum:
-                    - NOT_AVAILABLE_UNSUPPORTED
-                    - PROCESSING
-                    - AVAILABLE
-                    - NOT_AVAILABLE_LEGACY
-                    - NOT_AVAILABLE_PROCESSING_FAILED
-                  totalWordCount:
-                    description: The number of words in the uploaded file, minus any excluded content
-                    type: integer
-                required:
-                - fileUri
-                - totalStringCount
-                - totalWordCount
-                - fileType
-                - lastUploaded
-                - totalCount
-                - parserVersion
-                - hasInstructions
-                - items
-                type: object
-            type: object
-    Error401Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
-    FilesApiTranslationImportErrorItem:
-      properties:
-        fileUri:
-          description: A unique identifier for the uploaded file
-          type: string
-        importKey:
-          description: Key for an imported string affected by the error
-          type: string
-        messages:
-          description: Information about an import error
-          items:
-            type: string
-          type: array
-        stringHashcode:
-          description: The hashcode of a string affected by the error
-          type: string
-      required:
-      - importKey
-      - stringHashcode
-      - fileUri
-      - messages
-      type: object
-    Error423Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - RESOURCE_LOCKED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    FilesAPILastModifiedAllLocalesSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/FilesAPILastModifiedResponseItem'
-                    type: array
-                  totalCount:
-                    description: ''
-                    type: integer
-                required:
-                - totalCount
-                - items
-                type: object
-            type: object
-    FilesAPIUploadAcceptedResponse:
-      properties:
-        code:
-          enum:
-          - ACCEPTED
-          type: string
-        data:
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - code
-      - data
-      type: object
-    Error500Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    FilesAPIStatusAllLocalesItem:
-      properties:
-        authorizedStringCount:
-          description: The number of strings in the uploaded file that are authorized (available for translation)
-          type: integer
-        authorizedWordCount:
-          description: The number of words in the uploaded file that are authorized (available for translation)
-          type: integer
-        completedStringCount:
-          description: The number of published strings in the uploaded file
-          type: integer
-        completedWordCount:
-          description: The number of published words in the uploaded file
-          type: integer
-        excludedStringCount:
-          description: The number of excluded strings in the uploaded file
-          type: integer
-        excludedWordCount:
-          description: The number of excluded words in the uploaded file
-          type: integer
-        localeId:
-          type: string
-      required:
-      - localeId
-      - authorizedStringCount
-      - authorizedWordCount
-      - completedStringCount
-      - completedWordCount
-      - excludedStringCount
-      - excludedWordCount
-      type: object
-    FilesAPIListFilesSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/FilesAPIListFileItem'
-                    type: array
-                  totalCount:
-                    description: The number of files that match your specified criteria
-                    type: integer
-                required:
-                - totalCount
-                - items
-                type: object
-            type: object
-    FilesAPIListFileTypesSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/FileType'
-                    type: array
-                required:
-                - items
-                type: object
-            type: object
-          example:
-            application/json:
-              response:
-                code: SUCCESS
-                data:
-                  items:
-                    anyOf:
-                    - android
-                    - ios
-                    - gettext
-    FilesAPIUploadSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  overWritten:
-                    description: Indicates whether the uploaded file has overwritten an existing file.
-                    type: boolean
-                  stringCount:
-                    description: The number of strings in the uploaded file
-                    type: integer
-                  wordCount:
-                    description: The number of words in the uploaded file
-                    type: integer
-                required:
-                - overWritten
-                - stringCount
-                - wordCount
-                type: object
-            type: object
-    ImportTranslationsFileType:
-      enum:
-      - android
-      - arb
-      - csv
-      - gettext
-      - ios
-      - stringsdict
-      - java_properties
-      - json
-      - qt
-      - resx
-      - srt
-      - vtt
-      - xml
-      - yaml
-    Error400Response:
-      type: object
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
     SuccessResponse:
       properties:
         code:
@@ -2138,43 +2000,6 @@ components:
           type: string
       required:
       - code
-      type: object
-    PublishedFilesAPIRecentlyPublishedFilesResponseItem:
-      properties:
-        fileUri:
-          description: The URI of the file that was published
-          type: string
-        publishDate:
-          description: The date the file was published for the specified locale
-          format: YYYY-MM-DDThh:mm:ssZ
-          type: string
-        localeId:
-          description: Identifier for a locale
-          type: string
-      required:
-      - fileUri
-      - localeId
-      - publishDate
-      type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
       type: object
     FilesAPIStatusSingleLocaleSuccessResponse:
       type: object
@@ -2259,6 +2084,114 @@ components:
                 - hasInstructions
                 type: object
             type: object
+    FilesAPILastModifiedResponseItem:
+      properties:
+        lastModified:
+          description: The date the file was last modified for the specified locale
+          format: YYYY-MM-DDThh:mm:ssZ
+          type: string
+        localeId:
+          description: A unique identifier for the uploaded file
+          type: string
+      required:
+      - localeId
+      - lastModified
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    Error423Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - RESOURCE_LOCKED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    FilesAPIListFilesSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/FilesAPIListFileItem'
+                    type: array
+                  totalCount:
+                    description: The number of files that match your specified criteria
+                    type: integer
+                required:
+                - totalCount
+                - items
+                type: object
+            type: object
+    PublishedFilesAPIRecentlyPublishedFilesResponseItem:
+      properties:
+        fileUri:
+          description: The URI of the file that was published
+          type: string
+        publishDate:
+          description: The date the file was published for the specified locale
+          format: YYYY-MM-DDThh:mm:ssZ
+          type: string
+        localeId:
+          description: Identifier for a locale
+          type: string
+      required:
+      - fileUri
+      - localeId
+      - publishDate
+      type: object
     PublishedFilesAPIRecentlyPublishedFilesSuccessResponse:
       type: object
       required:
@@ -2298,6 +2231,111 @@ components:
                 - translationImportErrors
                 type: object
             type: object
+    FilesAPIUploadAcceptedResponse:
+      properties:
+        code:
+          enum:
+          - ACCEPTED
+          type: string
+        data:
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - code
+      - data
+      type: object
+    Error401Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    FilesAPIStatusAllLocalesSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  created:
+                    description: The time and date of the first upload
+                    format: YYYY-MM-DDThh:mm:ssZ
+                    type: string
+                  fileType:
+                    $ref: '#/components/schemas/FileType'
+                  fileUri:
+                    description: A unique identifier for the uploaded file
+                    type: string
+                  hasInstructions:
+                    description: Whether translator instructions have been captured for the file
+                    type: boolean
+                  items:
+                    items:
+                      $ref: '#/components/schemas/FilesAPIStatusAllLocalesItem'
+                    type: array
+                  lastUploaded:
+                    description: The time and date of the last upload
+                    format: YYYY-MM-DDThh:mm:ssZ
+                    type: string
+                  parserVersion:
+                    description: Records the version of Smartling's File Parser used to parse the file
+                    type: integer
+                  totalCount:
+                    description: Total number of locales status is returned for
+                    type: integer
+                  totalStringCount:
+                    description: The number of strings in the uploaded file, minus any excluded content
+                    type: integer
+                  totalPageCount:
+                    description: The number of pages in the uploaded file
+                    type: integer
+                  pageCountStatus:
+                    description: "Represents the current state of the page count field. Possible values:\n  - NOT_AVAILABLE_UNSUPPORTED - The file type does not support pages.\n  - PROCESSING - The page count is currently being calculated.\n  - AVAILABLE - The page count has been successfully computed.\n  - NOT_AVAILABLE_LEGACY - The file was uploaded using an older parser version that does not support page counting.\n  - NOT_AVAILABLE_PROCESSING_FAILED - The attempt to calculate the page count has failed."
+                    type: string
+                    enum:
+                    - NOT_AVAILABLE_UNSUPPORTED
+                    - PROCESSING
+                    - AVAILABLE
+                    - NOT_AVAILABLE_LEGACY
+                    - NOT_AVAILABLE_PROCESSING_FAILED
+                  totalWordCount:
+                    description: The number of words in the uploaded file, minus any excluded content
+                    type: integer
+                required:
+                - fileUri
+                - totalStringCount
+                - totalWordCount
+                - fileType
+                - lastUploaded
+                - totalCount
+                - parserVersion
+                - hasInstructions
+                - items
+                type: object
+            type: object
     FilesAPILastModifiedSingleLocaleSuccessResponse:
       type: object
       required:
@@ -2310,57 +2348,186 @@ components:
               data:
                 $ref: '#/components/schemas/FilesAPILastModifiedResponseItem'
             type: object
-  responses:
-    Error401ResponseDefinition:
-      description: Provided credentials are not valid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error401Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: AUTHENTICATION_ERROR
-                  errors:
-                  - details: {}
-                    key: invalid_token
-                    message: Invalid token
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
-    Error400ResponseDefinition:
-      description: Provided request parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error400Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: VALIDATION_ERROR
-                  errors:
-                  - key: unknown.field
-                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
-                    details: unknown.parameter
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    ImportTranslationsFileType:
+      type: string
+      description: A unique identifier for the file type.
+      enum:
+      - android
+      - arb
+      - csv
+      - gettext
+      - ios
+      - stringsdict
+      - java_properties
+      - json
+      - qt
+      - resx
+      - srt
+      - vtt
+      - xml
+      - yaml
+    FilesApiTranslationImportErrorItem:
+      properties:
+        fileUri:
+          description: A unique identifier for the uploaded file
+          type: string
+        importKey:
+          description: Key for an imported string affected by the error
+          type: string
+        messages:
+          description: Information about an import error
+          items:
+            type: string
+          type: array
+        stringHashcode:
+          description: The hashcode of a string affected by the error
+          type: string
+      required:
+      - importKey
+      - stringHashcode
+      - fileUri
+      - messages
+      type: object
+    EmptyResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                description: Always null.
+                type: object
+            type: object
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    FilesAPIStatusAllLocalesItem:
+      properties:
+        authorizedStringCount:
+          description: The number of strings in the uploaded file that are authorized (available for translation)
+          type: integer
+        authorizedWordCount:
+          description: The number of words in the uploaded file that are authorized (available for translation)
+          type: integer
+        completedStringCount:
+          description: The number of published strings in the uploaded file
+          type: integer
+        completedWordCount:
+          description: The number of published words in the uploaded file
+          type: integer
+        excludedStringCount:
+          description: The number of excluded strings in the uploaded file
+          type: integer
+        excludedWordCount:
+          description: The number of excluded words in the uploaded file
+          type: integer
+        localeId:
+          type: string
+      required:
+      - localeId
+      - authorizedStringCount
+      - authorizedWordCount
+      - completedStringCount
+      - completedWordCount
+      - excludedStringCount
+      - excludedWordCount
+      type: object
+    FilesAPIUploadSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  overWritten:
+                    description: Indicates whether the uploaded file has overwritten an existing file.
+                    type: boolean
+                  stringCount:
+                    description: The number of strings in the uploaded file
+                    type: integer
+                  wordCount:
+                    description: The number of words in the uploaded file
+                    type: integer
+                required:
+                - overWritten
+                - stringCount
+                - wordCount
+                type: object
+            type: object
+    FilesAPIListFileTypesSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/FileType'
+                    type: array
+                required:
+                - items
+                type: object
+            type: object
+          example:
+            application/json:
+              response:
+                code: SUCCESS
+                data:
+                  items:
+                    anyOf:
+                    - android
+                    - ios
+                    - gettext
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

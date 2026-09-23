@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects Content Search API
+  title: Smartling REST API Reference Content Search API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -24,7 +22,50 @@ paths:
   /strings-view-service-graphql-api/v2/projects/{projectId}/graphql:
     post:
       summary: Search strings
-      description: "Search for strings in your project using GraphQL.\n\n**Example Query:**\n```graphql\n  query Search($searchStringsFilter: SearchStringsFilter!) {\n    searchStrings(searchStringsFilter: $searchStringsFilter) {\n      content {\n        source {\n          hashcode\n        }\n        translations {\n          translationForms {\n            translationText\n            pluralForm\n          }\n        }\n      }\n      totalCount\n      totalWordCount\n      __typename\n    }\n  }\n```"
+      description: 'Search for strings in your project using GraphQL.
+
+
+        **Example Query:**
+
+        ```graphql
+
+        query Search($searchStringsFilter: SearchStringsFilter!) {
+
+        searchStrings(searchStringsFilter: $searchStringsFilter) {
+
+        content {
+
+        source {
+
+        hashcode
+
+        }
+
+        translations {
+
+        translationForms {
+
+        translationText
+
+        pluralForm
+
+        }
+
+        }
+
+        }
+
+        totalCount
+
+        totalWordCount
+
+        __typename
+
+        }
+
+        }
+
+        ```'
       tags:
       - Content Search
       operationId: searchStrings
@@ -60,6 +101,42 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
     ContentSearchResponse:
       type: object
       properties:
@@ -99,8 +176,9 @@ components:
                                     description: The translated text
                                     example: El rápido zorro marrón salta sobre el perro perezoso.
                                   pluralForm:
-                                    type: string
-                                    nullable: true
+                                    type:
+                                    - string
+                                    - 'null'
                                     description: Plural form identifier if applicable
                                     example: ONE
                 totalCount:
@@ -115,42 +193,6 @@ components:
                   type: string
                   description: GraphQL type name
                   example: StringGroup
-    Error500Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
   responses:
     Error500ResponseDefinition:
       description: Unexpected error

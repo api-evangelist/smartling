@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects Jobs API
+  title: Smartling REST API Reference Jobs API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -18,30 +16,12 @@ tags:
 
     may contain one or more
 
-    [jobs](https://help.smartling.com/hc/en-us/articles/1260805481390). You may
-
-    have multiple projects, each containing multiple jobs. Each job contains
-
-    strings, consisting of words or phrases.
-
-
-    The Jobs feature allows you to group and prioritize your content by name,
-
-    due date, description, and reference number (optional). It also enables
-
-    you to monitor the progress of your translations throughout completion.
-
-
-    The Jobs API allows you to create a job, add a file to a job, authorize a
-
-    job, and cancel a job, among many other actions. You have full control via
-
-    the API to manage your job(s).'
+    jobs.'
 paths:
   /jobs-api/v3/accounts/{accountUid}/jobs:
     get:
       summary: List jobs within an account
-      description: List / search the jobs within an account. By default, only the last 50 jobs are returned. Use the <code>limit</code> and <code>offset</code> parameters to return more than 50 jobs. <a href="https://help.smartling.com/hc/en-us/articles/1260805176869-Pagination" target="_blank">Learn more.</a>
+      description: List / search the jobs within an account. By default, only the last 50 jobs are returned. Use the limit and offset parameters to return more than 50 jobs. Learn more.
       tags:
       - Jobs
       operationId: getJobsByAccount
@@ -162,7 +142,7 @@ paths:
   /jobs-api/v3/projects/{projectId}/jobs:
     get:
       summary: List jobs within a project
-      description: List / search the jobs within a project. By default, only the last 50 jobs are returned. Use the <code>limit</code> and <code>offset</code> parameters to return more than 50 jobs. <a href="https://help.smartling.com/hc/en-us/articles/1260805176869-Pagination" target="_blank">Learn more.</a>
+      description: List / search the jobs within a project. By default, only the last 50 jobs are returned. Use the limit and offset parameters to return more than 50 jobs. Learn more.
       tags:
       - Jobs
       operationId: getJobsByProject
@@ -382,9 +362,7 @@ paths:
   /jobs-api/v3/projects/{projectId}/jobs/find-jobs-by-strings:
     post:
       summary: Search Jobs By Hashcodes And Locales
-      description: 'Search Job(s), based on locales and hashcodes. We allow total 20000 records to be passed. Means it could be 10 locales * 2000 hashcodes or 1 locale * 20000 hashcodes or no locales and just 20000 hashcodes, etc
-
-        '
+      description: Search Job(s), based on locales and hashcodes. We allow total 20000 records to be passed. Means it could be 10 locales * 2000 hashcodes or 1 locale * 20000 hashcodes or no locales and just 20000 hashcodes, etc
       tags:
       - Jobs
       operationId: findJobsByStrings
@@ -463,10 +441,8 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
   /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/strings:
     get:
-      summary: Get translation job strings.
-      description: 'This gets translation job string hashcodes with locales
-
-        '
+      summary: Get translation job strings
+      description: This gets translation job string hashcodes with locales
       tags:
       - Jobs
       operationId: getStringsForTranslationJob
@@ -552,9 +528,7 @@ paths:
       description: 'Adding strings to a job is useful if you don''t manage strings / content through files, but instead need to add strings by some other means other than files.
 
 
-        When strings are successfully added to a job, a `200` status is returned. When the system can''t quickly add strings to the job, a `202` response status is returned. The response contains a link and `processUid` to check the progress of the request. When a `202` is received, the process of adding the content to the job will not be complete until the returned process has completed.
-
-        '
+        When strings are successfully added to a job, a `200` status is returned. When the system can''t quickly add strings to the job, a `202` response status is returned. The response contains a link and `processUid` to check the progress of the request. When a `202` is received, the process of adding the content to the job will not be complete until the returned process has completed.'
       tags:
       - Jobs
       operationId: addStringsToJob
@@ -633,9 +607,7 @@ paths:
       description: 'Remove strings from a job. Any strings removed from the job will also be unauthorized within Smartling.
 
 
-        If strings are successfully removed from a job, a `200` status will be returned. When the system can''t quickly add the strings to the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of removing the content from the job will not be complete until the returned process has completed.
-
-        '
+        If strings are successfully removed from a job, a `200` status will be returned. When the system can''t quickly add the strings to the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of removing the content from the job will not be complete until the returned process has completed.'
       tags:
       - Jobs
       operationId: removeStringsFromJob
@@ -750,9 +722,7 @@ paths:
       description: 'This cancels a job. All content within the job will be removed from the job and the content will be unauthorized.
 
 
-        If a job is successfully cancelled, a `200` response status will be returned. When the system can''t quickly cancel the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of canceling and removing the content from the job will not be complete until the returned process has completed.
-
-        '
+        If a job is successfully cancelled, a `200` response status will be returned. When the system can''t quickly cancel the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of canceling and removing the content from the job will not be complete until the returned process has completed.'
       tags:
       - Jobs
       operationId: cancelJob
@@ -1080,9 +1050,7 @@ paths:
       summary: Delete job
       description: 'This deletes a job. Only job that is in `CANCELLED` status can be deleted.
 
-        If a job is successfully deleted, a `200` response status will be returned.
-
-        '
+        If a job is successfully deleted, a `200` response status will be returned.'
       tags:
       - Jobs
       operationId: deleteJob
@@ -1273,9 +1241,7 @@ paths:
         - Any `targetLocale`s specified must be valid within the project the job has been created for.
 
 
-        When the system can quickly add the file and its content to the job, it synchronously responds with status `200`. When the system cannot quickly add the file and its content to the job, then a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of adding the content to the job will not be complete until the returned process has completed.
-
-        '
+        When the system can quickly add the file and its content to the job, it synchronously responds with status `200`. When the system cannot quickly add the file and its content to the job, then a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of adding the content to the job will not be complete until the returned process has completed.'
       tags:
       - Jobs
       operationId: addFileToJob
@@ -1369,9 +1335,7 @@ paths:
       description: 'Removes a file from a job. All content that is part of the file contained within that job will be removed from the job and will become unauthorized content.
 
 
-        When the system can quickly remove the file and its content from the job synchronously, it responds with a `200` status. When the system cannot quickly remove the file and its content from the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of removing the file and its content from the job will not be complete until the returned process has completed.
-
-        '
+        When the system can quickly remove the file and its content from the job synchronously, it responds with a `200` status. When the system cannot quickly remove the file and its content from the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of removing the file and its content from the job will not be complete until the returned process has completed.'
       tags:
       - Jobs
       operationId: removeFileFromJob
@@ -1513,9 +1477,7 @@ paths:
   /jobs-api/v3/projects/{projectId}/jobs/{translationJobUid}/locales/{targetLocaleId}:
     post:
       summary: Add locale to job
-      description: 'This adds a locale to a job. When the system can quickly add the locale and any content to the job, it synchronously responds with status `200`. When the system can''t quickly add the locale and any content to the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of adding the content to the job will not be complete until the returned process has completed.
-
-        '
+      description: This adds a locale to a job. When the system can quickly add the locale and any content to the job, it synchronously responds with status `200`. When the system can't quickly add the locale and any content to the job, a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of adding the content to the job will not be complete until the returned process has completed.
       tags:
       - Jobs
       operationId: addLocaleToJob
@@ -1582,9 +1544,7 @@ paths:
       description: 'This removes a locale from a job. When removing a locale from a job (and thus any content within that job for that locale), the content being removed will be unauthorized.
 
 
-        When the system can quickly remove the locale and any content from the job, it synchronously responds with status `200`. When the system cannot quickly remove the locale and any content from the job, then a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of removing the content from the job will not be complete until the returned process has completed.
-
-        '
+        When the system can quickly remove the locale and any content from the job, it synchronously responds with status `200`. When the system cannot quickly remove the locale and any content from the job, then a `202` response is returned. The response contains a link to check the progress of the request. When a `202` is received, the process of removing the content from the job will not be complete until the returned process has completed.'
       tags:
       - Jobs
       operationId: removeLocaleFromJob
@@ -1998,9 +1958,7 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
     post:
       summary: Modify schedule items for translation job
-      description: 'This modifies translation job schedule for provided items
-
-        '
+      description: This modifies translation job schedule for provided items
       tags:
       - Jobs
       operationId: modifyScheduleItemsForTranslationJob
@@ -2341,389 +2299,117 @@ paths:
         '500':
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
+  responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
   schemas:
-    EmptyResponse:
-      type: object
-      required:
-      - response
+    AuthorizeJobItemRequest:
+      description: Indicates which workflow to authorize for a given locale.
       properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                description: Always null.
-                type: object
-            type: object
-    CustomFieldAssignment:
-      type: object
-      properties:
-        fieldUid:
-          description: Custom field unique identifier.
-          example: ngahq6dgh4ed
-    CancelJobRequest:
-      description: The payload to use when cancelling a job.
-      properties:
-        reason:
-          description: Optional field that can be used to indicate the reason the job was cancelled.
+        targetLocaleId:
+          description: The locale identifier to use when indicating the locale to authorize content for. If `targetLocaleId` is specified, then `workflowUid` is required as well. Both can be omitted, and the default workflow for that locale will be used.
+          type: string
+        workflowUid:
+          description: The UID of the workflow to authorize content into.
           type: string
       type: object
-    WorkflowStepClassWordCount:
-      properties:
-        workflowStepType:
-          description: The type of the step.
-          type: string
-        stringCount:
-          description: The total number of strings within step type.
-          type: number
-        wordCount:
-          description: The total number of words within step type.
-          type: number
-      type: object
-    ProcessCheckJobResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  createdDate:
-                    description: The UTC value of when the process was created.
-                    example: '2015-11-21T01:51:17.000Z'
-                    format: date-time
-                    type: string
-                  modifiedDate:
-                    description: The UTC value of when the process was last modified.
-                    example: '2015-11-21T01:51:17.000Z'
-                    format: date-time
-                    type: string
-                  processState:
-                    description: The current state of the process. Values returned are IN_PROGRESS | COMPLETED | FAILED.
-                    type: string
-                  processUid:
-                    description: The unique identifier for a process.
-                    type: string
-                type: object
-            type: object
-    AccountListJobsResponseItem:
-      properties:
-        createdDate:
-          description: The UTC value of the date the job was created.
-          example: '2015-11-21T01:51:17.000Z'
-          format: date-time
-          type: string
-        description:
-          description: The description of the job.
-          type: string
-        dueDate:
-          description: The UTC value of the due date for the job.
-          example: '2015-11-21T01:51:17.000Z'
-          format: date-time
-          type: string
-        jobName:
-          description: The name of the job.
-          type: string
-        jobNumber:
-          description: The account level unique number of the job. Consist of unique short prefix and sequence number.
-          example: SMTL-123
-          type: string
-        jobStatus:
-          description: The status of the job
-          example: DRAFT | AWAITING_AUTHORIZATION | IN_PROGRESS | COMPLETED | CANCELLED | CLOSED | DELETED
-          type: string
-        priority:
-          description: Priority order in account. Strats from 1 and can be null.
-          example: 2
-          type: integer
-        projectId:
-          description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
-          example: fd7244365
-          type: string
-        referenceNumber:
-          description: Customer specific number/identifier for the job.
-          example: CustomerReferenceNum1
-          type: string
-        targetLocaleIds:
-          description: The array of localeIds for the job.
-          items:
-            example: de-DE
-            type: string
-          type: array
-        translationJobUid:
-          description: The unique identifier of the job.
-          type: string
-      type: object
-    UpdateCustomField:
-      properties:
-        fieldName:
-          description: custom field name.
-          example: field-name
-          type: boolean
-        enabled:
-          description: is custom field enabled.
-          example: true
-          type: boolean
-        required:
-          description: is custom field required during job creation.
-          example: true
-          type: boolean
-        searchable:
-          description: can search be performed by the custom field.
-          example: true
-          type: boolean
-        displayToTranslators:
-          description: is displayed to translators.
-          example: true
-          type: boolean
-        options:
-          items:
-            example:
-            - option1
-            - option2
-            type: string
-          type: array
-        defaultValue:
-          description: default value for custom field.
-          example: default field value
-          type: string
-        description:
-          description: custom field description.
-          example: Custom field example
-          type: string
-      type: object
-    JobLocalesCompletionDate:
+    CustomFields:
       properties:
         data:
           properties:
-            completionDate:
-              description: The UTC value of when the locale was last completed.
-              example: '2015-11-21T01:51:17.000Z'
-              format: date-time
+            fieldUid:
+              description: custom field universal identifier.
+              example: ngahq6dgh4ed
+              format: uuid
               type: string
-            targetLocaleId:
-              description: The locale identidier.
-              example: de-DE
+            type:
+              description: custom field type.
+              example: SHORT_TEXT | LONG_TEXT | SELECTBOX | CHECKBOX
               type: string
-          type: object
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
-    Error401Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    NullDataJobResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  data:
-                    type: object
-                type: object
-            type: object
-    SuccessFailCountJobResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  failCount:
-                    description: The number of strings per locale that were not successfully processed.
-                    type: integer
-                  successCount:
-                    description: The number of strings per locale that were successfully processed.
-                    type: integer
-                type: object
-            type: object
-    SearchTranslationJobByLocalesAndHashcodesResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                type: object
-                properties:
-                  totalCount:
-                    description: Total count
-                    type: number
-                  items:
-                    type: array
-                    items:
-                      properties:
-                        translationJobUid:
-                          description: The UID of the translationJob
-                          format: uid
-                          type: string
-                        jobName:
-                          description: Name of the translation job
-                          type: string
-                        dueDate:
-                          description: The date by which the job is requested to be completed.
-                          example: '2020-11-21T01:51:17Z'
-                          format: date-time
-                          type: string
-                        hashcodesByLocale:
-                          type: array
-                          items:
-                            $ref: '#/components/schemas/HashcodesByLocaleResponse'
-    ListFilesResponse:
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/TranslationJobFile'
-                    type: array
-                  totalCount:
-                    type: number
-                type: object
+            fieldName:
+              description: custom field name.
+              example: field-name
+              type: boolean
+            enabled:
+              description: is custom field enabled.
+              example: true
+              type: boolean
             required:
-            - data
-            type: object
-      required:
-      - response
-      type: object
-    WorkflowProgressReportItemResponse:
-      properties:
-        workflowName:
-          description: The name of the workflow.
-          type: string
-        workflowStepSummaryReportItemList:
-          items:
-            $ref: '#/components/schemas/WorkflowStepSummaryReportItemResponse'
-          type: array
-        workflowUid:
-          description: The uid of the workflow.
-          type: string
-      type: object
-    CustomFieldBasicRequest:
-      type: object
-      properties:
-        fieldUid:
-          type: string
-          description: Custom field unique identifier.
-          example: 3rrwchzmjf24
-        fieldValue:
-          type: string
-          description: Custom field value.
-          example: Finance Dept
-    JobFiledAddError423Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
+              description: is custom field required during job creation.
+              example: true
+              type: boolean
+            searchable:
+              description: can search be performed by the custom field.
+              example: true
+              type: boolean
+            displayToTranslators:
+              description: is displayed to translators.
+              example: true
+              type: boolean
+            options:
               items:
-                $ref: '#/components/schemas/Error'
+                example:
+                - option1
+                - option2
+                type: string
               type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Error404Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - NOT_FOUND_ERROR
+            defaultValue:
+              description: default value for custom field.
+              example: default field value
               type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
+            description:
+              description: custom field description.
+              example: Custom field example
+              type: string
           type: object
-      required:
-      - response
-      type: object
-    SearchTranslationJobByLocalesAndHashcodesRequest:
-      description: The payload to use when searching translation jobs by hashcodes and locales.
-      properties:
-        hashcodes:
-          description: The array of hashcodes to search a job containing given hashcodes. If empty, response will also be empty list.
-          items:
-            type: string
-          type: array
-        localeIds:
-          description: List of localeIds to search jobs associated with provided hashcodes and locales. If empty, search will be performed only by hashcodes.
-          items:
-            type: string
-          type: array
-      type: object
-    CustomFieldAssignmentList:
-      type: array
-      items:
-        $ref: '#/components/schemas/CustomFieldAssignment'
-    RemoveFileJobRequest:
-      description: The payload to use when removing a file from a job.
-      properties:
-        fileUri:
-          description: The URI of the file that is to be removed from the job.
-          type: string
       type: object
     DetailedJobResponse:
       type: object
@@ -2833,31 +2519,119 @@ components:
                     $ref: '#/components/schemas/IssuesCount'
                 type: object
             type: object
-    TranslationJobFile:
+    SuccessResponse:
       properties:
-        data:
-          properties:
-            uri:
-              description: File uri
-              type: string
-            localeIds:
-              description: List of locale ids
-              type: array
-              items:
-                type: string
-            fileUid:
-              description: File uid
-              type: string
-          type: object
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
       type: object
-    IssuesCount:
+    AccountListJobsResponseItem:
       properties:
-        sourceIssuesCount:
-          description: Source inssues count.
+        createdDate:
+          description: The UTC value of the date the job was created.
+          example: '2015-11-21T01:51:17.000Z'
+          format: date-time
+          type: string
+        description:
+          description: The description of the job.
+          type: string
+        dueDate:
+          description: The UTC value of the due date for the job.
+          example: '2015-11-21T01:51:17.000Z'
+          format: date-time
+          type: string
+        jobName:
+          description: The name of the job.
+          type: string
+        jobNumber:
+          description: The account level unique number of the job. Consist of unique short prefix and sequence number.
+          example: SMTL-123
+          type: string
+        jobStatus:
+          description: The status of the job
+          example: DRAFT | AWAITING_AUTHORIZATION | IN_PROGRESS | COMPLETED | CANCELLED | CLOSED | DELETED
+          type: string
+        priority:
+          description: Priority order in account. Strats from 1 and can be null.
+          example: 2
           type: integer
-        translationIssuesCount:
-          description: Translation inssues count.
-          type: integer
+        projectId:
+          description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+          example: fd7244365
+          type: string
+        referenceNumber:
+          description: Customer specific number/identifier for the job.
+          example: CustomerReferenceNum1
+          type: string
+        targetLocaleIds:
+          description: The array of localeIds for the job.
+          items:
+            example: de-DE
+            type: string
+          type: array
+        translationJobUid:
+          description: The unique identifier of the job.
+          type: string
+      type: object
+    AsyncProcessJobResponse:
+      allOf:
+      - $ref: '#/components/schemas/AsyncAcceptedResponse'
+      - properties:
+          data:
+            properties:
+              message:
+                description: User friendly string for the async response explaining the async action taking place.
+                type: string
+              processUid:
+                description: The unique identifier crated for the async process.
+                type: string
+              url:
+                description: The URL that a system can use to check the status of the async processing request.
+                type: string
+            type: object
+        type: object
+    ProgressInfoResponse:
+      properties:
+        percentComplete:
+          description: The percent of group (locale/file/job) completeness, 0 - 100.
+          example: 52
+          type: number
+        totalWordCount:
+          description: The total number of words within that particular group (locale/file/job).
+          example: 192
+          type: number
+      type: object
+    AddStringsJobRequest:
+      description: The payload to use when adding strings to a job.
+      properties:
+        hashcodes:
+          description: The array of hashcodes to use to add to the job. The hashcodes must exist within Smartling, for the project, in order to be added to a job. Hashcodes are required when adding strings to a job. Hashcodes are limited to 1000 per API call.
+          items:
+            type: string
+          maxItems: 1000
+          type: array
+        moveEnabled:
+          default: false
+          description: (Optional), default is false. A string for a locale can only be in one job. If the string identified in the request is already in a job for a locale then it won't be added. However, `moveEnabled=true` can be specified, and in this case, the string will be moved into the specified job.
+          type: boolean
+        targetLocaleIds:
+          description: The array of `localeId`s that strings should be added to. If it's not specified, the strings will be added to all locales within that job. If it's specified, the strings will only be added for the locales provided. If the locales were not already part of the job, the job will be extended to contain the additional locales.
+          items:
+            type: string
+          type: array
+      type: object
+    StringCountWordCountResponse:
+      properties:
+        stringCount:
+          description: The total number of strings within that particular step.
+          type: number
+        wordCount:
+          description: The total number of words within that particular step.
+          type: number
       type: object
     LocaleHashcodeResponse:
       type: object
@@ -2888,77 +2662,40 @@ components:
                           format: hash
                           type: string
             type: object
-    CreateJobRequest:
-      description: The payload to use when creating a job.
-      properties:
-        jobName:
-          description: The name of the job to create. It must be unique within the Smartling project. `jobName` is **required**.
-          example: This is my job name.
-          maxLength: 170
-          type: string
-        targetLocaleIds:
-          description: The array of `localeId`s to be used when creating the job. The locales specified must be valid within the Smartling project.
-          example:
-          - ru-RU
-          items:
-            type: string
-          type: array
-        description:
-          description: The description of the job. The description is limited to 8,000 characters.
-          example: This is my job description.
-          type: string
-        dueDate:
-          description: The date the job is requested to be completed by.
-          example: '2020-11-21T01:51:17Z'
-          format: date-time
-          type: string
-        referenceNumber:
-          description: Customer specific number/identifier for the job.
-          example: referenceNumb1
-          type: string
-        callbackUrl:
-          description: The URL for Smartling to invoke when the job is completed.
-          maxLength: 8192
-          example: https://myDomain.com
-          type: string
-        callbackMethod:
-          description: The HTTP method to call (GET|POST) when invoking the `callbackUrl`.
-          example: GET
-          type: string
-        customFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomFieldBasicRequest'
-          description: Custom fields assigned to the project which job is created in. Validation on custom fields is done in scope of that request.
+    Error:
       type: object
-    ProgressInfoResponse:
       properties:
-        percentComplete:
-          description: The percent of group (locale/file/job) completeness, 0 - 100.
-          example: 52
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    WorkflowStepClassWordCount:
+      properties:
+        workflowStepType:
+          description: The type of the step.
+          type: string
+        stringCount:
+          description: The total number of strings within step type.
           type: number
-        totalWordCount:
-          description: The total number of words within that particular group (locale/file/job).
-          example: 192
+        wordCount:
+          description: The total number of words within step type.
           type: number
       type: object
-    AsyncAcceptedResponse:
+    JobScheduleEditCommand:
+      description: The payload to use modifying translation job schedule.
       properties:
-        code:
-          enum:
-          - ACCEPTED
-          type: string
-      type: object
-    AddFileJobRequest:
-      description: The payload to use when adding a file to a job.
-      properties:
-        fileUri:
-          description: The URI of the file that has been uploaded to Smartling. `fileUri` is required.
-          type: string
-        targetLocaleIds:
-          description: The array of `localeId`s that the file should be added to. If not specified, the file will be added to all locales. If specified, the file will only be added for the locales provided. If the locales were not already part of the job, then the job will be extended to contain the additional locales.
+        schedules:
+          description: Array of translation job schedule edit items.
           items:
-            type: string
+            $ref: '#/components/schemas/JobScheduleEditItemCommand'
           type: array
       type: object
     UpdateJobRequest:
@@ -2994,26 +2731,18 @@ components:
           items:
             $ref: '#/components/schemas/CustomFieldBasicRequest'
       type: object
-    Error500Response:
+    ContentProgressReportItemResponse:
       properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
+        targetLocaleDescription:
+          type: string
+        targetLocaleId:
+          type: string
+        unuathorizedProgressReport:
+          $ref: '#/components/schemas/StringCountWordCountResponse'
+        workflowProgressReportList:
+          items:
+            $ref: '#/components/schemas/WorkflowProgressReportItemResponse'
+          type: array
       type: object
     AccountListJobsResponse:
       properties:
@@ -3036,26 +2765,62 @@ components:
       required:
       - response
       type: object
-    ListJobLocalesCompletionDatesResponse:
+    SearchJobRequest:
+      description: The payload to use for searching for jobs. At least one of hashcodes, fileUris, and translationJobUids must be specified. The individual param results are AND'd together.
+      properties:
+        fileUris:
+          description: (Optional) The `fileUri`s (file identifiers) used to search for jobs. Any job containing the specified `fileUri` will be returned.
+          items:
+            type: string
+          type: array
+        hashcodes:
+          description: (Optional) The hashcodes (string identifiers) used to search for jobs. Any job containing specified hashcodes will be returned.
+          items:
+            type: string
+          type: array
+        translationJobUids:
+          description: (Optional) The `translationJobUid`s (translation job identifiers) used to search for jobs. Any job containing the specified `fileUri` will be returned.
+          items:
+            type: string
+          type: array
+      type: object
+    Error400Response:
+      type: object
       properties:
         response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/JobLocalesCompletionDate'
-                    type: array
-                  totalCount:
-                    type: number
-                type: object
-            required:
-            - data
-            type: object
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
       required:
       - response
+    WorkflowStepSummaryReportItemResponse:
+      properties:
+        stringCount:
+          description: The total number of strings within that particular step.
+          type: number
+        wordCount:
+          description: The total number of words within that particular step.
+          type: number
+        workflowStepName:
+          description: The name of the workflow step.
+          type: string
+        workflowStepType:
+          description: The type of the step.
+          type: string
+        workflowStepUid:
+          description: The uid of the workflow step.
+          type: string
       type: object
     ShallowJobResponse:
       type: object
@@ -3149,6 +2914,215 @@ components:
                     $ref: '#/components/schemas/IssuesCount'
                 type: object
             type: object
+    ListJobsResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/ListJobsResponseItem'
+                    type: array
+                  totalCount:
+                    type: number
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
+    JobScheduleEditItemCommand:
+      properties:
+        workflowStepUid:
+          description: workflow step universal identifier.
+          format: uuid
+          example: 568cd2bae16f
+          type: string
+        dueDate:
+          description: due date in milliseconds format.
+          example: '2020-11-21T01:51:17Z'
+          format: date-time
+          type: string
+        targetLocaleId:
+          description: The locale identidier.
+          example: ru-RU
+          type: string
+      required:
+      - targetLocaleId
+      - workflowStepUid
+      - dueDate
+      type: object
+    TranslationJobFile:
+      properties:
+        data:
+          properties:
+            uri:
+              description: File uri
+              type: string
+            localeIds:
+              description: List of locale ids
+              type: array
+              items:
+                type: string
+            fileUid:
+              description: File uid
+              type: string
+          type: object
+      type: object
+    ListFilesResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/TranslationJobFile'
+                    type: array
+                  totalCount:
+                    type: number
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
+    RemoveFileJobRequest:
+      description: The payload to use when removing a file from a job.
+      properties:
+        fileUri:
+          description: The URI of the file that is to be removed from the job.
+          type: string
+      type: object
+    UpdateCustomField:
+      properties:
+        fieldName:
+          description: custom field name.
+          example: field-name
+          type: boolean
+        enabled:
+          description: is custom field enabled.
+          example: true
+          type: boolean
+        required:
+          description: is custom field required during job creation.
+          example: true
+          type: boolean
+        searchable:
+          description: can search be performed by the custom field.
+          example: true
+          type: boolean
+        displayToTranslators:
+          description: is displayed to translators.
+          example: true
+          type: boolean
+        options:
+          items:
+            example:
+            - option1
+            - option2
+            type: string
+          type: array
+        defaultValue:
+          description: default value for custom field.
+          example: default field value
+          type: string
+        description:
+          description: custom field description.
+          example: Custom field example
+          type: string
+      type: object
+    JobLocalesCompletionDate:
+      properties:
+        data:
+          properties:
+            completionDate:
+              description: The UTC value of when the locale was last completed.
+              example: '2015-11-21T01:51:17.000Z'
+              format: date-time
+              type: string
+            targetLocaleId:
+              description: The locale identidier.
+              example: de-DE
+              type: string
+          type: object
+      type: object
+    ListJobsResponseItem:
+      properties:
+        createdDate:
+          description: The UTC value of the date the job was created.
+          example: '2015-11-21T01:51:17.000Z'
+          format: date-time
+          type: string
+        description:
+          description: The description of the job.
+          type: string
+        dueDate:
+          description: The UTC value of the due date for the job.
+          example: '2015-11-21T01:51:17.000Z'
+          format: date-time
+          type: string
+        jobName:
+          description: The name of the job.
+          type: string
+        jobNumber:
+          description: The account level unique number of the job. Consist of unique short prefix and sequence number.
+          example: SMTL-123
+          type: string
+        jobStatus:
+          description: The status of the job
+          example: DRAFT | AWAITING_AUTHORIZATION | IN_PROGRESS | COMPLETED | CANCELLED | CLOSED
+          type: string
+        targetLocaleIds:
+          description: The array of localeIds for the job.
+          items:
+            example: de-DE
+            type: string
+          type: array
+        translationJobUid:
+          description: The unique identifier of the job.
+          type: string
+        referenceNumber:
+          description: Customer specific number/identifier for the job.
+          example: CustomerReferenceNum1
+          type: string
+      type: object
+    ProcessCheckJobResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  createdDate:
+                    description: The UTC value of when the process was created.
+                    example: '2015-11-21T01:51:17.000Z'
+                    format: date-time
+                    type: string
+                  modifiedDate:
+                    description: The UTC value of when the process was last modified.
+                    example: '2015-11-21T01:51:17.000Z'
+                    format: date-time
+                    type: string
+                  processState:
+                    description: The current state of the process. Values returned are IN_PROGRESS | COMPLETED | FAILED.
+                    type: string
+                  processUid:
+                    description: The unique identifier for a process.
+                    type: string
+                type: object
+            type: object
     AddContentSuccessFailCountJobResponse:
       type: object
       required:
@@ -3168,66 +3142,302 @@ components:
                     type: integer
                 type: object
             type: object
-    AuthorizeJobItemRequest:
-      description: Indicates which workflow to authorize for a given locale.
+    Error401Response:
       properties:
-        targetLocaleId:
-          description: The locale identifier to use when indicating the locale to authorize content for. If `targetLocaleId` is specified, then `workflowUid` is required as well. Both can be omitted, and the default workflow for that locale will be used.
-          type: string
-        workflowUid:
-          description: The UID of the workflow to authorize content into.
-          type: string
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
       type: object
-    CustomFields:
+    JobSchedule:
       properties:
         data:
           properties:
-            fieldUid:
-              description: custom field universal identifier.
+            scheduleUid:
+              description: schedule universal identifier.
               example: ngahq6dgh4ed
               format: uuid
               type: string
-            type:
-              description: custom field type.
-              example: SHORT_TEXT | LONG_TEXT | SELECTBOX | CHECKBOX
+            workflowStepUid:
+              description: workflow step universal identifier.
+              example: 568cd2bae16f
+              format: uuid
               type: string
-            fieldName:
-              description: custom field name.
-              example: field-name
-              type: boolean
-            enabled:
-              description: is custom field enabled.
-              example: true
-              type: boolean
-            required:
-              description: is custom field required during job creation.
-              example: true
-              type: boolean
-            searchable:
-              description: can search be performed by the custom field.
-              example: true
-              type: boolean
-            displayToTranslators:
-              description: is displayed to translators.
-              example: true
-              type: boolean
-            options:
-              items:
-                example:
-                - option1
-                - option2
-                type: string
-              type: array
-            defaultValue:
-              description: default value for custom field.
-              example: default field value
+            dueDate:
+              description: due date in milliseconds format.
+              example: '2020-11-21T01:51:17Z'
+              format: date-time
               type: string
-            description:
-              description: custom field description.
-              example: Custom field example
+            targetLocaleId:
+              description: The locale identidier.
+              example: de-DE
               type: string
           type: object
       type: object
+    SearchTranslationJobByLocalesAndHashcodesResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                type: object
+                properties:
+                  totalCount:
+                    description: Total count
+                    type: number
+                  items:
+                    type: array
+                    items:
+                      properties:
+                        translationJobUid:
+                          description: The UID of the translationJob
+                          format: uid
+                          type: string
+                        jobName:
+                          description: Name of the translation job
+                          type: string
+                        dueDate:
+                          description: The date by which the job is requested to be completed.
+                          example: '2020-11-21T01:51:17Z'
+                          format: date-time
+                          type: string
+                        hashcodesByLocale:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/HashcodesByLocaleResponse'
+    CancelJobRequest:
+      description: The payload to use when cancelling a job.
+      properties:
+        reason:
+          description: Optional field that can be used to indicate the reason the job was cancelled.
+          type: string
+      type: object
+    RemoveStringsJobRequest:
+      description: The payload to use when removing strings from a job.
+      properties:
+        hashcodes:
+          description: The hashcodes (string identifiers) that should be removed from the job.
+          items:
+            example:
+            - ca51a04da69cf64dce022bb4f146c962
+            type: string
+          type: array
+        localeIds:
+          description: (Optional) The array of `localeId`s that the strings should be removed from. If not specified, the strings will be removed from all locales within that job.
+          items:
+            example:
+            - ru-RU
+            type: string
+          type: array
+      type: object
+    HashcodesByLocaleResponse:
+      type: object
+      properties:
+        localeId:
+          description: Smartling locale identifier.
+          type: string
+        hashcodes:
+          description: The array of hashcodes.
+          items:
+            type: string
+          type: array
+    AddFileJobRequest:
+      description: The payload to use when adding a file to a job.
+      properties:
+        fileUri:
+          description: The URI of the file that has been uploaded to Smartling. `fileUri` is required.
+          type: string
+        targetLocaleIds:
+          description: The array of `localeId`s that the file should be added to. If not specified, the file will be added to all locales. If specified, the file will only be added for the locales provided. If the locales were not already part of the job, then the job will be extended to contain the additional locales.
+          items:
+            type: string
+          type: array
+      type: object
+    WorkflowProgressReportItemResponse:
+      properties:
+        workflowName:
+          description: The name of the workflow.
+          type: string
+        workflowStepSummaryReportItemList:
+          items:
+            $ref: '#/components/schemas/WorkflowStepSummaryReportItemResponse'
+          type: array
+        workflowUid:
+          description: The uid of the workflow.
+          type: string
+      type: object
+    ProgressResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  contentProgressReport:
+                    items:
+                      $ref: '#/components/schemas/ContentProgressReportItemResponse'
+                    type: array
+                  progress:
+                    $ref: '#/components/schemas/ProgressInfoResponse'
+                  summaryReport:
+                    items:
+                      $ref: '#/components/schemas/WorkflowStepClassWordCount'
+                    type: array
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
+    SearchTranslationJobByLocalesAndHashcodesRequest:
+      description: The payload to use when searching translation jobs by hashcodes and locales.
+      properties:
+        hashcodes:
+          description: The array of hashcodes to search a job containing given hashcodes. If empty, response will also be empty list.
+          items:
+            type: string
+          type: array
+        localeIds:
+          description: List of localeIds to search jobs associated with provided hashcodes and locales. If empty, search will be performed only by hashcodes.
+          items:
+            type: string
+          type: array
+      type: object
+    CustomFieldAssignment:
+      type: object
+      properties:
+        fieldUid:
+          description: Custom field unique identifier.
+          example: ngahq6dgh4ed
+    JobFiledAddError423Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    ListJobLocalesCompletionDatesResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/JobLocalesCompletionDate'
+                    type: array
+                  totalCount:
+                    type: number
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
+    AuthorizeJobRequest:
+      properties:
+        localeWorkflows:
+          items:
+            $ref: '#/components/schemas/AuthorizeJobItemRequest'
+          type: array
+      type: object
+    SourceFile:
+      properties:
+        data:
+          properties:
+            name:
+              description: File name
+              type: string
+            uri:
+              description: File uri
+              type: string
+            fileUid:
+              description: File uid
+              type: string
+          type: object
+      type: object
+    AsyncAcceptedResponse:
+      properties:
+        code:
+          enum:
+          - ACCEPTED
+          type: string
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    CustomFieldAssignmentList:
+      type: array
+      items:
+        $ref: '#/components/schemas/CustomFieldAssignment'
+    CustomFieldBasicResponse:
+      type: object
+      properties:
+        fieldUid:
+          type: string
+          description: Custom field unique identifier.
+          example: 3rrwchzmjf24
+        fieldName:
+          type: string
+          description: Custom field name.
+          example: Department Name
+        fieldValue:
+          type: string
+          description: Custom field value.
+          example: Finance Dept
     CreateCustomField:
       properties:
         type:
@@ -3270,91 +3480,10 @@ components:
           example: Custom field example
           type: string
       type: object
-    AuthorizeJobRequest:
-      properties:
-        localeWorkflows:
-          items:
-            $ref: '#/components/schemas/AuthorizeJobItemRequest'
-          type: array
+    SuccessFailCountJobResponse:
       type: object
-    ContentProgressReportItemResponse:
-      properties:
-        targetLocaleDescription:
-          type: string
-        targetLocaleId:
-          type: string
-        unuathorizedProgressReport:
-          $ref: '#/components/schemas/StringCountWordCountResponse'
-        workflowProgressReportList:
-          items:
-            $ref: '#/components/schemas/WorkflowProgressReportItemResponse'
-          type: array
-      type: object
-    SourceFile:
-      properties:
-        data:
-          properties:
-            name:
-              description: File name
-              type: string
-            uri:
-              description: File uri
-              type: string
-            fileUid:
-              description: File uid
-              type: string
-          type: object
-      type: object
-    AsyncProcessJobResponse:
-      allOf:
-      - $ref: '#/components/schemas/AsyncAcceptedResponse'
-      - properties:
-          data:
-            properties:
-              message:
-                description: User friendly string for the async response explaining the async action taking place.
-                type: string
-              processUid:
-                description: The unique identifier crated for the async process.
-                type: string
-              url:
-                description: The URL that a system can use to check the status of the async processing request.
-                type: string
-            type: object
-        type: object
-    HashcodesByLocaleResponse:
-      type: object
-      properties:
-        localeId:
-          description: Smartling locale identifier.
-          type: string
-        hashcodes:
-          description: The array of hashcodes.
-          items:
-            type: string
-          type: array
-    JobScheduleEditItemCommand:
-      properties:
-        workflowStepUid:
-          description: workflow step universal identifier.
-          format: uuid
-          example: 568cd2bae16f
-          type: string
-        dueDate:
-          description: due date in milliseconds format.
-          example: '2020-11-21T01:51:17Z'
-          format: date-time
-          type: string
-        targetLocaleId:
-          description: The locale identidier.
-          example: ru-RU
-          type: string
       required:
-      - targetLocaleId
-      - workflowStepUid
-      - dueDate
-      type: object
-    ProgressResponse:
+      - response
       properties:
         response:
           allOf:
@@ -3362,152 +3491,145 @@ components:
           - properties:
               data:
                 properties:
-                  contentProgressReport:
-                    items:
-                      $ref: '#/components/schemas/ContentProgressReportItemResponse'
-                    type: array
-                  progress:
-                    $ref: '#/components/schemas/ProgressInfoResponse'
-                  summaryReport:
-                    items:
-                      $ref: '#/components/schemas/WorkflowStepClassWordCount'
-                    type: array
+                  failCount:
+                    description: The number of strings per locale that were not successfully processed.
+                    type: integer
+                  successCount:
+                    description: The number of strings per locale that were successfully processed.
+                    type: integer
                 type: object
-            required:
-            - data
             type: object
+    EmptyResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                description: Always null.
+                type: object
+            type: object
+    CreateJobRequest:
+      description: The payload to use when creating a job.
+      properties:
+        jobName:
+          description: The name of the job to create. It must be unique within the Smartling project. `jobName` is **required**.
+          example: This is my job name.
+          maxLength: 170
+          type: string
+        targetLocaleIds:
+          description: The array of `localeId`s to be used when creating the job. The locales specified must be valid within the Smartling project.
+          example:
+          - ru-RU
+          items:
+            type: string
+          type: array
+        description:
+          description: The description of the job. The description is limited to 8,000 characters.
+          example: This is my job description.
+          type: string
+        dueDate:
+          description: The date the job is requested to be completed by.
+          example: '2020-11-21T01:51:17Z'
+          format: date-time
+          type: string
+        referenceNumber:
+          description: Customer specific number/identifier for the job.
+          example: referenceNumb1
+          type: string
+        callbackUrl:
+          description: The URL for Smartling to invoke when the job is completed.
+          maxLength: 8192
+          example: https://myDomain.com
+          type: string
+        callbackMethod:
+          description: The HTTP method to call (GET|POST) when invoking the `callbackUrl`.
+          example: GET
+          type: string
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomFieldBasicRequest'
+          description: Custom fields assigned to the project which job is created in. Validation on custom fields is done in scope of that request.
+      type: object
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
       required:
       - response
       type: object
-    SearchJobRequest:
-      description: The payload to use for searching for jobs. At least one of hashcodes, fileUris, and translationJobUids must be specified. The individual param results are AND'd together.
-      properties:
-        fileUris:
-          description: (Optional) The `fileUri`s (file identifiers) used to search for jobs. Any job containing the specified `fileUri` will be returned.
-          items:
-            type: string
-          type: array
-        hashcodes:
-          description: (Optional) The hashcodes (string identifiers) used to search for jobs. Any job containing specified hashcodes will be returned.
-          items:
-            type: string
-          type: array
-        translationJobUids:
-          description: (Optional) The `translationJobUid`s (translation job identifiers) used to search for jobs. Any job containing the specified `fileUri` will be returned.
-          items:
-            type: string
-          type: array
+    NullDataJobResponse:
       type: object
-    CustomFieldBasicResponse:
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  data:
+                    type: object
+                type: object
+            type: object
+    Error404Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - NOT_FOUND_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    CustomFieldBasicRequest:
       type: object
       properties:
         fieldUid:
           type: string
           description: Custom field unique identifier.
           example: 3rrwchzmjf24
-        fieldName:
-          type: string
-          description: Custom field name.
-          example: Department Name
         fieldValue:
           type: string
           description: Custom field value.
           example: Finance Dept
-    Error400Response:
-      type: object
+    IssuesCount:
       properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    StringCountWordCountResponse:
-      properties:
-        stringCount:
-          description: The total number of strings within that particular step.
-          type: number
-        wordCount:
-          description: The total number of words within that particular step.
-          type: number
-      type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    AddStringsJobRequest:
-      description: The payload to use when adding strings to a job.
-      properties:
-        hashcodes:
-          description: The array of hashcodes to use to add to the job. The hashcodes must exist within Smartling, for the project, in order to be added to a job. Hashcodes are required when adding strings to a job. Hashcodes are limited to 1000 per API call.
-          items:
-            type: string
-          maxItems: 1000
-          type: array
-        moveEnabled:
-          default: false
-          description: (Optional), default is false. A string for a locale can only be in one job. If the string identified in the request is already in a job for a locale then it won't be added. However, `moveEnabled=true` can be specified, and in this case, the string will be moved into the specified job.
-          type: boolean
-        targetLocaleIds:
-          description: The array of `localeId`s that strings should be added to. If it's not specified, the strings will be added to all locales within that job. If it's specified, the strings will only be added for the locales provided. If the locales were not already part of the job, the job will be extended to contain the additional locales.
-          items:
-            type: string
-          type: array
-      type: object
-    RemoveStringsJobRequest:
-      description: The payload to use when removing strings from a job.
-      properties:
-        hashcodes:
-          description: The hashcodes (string identifiers) that should be removed from the job.
-          items:
-            example:
-            - ca51a04da69cf64dce022bb4f146c962
-            type: string
-          type: array
-        localeIds:
-          description: (Optional) The array of `localeId`s that the strings should be removed from. If not specified, the strings will be removed from all locales within that job.
-          items:
-            example:
-            - ru-RU
-            type: string
-          type: array
+        sourceIssuesCount:
+          description: Source inssues count.
+          type: integer
+        translationIssuesCount:
+          description: Translation inssues count.
+          type: integer
       type: object
     AddLocaleJobRequest:
       description: The payload to use when add a locale to a job.
@@ -3517,170 +3639,6 @@ components:
           type: boolean
           default: true
       type: object
-    JobScheduleEditCommand:
-      description: The payload to use modifying translation job schedule.
-      properties:
-        schedules:
-          description: Array of translation job schedule edit items.
-          items:
-            $ref: '#/components/schemas/JobScheduleEditItemCommand'
-          type: array
-      type: object
-    ListJobsResponse:
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/ListJobsResponseItem'
-                    type: array
-                  totalCount:
-                    type: number
-                type: object
-            required:
-            - data
-            type: object
-      required:
-      - response
-      type: object
-    WorkflowStepSummaryReportItemResponse:
-      properties:
-        stringCount:
-          description: The total number of strings within that particular step.
-          type: number
-        wordCount:
-          description: The total number of words within that particular step.
-          type: number
-        workflowStepName:
-          description: The name of the workflow step.
-          type: string
-        workflowStepType:
-          description: The type of the step.
-          type: string
-        workflowStepUid:
-          description: The uid of the workflow step.
-          type: string
-      type: object
-    ListJobsResponseItem:
-      properties:
-        createdDate:
-          description: The UTC value of the date the job was created.
-          example: '2015-11-21T01:51:17.000Z'
-          format: date-time
-          type: string
-        description:
-          description: The description of the job.
-          type: string
-        dueDate:
-          description: The UTC value of the due date for the job.
-          example: '2015-11-21T01:51:17.000Z'
-          format: date-time
-          type: string
-        jobName:
-          description: The name of the job.
-          type: string
-        jobNumber:
-          description: The account level unique number of the job. Consist of unique short prefix and sequence number.
-          example: SMTL-123
-          type: string
-        jobStatus:
-          description: The status of the job
-          example: DRAFT | AWAITING_AUTHORIZATION | IN_PROGRESS | COMPLETED | CANCELLED | CLOSED
-          type: string
-        targetLocaleIds:
-          description: The array of localeIds for the job.
-          items:
-            example: de-DE
-            type: string
-          type: array
-        translationJobUid:
-          description: The unique identifier of the job.
-          type: string
-        referenceNumber:
-          description: Customer specific number/identifier for the job.
-          example: CustomerReferenceNum1
-          type: string
-      type: object
-    JobSchedule:
-      properties:
-        data:
-          properties:
-            scheduleUid:
-              description: schedule universal identifier.
-              example: ngahq6dgh4ed
-              format: uuid
-              type: string
-            workflowStepUid:
-              description: workflow step universal identifier.
-              example: 568cd2bae16f
-              format: uuid
-              type: string
-            dueDate:
-              description: due date in milliseconds format.
-              example: '2020-11-21T01:51:17Z'
-              format: date-time
-              type: string
-            targetLocaleId:
-              description: The locale identidier.
-              example: de-DE
-              type: string
-          type: object
-      type: object
-  responses:
-    Error401ResponseDefinition:
-      description: Provided credentials are not valid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error401Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: AUTHENTICATION_ERROR
-                  errors:
-                  - details: {}
-                    key: invalid_token
-                    message: Invalid token
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
-    Error400ResponseDefinition:
-      description: Provided request parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error400Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: VALIDATION_ERROR
-                  errors:
-                  - key: unknown.field
-                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
-                    details: unknown.parameter
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

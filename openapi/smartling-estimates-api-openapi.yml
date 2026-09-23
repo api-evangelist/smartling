@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects Estimates API
+  title: Smartling REST API Reference Estimates API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -461,7 +459,6 @@ paths:
                           errors: null
     post:
       summary: Generate Cost Estimate Report for the Job
-      description: Generate Cost Estimate Report for the Job
       tags:
       - Estimates
       operationId: generateJobCostEstimateReports
@@ -815,19 +812,17 @@ paths:
                 type: string
 components:
   schemas:
-    EmptyResponse:
-      type: object
-      required:
-      - response
+    ModifyJobReportTagsRequest:
+      description: The payload to modify job estimation report tags.
       properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                description: Always null.
-                type: object
-            type: object
+        tags:
+          example:
+          - tag1
+          - tag2
+          type: array
+          items:
+            type: string
+      type: object
     EstimateJobGenericReport:
       type: object
       properties:
@@ -837,7 +832,7 @@ components:
           type: string
         reportStatus:
           type: string
-    EstimateJobReportResponse:
+    EstimateJobGenericReportResponse:
       properties:
         response:
           properties:
@@ -849,7 +844,7 @@ components:
               type: string
             data:
               items:
-                $ref: '#/components/schemas/EstimateJobReport'
+                $ref: '#/components/schemas/EstimateJobGenericReport'
               type: array
           required:
           - code
@@ -857,61 +852,6 @@ components:
           type: object
       required:
       - response
-      type: object
-    EstimateJobReportStatus:
-      type: object
-      properties:
-        reportUid:
-          type: string
-        reportType:
-          type: string
-        reportStatus:
-          type: string
-        totalStrings:
-          type: integer
-        percentComplete:
-          type: integer
-        createdDate:
-          type: string
-          format: YYYY-MM-DDThh:mm:ssZ
-    CreateJobFuzzyReportRequest:
-      description: The payload to use when generating a job fuzzy report.
-      properties:
-        contentType:
-          enum:
-          - TRANSLATION
-          - ALL_CONTENT
-          - CLAIMING
-          - UNAUTHORIZED
-          type: string
-          default: ALL_CONTENT
-        tags:
-          example:
-          - tag1
-          - tag2
-          type: array
-          items:
-            type: string
-        localeWorkflows:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocaleWorkflowPairDTO'
-        fuzzyProfileUid:
-          type: string
-        localeWorkflowStepsFilter:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocaleWorkflowStepPairDTO'
-      type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
       type: object
     EstimateJobReport:
       type: object
@@ -961,17 +901,6 @@ components:
           type: array
           items:
             type: string
-    LocaleWorkflowPairDTO:
-      type: object
-      properties:
-        workflowUid:
-          type: string
-          description: The uid of the workflow.
-          example: 8312172ed60d
-        targetLocaleId:
-          description: Smartling ID for the language you want to get translations for.
-          type: string
-          example: de-DE
     EstimateJobReportTagsResponse:
       properties:
         response:
@@ -991,9 +920,28 @@ components:
       required:
       - response
       type: object
-    ModifyJobReportTagsRequest:
-      description: The payload to modify job estimation report tags.
+    LocaleWorkflowPairDTO:
+      type: object
       properties:
+        workflowUid:
+          type: string
+          description: The uid of the workflow.
+          example: 8312172ed60d
+        targetLocaleId:
+          description: Smartling ID for the language you want to get translations for.
+          type: string
+          example: de-DE
+    CreateJobFuzzyReportRequest:
+      description: The payload to use when generating a job fuzzy report.
+      properties:
+        contentType:
+          enum:
+          - TRANSLATION
+          - ALL_CONTENT
+          - CLAIMING
+          - UNAUTHORIZED
+          type: string
+          default: ALL_CONTENT
         tags:
           example:
           - tag1
@@ -1001,6 +949,16 @@ components:
           type: array
           items:
             type: string
+        localeWorkflows:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocaleWorkflowPairDTO'
+        fuzzyProfileUid:
+          type: string
+        localeWorkflowStepsFilter:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocaleWorkflowStepPairDTO'
       type: object
     CreateJobCostReportRequest:
       description: The payload to use when generating a job cost report.
@@ -1031,45 +989,16 @@ components:
           items:
             $ref: '#/components/schemas/LocaleWorkflowStepPairDTO'
       type: object
-    LocaleWorkflowStepPairDTO:
-      type: object
+    SuccessResponse:
       properties:
-        workflowStepUid:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
           type: string
-          description: The uid of the workflow step.
-          example: 8312172ed60d
-        targetLocaleId:
-          description: Smartling ID for the language you want to get translations for.
-          type: string
-          example: de-DE
-    EstimateJobGenericReportResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            data:
-              items:
-                $ref: '#/components/schemas/EstimateJobGenericReport'
-              type: array
-          required:
-          - code
-          - data
-          type: object
       required:
-      - response
+      - code
       type: object
-    EstimateJobReportTags:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            type: string
     EstimateJobReportStatusResponse:
       properties:
         response:
@@ -1089,6 +1018,74 @@ components:
       required:
       - response
       type: object
+    EstimateJobReportResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            data:
+              items:
+                $ref: '#/components/schemas/EstimateJobReport'
+              type: array
+          required:
+          - code
+          - data
+          type: object
+      required:
+      - response
+      type: object
+    EmptyResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                description: Always null.
+                type: object
+            type: object
+    EstimateJobReportStatus:
+      type: object
+      properties:
+        reportUid:
+          type: string
+        reportType:
+          type: string
+        reportStatus:
+          type: string
+        totalStrings:
+          type: integer
+        percentComplete:
+          type: integer
+        createdDate:
+          type: string
+          format: YYYY-MM-DDThh:mm:ssZ
+    LocaleWorkflowStepPairDTO:
+      type: object
+      properties:
+        workflowStepUid:
+          type: string
+          description: The uid of the workflow step.
+          example: 8312172ed60d
+        targetLocaleId:
+          description: Smartling ID for the language you want to get translations for.
+          type: string
+          example: de-DE
+    EstimateJobReportTags:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

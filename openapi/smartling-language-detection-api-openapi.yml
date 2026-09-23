@@ -1,12 +1,10 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: support@smartling.com
-  description: 'Before you begin using the Smartling APIs, we recommend going through our [Developer documentation](https://help.smartling.com/hc/en-us/categories/1260801686149).
-
-    '
+  description: Before you begin using the Smartling APIs, we recommend going through our Developer documentation.
   termsOfService: https://www.smartling.com/legal
-  title: Smartling REST API Reference Account & Projects Language Detection API
+  title: Smartling REST API Reference Language Detection API
   version: 2.0.0
   x-logo:
     url: smartling_logo.png
@@ -64,15 +62,54 @@ paths:
           '
 components:
   schemas:
-    Error500Response:
+    DetectLanguageItemInfoResponse:
+      properties:
+        languageId:
+          description: A identifier of detected language
+          example: en
+          type: string
+        probability:
+          description: A probability of detected language
+          example: '0.33'
+          type: string
+        localeIds:
+          description: Possible localeIds for such language
+          type: array
+          example:
+          - en-US
+          - en-GB
+          items:
+            type: string
+      type: object
+    Error401Response:
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
               type: string
             errors:
               items:
@@ -105,54 +142,17 @@ components:
           type: object
       required:
       - response
-    SuccessResponse:
+    DetectLanguageItemResponse:
       properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
+        uid:
+          description: A unique identifier of requested text
+          example: uid-1
           type: string
-      required:
-      - code
-      type: object
-    DetectLanguageItemInfoResponse:
-      properties:
-        languageId:
-          description: A identifier of detected language
-          example: en
-          type: string
-        probability:
-          description: A probability of detected language
-          example: '0.33'
-          type: string
-        localeIds:
-          description: Possible localeIds for such language
+        languages:
+          description: List of detected languageIds
           type: array
-          example:
-          - en-US
-          - en-GB
           items:
-            type: string
-      type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
+            $ref: '#/components/schemas/DetectLanguageItemInfoResponse'
       type: object
     DetectLanguageRequest:
       properties:
@@ -164,37 +164,39 @@ components:
       required:
       - items
       type: object
-    DetectLanguageResponse:
-      type: object
-      required:
-      - response
+    SuccessResponse:
       properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  totalCount:
-                    description: total number of items
-                    type: integer
-                  items:
-                    items:
-                      $ref: '#/components/schemas/DetectLanguageItemResponse'
-                    type: array
-                required:
-                - items
-                type: object
-            type: object
-    Error401Response:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    DetectLanguageItemRequest:
+      properties:
+        uid:
+          description: A unique identifier of requested text
+          example: uid-1
+          type: string
+        text:
+          description: The input text for language detection
+          example: Test text
+          type: string
+      required:
+      - uid
+      - text
+      type: object
+    Error500Response:
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
               type: string
             errors:
               items:
@@ -222,32 +224,28 @@ components:
       required:
       - key
       - message
-    DetectLanguageItemResponse:
-      properties:
-        uid:
-          description: A unique identifier of requested text
-          example: uid-1
-          type: string
-        languages:
-          description: List of detected languageIds
-          type: array
-          items:
-            $ref: '#/components/schemas/DetectLanguageItemInfoResponse'
+    DetectLanguageResponse:
       type: object
-    DetectLanguageItemRequest:
-      properties:
-        uid:
-          description: A unique identifier of requested text
-          example: uid-1
-          type: string
-        text:
-          description: The input text for language detection
-          example: Test text
-          type: string
       required:
-      - uid
-      - text
-      type: object
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  totalCount:
+                    description: total number of items
+                    type: integer
+                  items:
+                    items:
+                      $ref: '#/components/schemas/DetectLanguageItemResponse'
+                    type: array
+                required:
+                - items
+                type: object
+            type: object
   responses:
     Error400ResponseDefinition:
       description: Provided request parameters are invalid.
@@ -264,6 +262,21 @@ components:
                   - key: unknown.field
                     message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
                     details: unknown.parameter
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
     Error500ResponseDefinition:
       description: Unexpected error
       content:
@@ -284,21 +297,6 @@ components:
                   errors:
                   - key: too.many.requests
                     message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
-    Error401ResponseDefinition:
-      description: Provided credentials are not valid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error401Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: AUTHENTICATION_ERROR
-                  errors:
-                  - details: {}
-                    key: invalid_token
-                    message: Invalid token
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com
