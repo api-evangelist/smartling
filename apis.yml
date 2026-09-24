@@ -89,8 +89,6 @@ apis:
   - type: SDKs
     title: Java
     url: https://github.com/Smartling/java-api-sdk
-  - url: graphql/smartling-graphql.md
-    type: GraphQL
 - aid: smartling:smartling-account-projects-api
   name: Smartling Account & Projects API
   description: >-
