@@ -1855,59 +1855,8 @@ paths:
 
           '
 components:
-  responses:
-    Error400ResponseDefinition:
-      description: Provided request parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error400Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: VALIDATION_ERROR
-                  errors:
-                  - key: unknown.field
-                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
-                    details: unknown.parameter
-    Error401ResponseDefinition:
-      description: Provided credentials are not valid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error401Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: AUTHENTICATION_ERROR
-                  errors:
-                  - details: {}
-                    key: invalid_token
-                    message: Invalid token
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
   schemas:
-    FilesAPILastModifiedAllLocalesSuccessResponse:
+    FilesAPILastModifiedSingleLocaleSuccessResponse:
       type: object
       required:
       - response
@@ -1917,18 +1866,7 @@ components:
           - $ref: '#/components/schemas/SuccessResponse'
           - properties:
               data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/FilesAPILastModifiedResponseItem'
-                    type: array
-                  totalCount:
-                    description: ''
-                    type: integer
-                required:
-                - totalCount
-                - items
-                type: object
+                $ref: '#/components/schemas/FilesAPILastModifiedResponseItem'
             type: object
     FileType:
       type: string
@@ -1960,47 +1898,6 @@ components:
       - xliff
       - xml
       - yaml
-    FilesAPIListFileItem:
-      example:
-        created: '2016-12-31T00:00:00Z'
-        fileType: json
-        fileUri: file.json
-        hasInstructions: false
-        lastUploaded: '2016-01-01T00:00:00Z'
-      properties:
-        created:
-          description: The time and date of the first upload
-          format: YYYY-MM-DDThh:mm:ssZ
-          type: string
-        fileType:
-          $ref: '#/components/schemas/FileType'
-        fileUri:
-          description: A unique identifier for the uploaded file
-          type: string
-        hasInstructions:
-          description: Whether translator instructions have been captured for the file.
-          type: boolean
-        lastUploaded:
-          description: The time and date of the last upload
-          format: YYYY-MM-DDThh:mm:ssZ
-          type: string
-      required:
-      - fileUri
-      - created
-      - lastUploaded
-      - fileType
-      - hasInstructions
-      type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
     FilesAPIStatusSingleLocaleSuccessResponse:
       type: object
       required:
@@ -2084,170 +1981,6 @@ components:
                 - hasInstructions
                 type: object
             type: object
-    FilesAPILastModifiedResponseItem:
-      properties:
-        lastModified:
-          description: The date the file was last modified for the specified locale
-          format: YYYY-MM-DDThh:mm:ssZ
-          type: string
-        localeId:
-          description: A unique identifier for the uploaded file
-          type: string
-      required:
-      - localeId
-      - lastModified
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
-    Error423Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - RESOURCE_LOCKED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Error400Response:
-      type: object
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-    FilesAPIListFilesSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/FilesAPIListFileItem'
-                    type: array
-                  totalCount:
-                    description: The number of files that match your specified criteria
-                    type: integer
-                required:
-                - totalCount
-                - items
-                type: object
-            type: object
-    PublishedFilesAPIRecentlyPublishedFilesResponseItem:
-      properties:
-        fileUri:
-          description: The URI of the file that was published
-          type: string
-        publishDate:
-          description: The date the file was published for the specified locale
-          format: YYYY-MM-DDThh:mm:ssZ
-          type: string
-        localeId:
-          description: Identifier for a locale
-          type: string
-      required:
-      - fileUri
-      - localeId
-      - publishDate
-      type: object
-    PublishedFilesAPIRecentlyPublishedFilesSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                $ref: '#/components/schemas/PublishedFilesAPIRecentlyPublishedFilesResponseItem'
-            type: object
-    FilesAPITranslationImportSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  stringCount:
-                    description: Strings imported
-                    type: integer
-                  translationImportErrors:
-                    items:
-                      $ref: '#/components/schemas/FilesApiTranslationImportErrorItem'
-                    type: array
-                  wordCount:
-                    description: Words imported.
-                    type: integer
-                required:
-                - wordCount
-                - stringCount
-                - translationImportErrors
-                type: object
-            type: object
-    FilesAPIUploadAcceptedResponse:
-      properties:
-        code:
-          enum:
-          - ACCEPTED
-          type: string
-        data:
-          properties:
-            message:
-              type: string
-          required:
-          - message
-          type: object
-      required:
-      - code
-      - data
-      type: object
     Error401Response:
       properties:
         response:
@@ -2336,91 +2069,6 @@ components:
                 - items
                 type: object
             type: object
-    FilesAPILastModifiedSingleLocaleSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                $ref: '#/components/schemas/FilesAPILastModifiedResponseItem'
-            type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    ImportTranslationsFileType:
-      type: string
-      description: A unique identifier for the file type.
-      enum:
-      - android
-      - arb
-      - csv
-      - gettext
-      - ios
-      - stringsdict
-      - java_properties
-      - json
-      - qt
-      - resx
-      - srt
-      - vtt
-      - xml
-      - yaml
-    FilesApiTranslationImportErrorItem:
-      properties:
-        fileUri:
-          description: A unique identifier for the uploaded file
-          type: string
-        importKey:
-          description: Key for an imported string affected by the error
-          type: string
-        messages:
-          description: Information about an import error
-          items:
-            type: string
-          type: array
-        stringHashcode:
-          description: The hashcode of a string affected by the error
-          type: string
-      required:
-      - importKey
-      - stringHashcode
-      - fileUri
-      - messages
-      type: object
-    EmptyResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                description: Always null.
-                type: object
-            type: object
     Error500Response:
       properties:
         response:
@@ -2441,6 +2089,53 @@ components:
           type: object
       required:
       - response
+      type: object
+    Error423Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - RESOURCE_LOCKED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    PublishedFilesAPIRecentlyPublishedFilesResponseItem:
+      properties:
+        fileUri:
+          description: The URI of the file that was published
+          type: string
+        publishDate:
+          description: The date the file was published for the specified locale
+          format: YYYY-MM-DDThh:mm:ssZ
+          type: string
+        localeId:
+          description: Identifier for a locale
+          type: string
+      required:
+      - fileUri
+      - localeId
+      - publishDate
+      type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
       type: object
     FilesAPIStatusAllLocalesItem:
       properties:
@@ -2499,6 +2194,260 @@ components:
                 - wordCount
                 type: object
             type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    FilesApiTranslationImportErrorItem:
+      properties:
+        fileUri:
+          description: A unique identifier for the uploaded file
+          type: string
+        importKey:
+          description: Key for an imported string affected by the error
+          type: string
+        messages:
+          description: Information about an import error
+          items:
+            type: string
+          type: array
+        stringHashcode:
+          description: The hashcode of a string affected by the error
+          type: string
+      required:
+      - importKey
+      - stringHashcode
+      - fileUri
+      - messages
+      type: object
+    FilesAPILastModifiedResponseItem:
+      properties:
+        lastModified:
+          description: The date the file was last modified for the specified locale
+          format: YYYY-MM-DDThh:mm:ssZ
+          type: string
+        localeId:
+          description: A unique identifier for the uploaded file
+          type: string
+      required:
+      - localeId
+      - lastModified
+      type: object
+    FilesAPITranslationImportSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  stringCount:
+                    description: Strings imported
+                    type: integer
+                  translationImportErrors:
+                    items:
+                      $ref: '#/components/schemas/FilesApiTranslationImportErrorItem'
+                    type: array
+                  wordCount:
+                    description: Words imported.
+                    type: integer
+                required:
+                - wordCount
+                - stringCount
+                - translationImportErrors
+                type: object
+            type: object
+    ImportTranslationsFileType:
+      type: string
+      description: A unique identifier for the file type.
+      enum:
+      - android
+      - arb
+      - csv
+      - gettext
+      - ios
+      - stringsdict
+      - java_properties
+      - json
+      - qt
+      - resx
+      - srt
+      - vtt
+      - xml
+      - yaml
+    FilesAPIListFilesSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/FilesAPIListFileItem'
+                    type: array
+                  totalCount:
+                    description: The number of files that match your specified criteria
+                    type: integer
+                required:
+                - totalCount
+                - items
+                type: object
+            type: object
+    FilesAPIListFileItem:
+      example:
+        created: '2016-12-31T00:00:00Z'
+        fileType: json
+        fileUri: file.json
+        hasInstructions: false
+        lastUploaded: '2016-01-01T00:00:00Z'
+      properties:
+        created:
+          description: The time and date of the first upload
+          format: YYYY-MM-DDThh:mm:ssZ
+          type: string
+        fileType:
+          $ref: '#/components/schemas/FileType'
+        fileUri:
+          description: A unique identifier for the uploaded file
+          type: string
+        hasInstructions:
+          description: Whether translator instructions have been captured for the file.
+          type: boolean
+        lastUploaded:
+          description: The time and date of the last upload
+          format: YYYY-MM-DDThh:mm:ssZ
+          type: string
+      required:
+      - fileUri
+      - created
+      - lastUploaded
+      - fileType
+      - hasInstructions
+      type: object
+    PublishedFilesAPIRecentlyPublishedFilesSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                $ref: '#/components/schemas/PublishedFilesAPIRecentlyPublishedFilesResponseItem'
+            type: object
+    FilesAPILastModifiedAllLocalesSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/FilesAPILastModifiedResponseItem'
+                    type: array
+                  totalCount:
+                    description: ''
+                    type: integer
+                required:
+                - totalCount
+                - items
+                type: object
+            type: object
+    FilesAPIUploadAcceptedResponse:
+      properties:
+        code:
+          enum:
+          - ACCEPTED
+          type: string
+        data:
+          properties:
+            message:
+              type: string
+          required:
+          - message
+          type: object
+      required:
+      - code
+      - data
+      type: object
+    EmptyResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                description: Always null.
+                type: object
+            type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
     FilesAPIListFileTypesSuccessResponse:
       type: object
       required:
@@ -2528,6 +2477,57 @@ components:
                     - android
                     - ios
                     - gettext
+  responses:
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

@@ -222,195 +222,6 @@ paths:
         '500':
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
-  schemas:
-    CreateAttachmentResponse:
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  attachmentUid:
-                    description: The unique identifier of the attachment.
-                    format: uid
-                    type: string
-                  name:
-                    description: The name of the attachment.
-                    type: string
-                  description:
-                    description: The description of the attachment.
-                    type: string
-                  createdDate:
-                    description: The UTC value of the date the attachment was uploaded.
-                    example: '2018-03-30T12:58:22Z'
-                    format: date-time
-                    type: string
-                  createdByUserUid:
-                    description: The unique identifier of user whom upload attachment.
-                    format: uid
-                    example: c297ff10f584
-                    type: string
-                type: object
-            required:
-            - data
-            type: object
-      required:
-      - response
-      type: object
-    Error401Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    AttachmentResponseItem:
-      properties:
-        attachmentJobUid:
-          description: The unique identifier of the attachment.
-          format: uid
-          type: string
-        name:
-          description: The name of the attachemnt.
-          type: string
-        description:
-          description: The description of the attachment.
-          type: string
-        createdDate:
-          description: The UTC value of the date the attachemnt was uploaded.
-          example: '2018-03-30T12:58:22Z'
-          format: date-time
-          type: string
-        createdByUserUid:
-          description: The unique identifier of user whom upload attachment
-          format: uid
-          example: c297ff10f584
-          type: string
-      type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Error400Response:
-      type: object
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-    AttachmentListEntityResponse:
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    description: attachemnts
-                    items:
-                      $ref: '#/components/schemas/AttachmentResponseItem'
-                    type: array
-                  totalCount:
-                    description: total number of attachemnts
-                    type: integer
-                type: object
-            required:
-            - data
-            type: object
-      required:
-      - response
-      type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    Error500Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
   responses:
     Error400ResponseDefinition:
       description: Provided request parameters are invalid.
@@ -462,6 +273,195 @@ components:
                   errors:
                   - key: too.many.requests
                     message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+  schemas:
+    CreateAttachmentResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  attachmentUid:
+                    description: The unique identifier of the attachment.
+                    format: uid
+                    type: string
+                  name:
+                    description: The name of the attachment.
+                    type: string
+                  description:
+                    description: The description of the attachment.
+                    type: string
+                  createdDate:
+                    description: The UTC value of the date the attachment was uploaded.
+                    example: '2018-03-30T12:58:22Z'
+                    format: date-time
+                    type: string
+                  createdByUserUid:
+                    description: The unique identifier of user whom upload attachment.
+                    format: uid
+                    example: c297ff10f584
+                    type: string
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    AttachmentResponseItem:
+      properties:
+        attachmentJobUid:
+          description: The unique identifier of the attachment.
+          format: uid
+          type: string
+        name:
+          description: The name of the attachemnt.
+          type: string
+        description:
+          description: The description of the attachment.
+          type: string
+        createdDate:
+          description: The UTC value of the date the attachemnt was uploaded.
+          example: '2018-03-30T12:58:22Z'
+          format: date-time
+          type: string
+        createdByUserUid:
+          description: The unique identifier of user whom upload attachment
+          format: uid
+          example: c297ff10f584
+          type: string
+      type: object
+    Error401Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    AttachmentListEntityResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    description: attachemnts
+                    items:
+                      $ref: '#/components/schemas/AttachmentResponseItem'
+                    type: array
+                  totalCount:
+                    description: total number of attachemnts
+                    type: integer
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

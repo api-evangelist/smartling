@@ -812,47 +812,6 @@ paths:
                 type: string
 components:
   schemas:
-    ModifyJobReportTagsRequest:
-      description: The payload to modify job estimation report tags.
-      properties:
-        tags:
-          example:
-          - tag1
-          - tag2
-          type: array
-          items:
-            type: string
-      type: object
-    EstimateJobGenericReport:
-      type: object
-      properties:
-        reportUid:
-          type: string
-        reportType:
-          type: string
-        reportStatus:
-          type: string
-    EstimateJobGenericReportResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            data:
-              items:
-                $ref: '#/components/schemas/EstimateJobGenericReport'
-              type: array
-          required:
-          - code
-          - data
-          type: object
-      required:
-      - response
-      type: object
     EstimateJobReport:
       type: object
       properties:
@@ -901,6 +860,35 @@ components:
           type: array
           items:
             type: string
+    CreateJobCostReportRequest:
+      description: The payload to use when generating a job cost report.
+      properties:
+        contentType:
+          enum:
+          - TRANSLATION
+          - ALL_CONTENT
+          - CLAIMING
+          - UNAUTHORIZED
+          type: string
+          default: ALL_CONTENT
+        tags:
+          example:
+          - tag1
+          - tag2
+          type: array
+          items:
+            type: string
+        localeWorkflows:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocaleWorkflowPairDTO'
+        fuzzyProfileUid:
+          type: string
+        localeWorkflowStepsFilter:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocaleWorkflowStepPairDTO'
+      type: object
     EstimateJobReportTagsResponse:
       properties:
         response:
@@ -913,6 +901,144 @@ components:
               type: string
             data:
               $ref: '#/components/schemas/EstimateJobReportTags'
+          required:
+          - code
+          - data
+          type: object
+      required:
+      - response
+      type: object
+    EstimateJobReportStatusResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            data:
+              $ref: '#/components/schemas/EstimateJobReportStatus'
+          required:
+          - code
+          - data
+          type: object
+      required:
+      - response
+      type: object
+    EstimateJobGenericReport:
+      type: object
+      properties:
+        reportUid:
+          type: string
+        reportType:
+          type: string
+        reportStatus:
+          type: string
+    EstimateJobReportTags:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+    ModifyJobReportTagsRequest:
+      description: The payload to modify job estimation report tags.
+      properties:
+        tags:
+          example:
+          - tag1
+          - tag2
+          type: array
+          items:
+            type: string
+      type: object
+    EmptyResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                description: Always null.
+                type: object
+            type: object
+    EstimateJobGenericReportResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            data:
+              items:
+                $ref: '#/components/schemas/EstimateJobGenericReport'
+              type: array
+          required:
+          - code
+          - data
+          type: object
+      required:
+      - response
+      type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    LocaleWorkflowStepPairDTO:
+      type: object
+      properties:
+        workflowStepUid:
+          type: string
+          description: The uid of the workflow step.
+          example: 8312172ed60d
+        targetLocaleId:
+          description: Smartling ID for the language you want to get translations for.
+          type: string
+          example: de-DE
+    EstimateJobReportStatus:
+      type: object
+      properties:
+        reportUid:
+          type: string
+        reportType:
+          type: string
+        reportStatus:
+          type: string
+        totalStrings:
+          type: integer
+        percentComplete:
+          type: integer
+        createdDate:
+          type: string
+          format: YYYY-MM-DDThh:mm:ssZ
+    EstimateJobReportResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            data:
+              items:
+                $ref: '#/components/schemas/EstimateJobReport'
+              type: array
           required:
           - code
           - data
@@ -960,132 +1086,6 @@ components:
           items:
             $ref: '#/components/schemas/LocaleWorkflowStepPairDTO'
       type: object
-    CreateJobCostReportRequest:
-      description: The payload to use when generating a job cost report.
-      properties:
-        contentType:
-          enum:
-          - TRANSLATION
-          - ALL_CONTENT
-          - CLAIMING
-          - UNAUTHORIZED
-          type: string
-          default: ALL_CONTENT
-        tags:
-          example:
-          - tag1
-          - tag2
-          type: array
-          items:
-            type: string
-        localeWorkflows:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocaleWorkflowPairDTO'
-        fuzzyProfileUid:
-          type: string
-        localeWorkflowStepsFilter:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocaleWorkflowStepPairDTO'
-      type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    EstimateJobReportStatusResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            data:
-              $ref: '#/components/schemas/EstimateJobReportStatus'
-          required:
-          - code
-          - data
-          type: object
-      required:
-      - response
-      type: object
-    EstimateJobReportResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            data:
-              items:
-                $ref: '#/components/schemas/EstimateJobReport'
-              type: array
-          required:
-          - code
-          - data
-          type: object
-      required:
-      - response
-      type: object
-    EmptyResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                description: Always null.
-                type: object
-            type: object
-    EstimateJobReportStatus:
-      type: object
-      properties:
-        reportUid:
-          type: string
-        reportType:
-          type: string
-        reportStatus:
-          type: string
-        totalStrings:
-          type: integer
-        percentComplete:
-          type: integer
-        createdDate:
-          type: string
-          format: YYYY-MM-DDThh:mm:ssZ
-    LocaleWorkflowStepPairDTO:
-      type: object
-      properties:
-        workflowStepUid:
-          type: string
-          description: The uid of the workflow step.
-          example: 8312172ed60d
-        targetLocaleId:
-          description: Smartling ID for the language you want to get translations for.
-          type: string
-          example: de-DE
-    EstimateJobReportTags:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            type: string
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

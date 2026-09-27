@@ -478,6 +478,57 @@ paths:
 
           '
 components:
+  responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
   schemas:
     CreateStringStatusResponse:
       type: object
@@ -524,6 +575,73 @@ components:
                     type: string
                 type: object
             type: object
+    CreateStringResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/CreatedString'
+                    type: array
+                  processUid:
+                    description: If the request takes longer than 60 seconds to process, a `202` response will be returned, indicating the request has not failed, but is not yet complete. Use the processUid value to check the status of the request using the Check Create String Status request.
+                    type: string
+                  stringCount:
+                    description: Total number of strings captured as a result of the request.
+                    type: number
+                  totalCount:
+                    type: number
+                  wordCount:
+                    description: Total number of words captured as a result of the request.
+                    type: number
+                type: object
+            type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    StringResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/StringInfo'
+                    type: array
+                  totalCount:
+                    type: number
+                type: object
+            type: object
     Error401Response:
       properties:
         response:
@@ -533,6 +651,61 @@ components:
               enum:
               - AUTHENTICATION_ERROR
               - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    TranslationResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/Translation'
+                    type: array
+                  totalCount:
+                    type: number
+                type: object
+            type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
               type: string
             errors:
               items:
@@ -565,64 +738,55 @@ components:
       required:
       - response
       type: object
-    CreatedString:
-      description: Information on the created or updated string
+    Translation:
+      description: Information on a translation
       properties:
         hashcode:
           description: The generated unique idenitfier for this created or updated string.
           type: string
-        overWritten:
-          description: Idenitfies if the string was already in the system.
-          type: string
+        keys:
+          description: If this string is associated with one or more resource files this is a list of the associated resource keys.
+          items:
+            properties:
+              fileUri:
+                description: resource key
+                type: string
+              key:
+                description: fileUri of the key
+                type: string
+            type: object
+          type: array
         parsedStringText:
           description: The text for this string used to define its uniqueness in the Smartling system.  This is after placeholders have been processed and escaping normalization has been applied.
           type: string
         stringText:
-          description: The text for this string
+          description: The text for this string.
           type: string
-        variant:
+        targetLocaleId:
+          description: Locale ID of this translation
+          type: string
+        translations:
+          items:
+            properties:
+              modifiedDate:
+                description: When this translation was last modified.
+                type: string
+              pluralForm:
+                description: Pural form of the translation.  `null` if this translation is not a plural.
+                type: string
+              translation:
+                description: Translation text
+                type: string
+            type: object
+          type: array
+        stringVariant:
           description: String variant
           type: string
+        workflowStepUid:
+          description: Current workflow step for this translation
+          format: uuid
+          type: string
       type: object
-    Error400Response:
-      type: object
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-    TranslationResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/Translation'
-                    type: array
-                  totalCount:
-                    type: number
-                type: object
-            type: object
     StringInfo:
       description: Information on string
       properties:
@@ -682,189 +846,25 @@ components:
       required:
       - code
       type: object
-    Translation:
-      description: Information on a translation
+    CreatedString:
+      description: Information on the created or updated string
       properties:
         hashcode:
           description: The generated unique idenitfier for this created or updated string.
           type: string
-        keys:
-          description: If this string is associated with one or more resource files this is a list of the associated resource keys.
-          items:
-            properties:
-              fileUri:
-                description: resource key
-                type: string
-              key:
-                description: fileUri of the key
-                type: string
-            type: object
-          type: array
+        overWritten:
+          description: Idenitfies if the string was already in the system.
+          type: string
         parsedStringText:
           description: The text for this string used to define its uniqueness in the Smartling system.  This is after placeholders have been processed and escaping normalization has been applied.
           type: string
         stringText:
-          description: The text for this string.
+          description: The text for this string
           type: string
-        targetLocaleId:
-          description: Locale ID of this translation
-          type: string
-        translations:
-          items:
-            properties:
-              modifiedDate:
-                description: When this translation was last modified.
-                type: string
-              pluralForm:
-                description: Pural form of the translation.  `null` if this translation is not a plural.
-                type: string
-              translation:
-                description: Translation text
-                type: string
-            type: object
-          type: array
-        stringVariant:
+        variant:
           description: String variant
           type: string
-        workflowStepUid:
-          description: Current workflow step for this translation
-          format: uuid
-          type: string
       type: object
-    Error500Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
-    CreateStringResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/CreatedString'
-                    type: array
-                  processUid:
-                    description: If the request takes longer than 60 seconds to process, a `202` response will be returned, indicating the request has not failed, but is not yet complete. Use the processUid value to check the status of the request using the Check Create String Status request.
-                    type: string
-                  stringCount:
-                    description: Total number of strings captured as a result of the request.
-                    type: number
-                  totalCount:
-                    type: number
-                  wordCount:
-                    description: Total number of words captured as a result of the request.
-                    type: number
-                type: object
-            type: object
-    StringResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/StringInfo'
-                    type: array
-                  totalCount:
-                    type: number
-                type: object
-            type: object
-  responses:
-    Error400ResponseDefinition:
-      description: Provided request parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error400Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: VALIDATION_ERROR
-                  errors:
-                  - key: unknown.field
-                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
-                    details: unknown.parameter
-    Error401ResponseDefinition:
-      description: Provided credentials are not valid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error401Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: AUTHENTICATION_ERROR
-                  errors:
-                  - details: {}
-                    key: invalid_token
-                    message: Invalid token
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

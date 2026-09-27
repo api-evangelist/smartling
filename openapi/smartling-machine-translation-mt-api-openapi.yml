@@ -66,48 +66,58 @@ paths:
 
           '
 components:
+  responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
   schemas:
-    Error401Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
     MTTranslateRequest:
       properties:
         sourceLocaleId:
@@ -152,37 +162,6 @@ components:
           type: object
       required:
       - response
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    Error500Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
     MTTranslateItemResponse:
       properties:
         key:
@@ -219,6 +198,27 @@ components:
       required:
       - key
       type: object
+    Error401Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
     Error:
       type: object
       properties:
@@ -234,21 +234,46 @@ components:
       required:
       - key
       - message
-    MTTranslateItemRequest:
+    Error500Response:
       properties:
-        key:
-          description: A unique identifier to match results in the response
-          example: my-key-1
-          type: string
-          maxLength: 255
-        sourceText:
-          description: The text to translate
-          example: Text to translate
-          type: string
-          maxLength: 64kb
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
       required:
-      - key
-      - sourceText
+      - response
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
       type: object
     MTTranslateResponse:
       type: object
@@ -269,57 +294,32 @@ components:
                 - items
                 type: object
             type: object
-  responses:
-    Error400ResponseDefinition:
-      description: Provided request parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error400Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: VALIDATION_ERROR
-                  errors:
-                  - key: unknown.field
-                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
-                    details: unknown.parameter
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
-    Error401ResponseDefinition:
-      description: Provided credentials are not valid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error401Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: AUTHENTICATION_ERROR
-                  errors:
-                  - details: {}
-                    key: invalid_token
-                    message: Invalid token
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+    MTTranslateItemRequest:
+      properties:
+        key:
+          description: A unique identifier to match results in the response
+          example: my-key-1
+          type: string
+          maxLength: 255
+        sourceText:
+          description: The text to translate
+          example: Text to translate
+          type: string
+          maxLength: 64kb
+      required:
+      - key
+      - sourceText
+      type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

@@ -1185,250 +1185,6 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
   schemas:
-    ContextResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Code of the completed operation.
-              enum:
-              - SUCCESS
-              type: string
-            data:
-              description: Basic information about the context.
-              properties:
-                contextType:
-                  description: Type of context file.
-                  enum:
-                  - IMAGE
-                  - HTML
-                  - VIDEO
-                  type: string
-                contextUid:
-                  description: Unique identifier for the context.
-                  type: string
-                created:
-                  description: 'A date when the context was created. Format: ISO8601 date and time string'
-                  format: date-time
-                  type: string
-                name:
-                  description: File name for IMAGE context, URL for HTML Context and video URL for VIDEO context.
-                  type: string
-              type: object
-          type: object
-      type: object
-    Coordinates:
-      description: Describes the location and size of a box enclosing the string in a context image. ‘top’ and ‘left’ are the distances in pixels of the top left corner of the string (from the top left of the image). ‘width’ and ‘height’ are the dimensions of the string in pixels. This information is used to highlight the position of the string when displaying the context image in the translation interface (CAT tool). If coordinates are not provided, Smartling will attempt to locate the string on the image using Optical Character Recognition. If OCR fails, coordinates will default to 0, 0, 0, 0. This meaans that the image will be displayed when the string is translated, without any highlighting to show the position of the string.
-      properties:
-        height:
-          type: number
-        left:
-          type: number
-        top:
-          type: number
-        width:
-          type: number
-      required:
-      - top
-      - left
-      - height
-      - width
-      type: object
-    MatchAsyncResult:
-      properties:
-        bindings:
-          items:
-            $ref: '#/components/schemas/Binding'
-          type: array
-        contextUid:
-          description: Unique identifier for the context.
-          type: string
-        checkedStringsCount:
-          type: integer
-      type: object
-    CreateBindingsResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  created:
-                    properties:
-                      items:
-                        items:
-                          $ref: '#/components/schemas/Binding'
-                        type: array
-                      totalCount:
-                        type: integer
-                    required:
-                    - items
-                    type: object
-                  errors:
-                    properties:
-                      items:
-                        items:
-                          properties:
-                            message:
-                              type: string
-                          required:
-                          - message
-                          type: object
-                        type: array
-                      totalCount:
-                        type: integer
-                    required:
-                    - items
-                    type: object
-                required:
-                - created
-                type: object
-            type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    DeleteContextsAsyncResult:
-      description: Empty object
-      properties: {}
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
-    Error400Response:
-      type: object
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-    AsyncMatchStatsResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Code of the completed operation.
-              enum:
-              - SUCCESS
-              type: string
-            data:
-              properties:
-                bindings:
-                  items:
-                    $ref: '#/components/schemas/Binding'
-                  type: array
-                createdDate:
-                  format: date-time
-                  type: string
-                matchId:
-                  description: Identifier of the started match operation. Should be specified for getting matching stats.
-                  format: uuid
-                  type: string
-                modifiedDate:
-                  format: date-time
-                  type: string
-                status:
-                  enum:
-                  - IN_PROGRESS
-                  - COMPLETED
-                  - FAILED
-                  type: string
-              type: object
-          type: object
-      type: object
-    DeleteBatchBindingsRequest:
-      type: object
-      description: Parameters for bindings to delete search
-      properties:
-        stringHashcodes:
-          description: List of the hashcodes for the strings to delete bindings for.
-          items:
-            type: string
-          type: array
-        contentFileUri:
-          description: Content file name to delete bindings for.
-          type: string
-        contextUid:
-          description: ContextUID to delete bindings for.
-          format: uuid
-          type: string
-        bindingUids:
-          description: Unique binding identifier to delete.
-          items:
-            type: string
-          type: array
-    AsyncProcessResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Code of the completed operation.
-              enum:
-              - SUCCESS
-              type: string
-            data:
-              properties:
-                processUid:
-                  description: Identifier of the started asynchronous process.
-                  format: uuid
-                  type: string
-              type: object
-          type: object
-      type: object
-    Context:
-      description: Basic information about the context.
-      properties:
-        contextType:
-          description: Type of context file. Currently, **HTML**, **IMAGE** or **VIDEO** types are supported.
-          enum:
-          - IMAGE
-          - HTML
-          - VIDEO
-          type: string
-        contextUid:
-          description: Unique identifier for the context file
-          type: string
-        name:
-          description: File name for **IMAGE** context, URL for **HTML** Context and video URL for **VIDEO** context.
-          type: string
-      required:
-      - name
-      type: object
     Error401Response:
       properties:
         response:
@@ -1438,214 +1194,6 @@ components:
               enum:
               - AUTHENTICATION_ERROR
               - AUTHORIZATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    BatchBindingsRequest:
-      type: object
-      description: Parameters for bindings search
-      properties:
-        stringHashcodes:
-          description: List of the hashcodes for the strings to get bindings for.
-          items:
-            type: string
-          type: array
-        contentFileUri:
-          description: Content file name to get bindings for.
-          type: string
-        contextUid:
-          description: ContextUID to get bindings for.
-          format: uuid
-          type: string
-        bindingUids:
-          description: List of unique binding identifiers.
-          items:
-            type: string
-          type: array
-    AsyncMatchResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Code of the completed operation.
-              enum:
-              - SUCCESS
-              type: string
-            data:
-              properties:
-                processUid:
-                  description: Identifier of the started asynchronous process. Should be specified for getting matching stats.
-                  format: uuid
-                  type: string
-                matchId:
-                  description: Identifier of the started match operation. Should be specified for getting matching stats. Deprecated, use `processUid` property
-                  format: uuid
-                  deprecated: true
-                  type: string
-              type: object
-          type: object
-      type: object
-    Binding:
-      description: String to context binding
-      properties:
-        anchors:
-          description: Wrapper HTML element anchor numbers
-          items:
-            type: string
-          type: array
-        contextPosition:
-          description: Binding position in context
-          type: integer
-        bindingUid:
-          description: Unique identifier for the context binding.
-          type: string
-        contextUid:
-          description: Unique identifier for the context.
-          type: string
-        coordinates:
-          $ref: '#/components/schemas/Coordinates'
-        stringHashcode:
-          description: Unique identifier for the translatable.
-          type: string
-        timecode:
-          $ref: '#/components/schemas/Timecode'
-      required:
-      - contextUid
-      - stringHashcode
-      type: object
-    BindingsRequest:
-      properties:
-        bindings:
-          description: List of strings-to-context bindings. List size is limited to 150 items.
-          items:
-            description: Binding request
-            properties:
-              contextUid:
-                description: Unique identifier for the context.
-                format: uuid
-                type: string
-              stringHashcode:
-                description: Unique identifier for the translatable.
-                format: hash
-                type: string
-              coordinates:
-                $ref: '#/components/schemas/Coordinates'
-              selector:
-                description: Values for "data-sl-anchor" attributes of HTML elements.
-                properties:
-                  anchors:
-                    items:
-                      type: string
-                    type: array
-                type: object
-              timecode:
-                $ref: '#/components/schemas/Timecode'
-            required:
-            - contextUid
-            - stringHashcode
-            type: object
-          type: array
-      type: object
-    DeleteContextsRequest:
-      properties:
-        contextUids:
-          description: List of contexts UIDs to delete. List size is limited to 100 items.
-          type: array
-          items:
-            type: string
-      type: object
-    ContextListResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/Context'
-                    type: array
-                  offset:
-                    description: Result set is partial, if not empty. To retreive everything, request should be repeated with offset value.
-                    type: string
-                required:
-                - items
-                type: object
-            type: object
-    BindingListResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/Binding'
-                    type: array
-                  offset:
-                    description: Result set is partial, if not empty. To retreive everything, request should be repeated with offset value.
-                    type: string
-                required:
-                - items
-                type: object
-            type: object
-    AsyncProcessResultResponse:
-      properties:
-        response:
-          properties:
-            processState:
-              description: State of the completed process.
-              enum:
-              - COMPLETED
-              - IN_PROGRESS
-              - FAILED
-              type: string
-            createdDate:
-              format: date-time
-              type: string
-            modifiedDate:
-              format: date-time
-              type: string
-            errorMessage:
-              type: string
-            processType:
-              enum:
-              - MATCH_CONTEXT
-              - DELETE_CONTEXTS
-              type: string
-            result:
-              description: result if the response is COMPLETED. The content of the field is depends on `type` field
-              oneOf:
-              - $ref: '#/components/schemas/MatchAsyncResult'
-              - $ref: '#/components/schemas/DeleteContextsAsyncResult'
-          type: object
-      type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
               type: string
             errors:
               items:
@@ -1730,6 +1278,122 @@ components:
       required:
       - response
       type: object
+    DeleteContextsAsyncResult:
+      description: Empty object
+      properties: {}
+      type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Context:
+      description: Basic information about the context.
+      properties:
+        contextType:
+          description: Type of context file. Currently, **HTML**, **IMAGE** or **VIDEO** types are supported.
+          enum:
+          - IMAGE
+          - HTML
+          - VIDEO
+          type: string
+        contextUid:
+          description: Unique identifier for the context file
+          type: string
+        name:
+          description: File name for **IMAGE** context, URL for **HTML** Context and video URL for **VIDEO** context.
+          type: string
+      required:
+      - name
+      type: object
+    BatchBindingsRequest:
+      type: object
+      description: Parameters for bindings search
+      properties:
+        stringHashcodes:
+          description: List of the hashcodes for the strings to get bindings for.
+          items:
+            type: string
+          type: array
+        contentFileUri:
+          description: Content file name to get bindings for.
+          type: string
+        contextUid:
+          description: ContextUID to get bindings for.
+          format: uuid
+          type: string
+        bindingUids:
+          description: List of unique binding identifiers.
+          items:
+            type: string
+          type: array
+    AsyncMatchStatsResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Code of the completed operation.
+              enum:
+              - SUCCESS
+              type: string
+            data:
+              properties:
+                bindings:
+                  items:
+                    $ref: '#/components/schemas/Binding'
+                  type: array
+                createdDate:
+                  format: date-time
+                  type: string
+                matchId:
+                  description: Identifier of the started match operation. Should be specified for getting matching stats.
+                  format: uuid
+                  type: string
+                modifiedDate:
+                  format: date-time
+                  type: string
+                status:
+                  enum:
+                  - IN_PROGRESS
+                  - COMPLETED
+                  - FAILED
+                  type: string
+              type: object
+          type: object
+      type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    DeleteContextsRequest:
+      properties:
+        contextUids:
+          description: List of contexts UIDs to delete. List size is limited to 100 items.
+          type: array
+          items:
+            type: string
+      type: object
     Error404Response:
       properties:
         response:
@@ -1750,6 +1414,233 @@ components:
       required:
       - response
       type: object
+    AsyncProcessResultResponse:
+      properties:
+        response:
+          properties:
+            processState:
+              description: State of the completed process.
+              enum:
+              - COMPLETED
+              - IN_PROGRESS
+              - FAILED
+              type: string
+            createdDate:
+              format: date-time
+              type: string
+            modifiedDate:
+              format: date-time
+              type: string
+            errorMessage:
+              type: string
+            processType:
+              enum:
+              - MATCH_CONTEXT
+              - DELETE_CONTEXTS
+              type: string
+            result:
+              description: result if the response is COMPLETED. The content of the field is depends on `type` field
+              oneOf:
+              - $ref: '#/components/schemas/MatchAsyncResult'
+              - $ref: '#/components/schemas/DeleteContextsAsyncResult'
+          type: object
+      type: object
+    MatchAsyncResult:
+      properties:
+        bindings:
+          items:
+            $ref: '#/components/schemas/Binding'
+          type: array
+        contextUid:
+          description: Unique identifier for the context.
+          type: string
+        checkedStringsCount:
+          type: integer
+      type: object
+    BindingListResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/Binding'
+                    type: array
+                  offset:
+                    description: Result set is partial, if not empty. To retreive everything, request should be repeated with offset value.
+                    type: string
+                required:
+                - items
+                type: object
+            type: object
+    CreateBindingsResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  created:
+                    properties:
+                      items:
+                        items:
+                          $ref: '#/components/schemas/Binding'
+                        type: array
+                      totalCount:
+                        type: integer
+                    required:
+                    - items
+                    type: object
+                  errors:
+                    properties:
+                      items:
+                        items:
+                          properties:
+                            message:
+                              type: string
+                          required:
+                          - message
+                          type: object
+                        type: array
+                      totalCount:
+                        type: integer
+                    required:
+                    - items
+                    type: object
+                required:
+                - created
+                type: object
+            type: object
+    ContextListResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/Context'
+                    type: array
+                  offset:
+                    description: Result set is partial, if not empty. To retreive everything, request should be repeated with offset value.
+                    type: string
+                required:
+                - items
+                type: object
+            type: object
+    Binding:
+      description: String to context binding
+      properties:
+        anchors:
+          description: Wrapper HTML element anchor numbers
+          items:
+            type: string
+          type: array
+        contextPosition:
+          description: Binding position in context
+          type: integer
+        bindingUid:
+          description: Unique identifier for the context binding.
+          type: string
+        contextUid:
+          description: Unique identifier for the context.
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        stringHashcode:
+          description: Unique identifier for the translatable.
+          type: string
+        timecode:
+          $ref: '#/components/schemas/Timecode'
+      required:
+      - contextUid
+      - stringHashcode
+      type: object
+    AsyncMatchResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Code of the completed operation.
+              enum:
+              - SUCCESS
+              type: string
+            data:
+              properties:
+                processUid:
+                  description: Identifier of the started asynchronous process. Should be specified for getting matching stats.
+                  format: uuid
+                  type: string
+                matchId:
+                  description: Identifier of the started match operation. Should be specified for getting matching stats. Deprecated, use `processUid` property
+                  format: uuid
+                  deprecated: true
+                  type: string
+              type: object
+          type: object
+      type: object
+    ContextResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Code of the completed operation.
+              enum:
+              - SUCCESS
+              type: string
+            data:
+              description: Basic information about the context.
+              properties:
+                contextType:
+                  description: Type of context file.
+                  enum:
+                  - IMAGE
+                  - HTML
+                  - VIDEO
+                  type: string
+                contextUid:
+                  description: Unique identifier for the context.
+                  type: string
+                created:
+                  description: 'A date when the context was created. Format: ISO8601 date and time string'
+                  format: date-time
+                  type: string
+                name:
+                  description: File name for IMAGE context, URL for HTML Context and video URL for VIDEO context.
+                  type: string
+              type: object
+          type: object
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
     Timecode:
       description: Number of seconds for the period of time that a string appears in a video, relative to the video start time.
       properties:
@@ -1760,7 +1651,130 @@ components:
           format: int64
           type: integer
       type: object
+    BindingsRequest:
+      properties:
+        bindings:
+          description: List of strings-to-context bindings. List size is limited to 150 items.
+          items:
+            description: Binding request
+            properties:
+              contextUid:
+                description: Unique identifier for the context.
+                format: uuid
+                type: string
+              stringHashcode:
+                description: Unique identifier for the translatable.
+                format: hash
+                type: string
+              coordinates:
+                $ref: '#/components/schemas/Coordinates'
+              selector:
+                description: Values for "data-sl-anchor" attributes of HTML elements.
+                properties:
+                  anchors:
+                    items:
+                      type: string
+                    type: array
+                type: object
+              timecode:
+                $ref: '#/components/schemas/Timecode'
+            required:
+            - contextUid
+            - stringHashcode
+            type: object
+          type: array
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    Coordinates:
+      description: Describes the location and size of a box enclosing the string in a context image. ‘top’ and ‘left’ are the distances in pixels of the top left corner of the string (from the top left of the image). ‘width’ and ‘height’ are the dimensions of the string in pixels. This information is used to highlight the position of the string when displaying the context image in the translation interface (CAT tool). If coordinates are not provided, Smartling will attempt to locate the string on the image using Optical Character Recognition. If OCR fails, coordinates will default to 0, 0, 0, 0. This meaans that the image will be displayed when the string is translated, without any highlighting to show the position of the string.
+      properties:
+        height:
+          type: number
+        left:
+          type: number
+        top:
+          type: number
+        width:
+          type: number
+      required:
+      - top
+      - left
+      - height
+      - width
+      type: object
+    DeleteBatchBindingsRequest:
+      type: object
+      description: Parameters for bindings to delete search
+      properties:
+        stringHashcodes:
+          description: List of the hashcodes for the strings to delete bindings for.
+          items:
+            type: string
+          type: array
+        contentFileUri:
+          description: Content file name to delete bindings for.
+          type: string
+        contextUid:
+          description: ContextUID to delete bindings for.
+          format: uuid
+          type: string
+        bindingUids:
+          description: Unique binding identifier to delete.
+          items:
+            type: string
+          type: array
+    AsyncProcessResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Code of the completed operation.
+              enum:
+              - SUCCESS
+              type: string
+            data:
+              properties:
+                processUid:
+                  description: Identifier of the started asynchronous process.
+                  format: uuid
+                  type: string
+              type: object
+          type: object
+      type: object
   responses:
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
     Error400ResponseDefinition:
       description: Provided request parameters are invalid.
       content:
@@ -1797,20 +1811,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error500Response'
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

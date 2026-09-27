@@ -302,7 +302,40 @@ paths:
 
           '
 components:
+  requestBodies:
+    TagsWithStrings:
+      content:
+        application/json:
+          schema:
+            properties:
+              tags:
+                description: List of tags. Maximum length is 128 characters.
+                items:
+                  type: string
+                maxItems: 100
+                minItems: 1
+                type: array
+              stringHashcodes:
+                description: List of string hashcodes
+                items:
+                  type: string
+                maxItems: 1000
+                type: array
+            required:
+            - tags
+            - stringHashcodes
+            type: object
+      required: true
   schemas:
+    TagInfo:
+      properties:
+        tag:
+          description: Tag text
+          example: SomeTag
+          type: string
+      required:
+      - tag
+      type: object
     GetStringsTagsResponse:
       properties:
         response:
@@ -345,15 +378,6 @@ components:
           type: string
       required:
       - tag
-    TagInfo:
-      properties:
-        tag:
-          description: Tag text
-          example: SomeTag
-          type: string
-      required:
-      - tag
-      type: object
     GetProjectTagsResponse:
       properties:
         response:
@@ -374,16 +398,6 @@ components:
             type: object
       required:
       - response
-      type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
       type: object
     GetAccountTagsResponse:
       properties:
@@ -406,30 +420,16 @@ components:
       required:
       - response
       type: object
-  requestBodies:
-    TagsWithStrings:
-      content:
-        application/json:
-          schema:
-            properties:
-              tags:
-                description: List of tags. Maximum length is 128 characters.
-                items:
-                  type: string
-                maxItems: 100
-                minItems: 1
-                type: array
-              stringHashcodes:
-                description: List of string hashcodes
-                items:
-                  type: string
-                maxItems: 1000
-                type: array
-            required:
-            - tags
-            - stringHashcodes
-            type: object
-      required: true
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

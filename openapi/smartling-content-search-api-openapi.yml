@@ -100,22 +100,14 @@ paths:
         '500':
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
+  responses:
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
   schemas:
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
     Error500Response:
       properties:
         response:
@@ -137,6 +129,21 @@ components:
       required:
       - response
       type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
     ContentSearchResponse:
       type: object
       properties:
@@ -193,13 +200,6 @@ components:
                   type: string
                   description: GraphQL type name
                   example: StringGroup
-  responses:
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com
