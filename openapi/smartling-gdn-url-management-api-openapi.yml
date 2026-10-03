@@ -195,57 +195,6 @@ paths:
           '
 components:
   schemas:
-    WebPageDetailListRequest:
-      properties:
-        webPageUids:
-          description: list of url identifiers
-          example:
-          - 4423d44
-          - 123jd44
-          items:
-            type: string
-          maximum: 200
-          minimum: 1
-          type: array
-      type: object
-    WebPageListResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      properties:
-                        created:
-                          description: url capture date
-                          type: string
-                        domain:
-                          description: domain
-                          properties:
-                            name:
-                              description: url domain name
-                              example: my.domain.com
-                              type: string
-                          type: object
-                        urlPath:
-                          description: Watcher name
-                          type: string
-                        webPageUid:
-                          description: url identifier
-                          type: string
-                      type: object
-                    type: array
-                  totalCount:
-                    description: Total element count
-                    type: integer
-                type: object
-            type: object
     WebPageDetailListResponse:
       type: object
       required:
@@ -354,6 +303,44 @@ components:
                     type: string
                 type: object
             type: object
+    WebPageListResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      properties:
+                        created:
+                          description: url capture date
+                          type: string
+                        domain:
+                          description: domain
+                          properties:
+                            name:
+                              description: url domain name
+                              example: my.domain.com
+                              type: string
+                          type: object
+                        urlPath:
+                          description: Watcher name
+                          type: string
+                        webPageUid:
+                          description: url identifier
+                          type: string
+                      type: object
+                    type: array
+                  totalCount:
+                    description: Total element count
+                    type: integer
+                type: object
+            type: object
     WebPageListRequest:
       properties:
         domainName:
@@ -425,6 +412,19 @@ components:
           description: Should or should not apply exact match.
           example: false
           type: boolean
+      type: object
+    WebPageDetailListRequest:
+      properties:
+        webPageUids:
+          description: list of url identifiers
+          example:
+          - 4423d44
+          - 123jd44
+          items:
+            type: string
+          maximum: 200
+          minimum: 1
+          type: array
       type: object
     WebPageDomainsResponse:
       type: object

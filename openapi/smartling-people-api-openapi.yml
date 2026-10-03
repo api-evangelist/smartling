@@ -68,6 +68,20 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
   responses:
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
     Error400ResponseDefinition:
       description: Provided request parameters are invalid.
       content:
@@ -83,6 +97,12 @@ components:
                   - key: unknown.field
                     message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
                     details: unknown.parameter
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
     Error401ResponseDefinition:
       description: Provided credentials are not valid.
       content:
@@ -98,27 +118,46 @@ components:
                   - details: {}
                     key: invalid_token
                     message: Invalid token
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
   schemas:
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    UserInfoApiItem:
+      properties:
+        userUid:
+          description: User identifier.
+          type: string
+        firstName:
+          description: User first name.
+          type: string
+        lastName:
+          description: User last name.
+          type: string
+        profileImage:
+          description: User's profile url.
+          type: string
+      required:
+      - userUid
+      - firstName
+      - lastName
+      type: object
     PeopleAPIUserInfosSuccessResponse:
       type: object
       required:
@@ -142,15 +181,14 @@ components:
                 - items
                 type: object
             type: object
-    Error400Response:
-      type: object
+    Error429Response:
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - VALIDATION_ERROR
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
               type: string
             errors:
               items:
@@ -162,6 +200,7 @@ components:
           type: object
       required:
       - response
+      type: object
     Error401Response:
       properties:
         response:
@@ -182,6 +221,16 @@ components:
           type: object
       required:
       - response
+      type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
       type: object
     Error:
       type: object
@@ -218,55 +267,6 @@ components:
           type: object
       required:
       - response
-      type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    UserInfoApiItem:
-      properties:
-        userUid:
-          description: User identifier.
-          type: string
-        firstName:
-          description: User first name.
-          type: string
-        lastName:
-          description: User last name.
-          type: string
-        profileImage:
-          description: User's profile url.
-          type: string
-      required:
-      - userUid
-      - firstName
-      - lastName
-      type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
       type: object
 externalDocs:
   description: Smartling Help Center

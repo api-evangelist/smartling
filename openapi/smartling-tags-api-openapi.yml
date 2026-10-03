@@ -302,30 +302,6 @@ paths:
 
           '
 components:
-  requestBodies:
-    TagsWithStrings:
-      content:
-        application/json:
-          schema:
-            properties:
-              tags:
-                description: List of tags. Maximum length is 128 characters.
-                items:
-                  type: string
-                maxItems: 100
-                minItems: 1
-                type: array
-              stringHashcodes:
-                description: List of string hashcodes
-                items:
-                  type: string
-                maxItems: 1000
-                type: array
-            required:
-            - tags
-            - stringHashcodes
-            type: object
-      required: true
   schemas:
     TagInfo:
       properties:
@@ -366,18 +342,6 @@ components:
       required:
       - response
       type: object
-    AccountTagInfo:
-      properties:
-        projectId:
-          description: Project identifier
-          example: ewr33dssd
-          type: string
-        tag:
-          description: Tag text
-          example: SomeTag
-          type: string
-      required:
-      - tag
     GetProjectTagsResponse:
       properties:
         response:
@@ -430,6 +394,42 @@ components:
       required:
       - code
       type: object
+    AccountTagInfo:
+      properties:
+        projectId:
+          description: Project identifier
+          example: ewr33dssd
+          type: string
+        tag:
+          description: Tag text
+          example: SomeTag
+          type: string
+      required:
+      - tag
+  requestBodies:
+    TagsWithStrings:
+      content:
+        application/json:
+          schema:
+            properties:
+              tags:
+                description: List of tags. Maximum length is 128 characters.
+                items:
+                  type: string
+                maxItems: 100
+                minItems: 1
+                type: array
+              stringHashcodes:
+                description: List of string hashcodes
+                items:
+                  type: string
+                maxItems: 1000
+                type: array
+            required:
+            - tags
+            - stringHashcodes
+            type: object
+      required: true
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

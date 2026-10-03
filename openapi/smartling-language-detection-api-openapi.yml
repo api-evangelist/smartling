@@ -62,6 +62,20 @@ paths:
           '
 components:
   responses:
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
     Error400ResponseDefinition:
       description: Provided request parameters are invalid.
       content:
@@ -77,6 +91,12 @@ components:
                   - key: unknown.field
                     message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
                     details: unknown.parameter
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
     Error401ResponseDefinition:
       description: Provided credentials are not valid.
       content:
@@ -92,39 +112,7 @@ components:
                   - details: {}
                     key: invalid_token
                     message: Invalid token
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
   schemas:
-    DetectLanguageItemResponse:
-      properties:
-        uid:
-          description: A unique identifier of requested text
-          example: uid-1
-          type: string
-        languages:
-          description: List of detected languageIds
-          type: array
-          items:
-            $ref: '#/components/schemas/DetectLanguageItemInfoResponse'
-      type: object
     DetectLanguageItemRequest:
       properties:
         uid:
@@ -138,25 +126,6 @@ components:
       required:
       - uid
       - text
-      type: object
-    DetectLanguageItemInfoResponse:
-      properties:
-        languageId:
-          description: A identifier of detected language
-          example: en
-          type: string
-        probability:
-          description: A probability of detected language
-          example: '0.33'
-          type: string
-        localeIds:
-          description: Possible localeIds for such language
-          type: array
-          example:
-          - en-US
-          - en-GB
-          items:
-            type: string
       type: object
     Error400Response:
       type: object
@@ -178,26 +147,24 @@ components:
           type: object
       required:
       - response
-    Error401Response:
+    DetectLanguageItemInfoResponse:
       properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - AUTHENTICATION_ERROR
-              - AUTHORIZATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
+        languageId:
+          description: A identifier of detected language
+          example: en
+          type: string
+        probability:
+          description: A probability of detected language
+          example: '0.33'
+          type: string
+        localeIds:
+          description: Possible localeIds for such language
+          type: array
+          example:
+          - en-US
+          - en-GB
+          items:
+            type: string
       type: object
     DetectLanguageResponse:
       type: object
@@ -221,31 +188,6 @@ components:
                 - items
                 type: object
             type: object
-    DetectLanguageRequest:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/DetectLanguageItemRequest'
-          type: array
-          maxItems: 100
-      required:
-      - items
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
     Error429Response:
       properties:
         response:
@@ -266,15 +208,15 @@ components:
       required:
       - response
       type: object
-    Error500Response:
+    Error401Response:
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
+              - AUTHENTICATION_ERROR
+              - AUTHORIZATION_ERROR
               type: string
             errors:
               items:
@@ -296,6 +238,64 @@ components:
           type: string
       required:
       - code
+      type: object
+    DetectLanguageItemResponse:
+      properties:
+        uid:
+          description: A unique identifier of requested text
+          example: uid-1
+          type: string
+        languages:
+          description: List of detected languageIds
+          type: array
+          items:
+            $ref: '#/components/schemas/DetectLanguageItemInfoResponse'
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    DetectLanguageRequest:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/DetectLanguageItemRequest'
+          type: array
+          maxItems: 100
+      required:
+      - items
+      type: object
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
       type: object
 externalDocs:
   description: Smartling Help Center

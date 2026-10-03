@@ -349,6 +349,20 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
   responses:
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
     Error400ResponseDefinition:
       description: Provided request parameters are invalid.
       content:
@@ -364,6 +378,12 @@ components:
                   - key: unknown.field
                     message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
                     details: unknown.parameter
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
     Error401ResponseDefinition:
       description: Provided credentials are not valid.
       content:
@@ -379,26 +399,6 @@ components:
                   - details: {}
                     key: invalid_token
                     message: Invalid token
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
   schemas:
     Error400Response:
       type: object
@@ -443,6 +443,46 @@ components:
                 - items
                 type: object
             type: object
+    ProjectDetailsLocaleItem:
+      example:
+        description: Russian (Russia)
+        enabled: 'true'
+        localeId: ru-RU
+      properties:
+        description:
+          description: The name of the locale.
+          type: string
+        enabled:
+          description: Boolean indicator of the locale is enabled for the project.
+          type: boolean
+        localeId:
+          description: The identifier for the specific locale configured for the project.
+          type: string
+      required:
+      - localeId
+      - description
+      - enabled
+      type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
     ProjectCopySuccessResponse:
       type: object
       required:
@@ -470,6 +510,148 @@ components:
               enum:
               - AUTHENTICATION_ERROR
               - AUTHORIZATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    AccountAPIListProjectItem:
+      example:
+        accountUid: ab5f1939
+        archived: false
+        projectId: fd7244365
+        projectName: fd7244365
+        projectTypeCode: APPLICATION_RESOURCES
+        sourceLocaleDescription: English
+        sourceLocaleId: en-US
+      properties:
+        accountUid:
+          description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+          type: string
+        archived:
+          description: Indicator whether or not the project has been archived. Archived projects are typically hidden from a user's view, but can still be accessible
+          type: boolean
+        projectId:
+          description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+          type: string
+        projectName:
+          description: The name of the project. Names of projects are not guaranteed to be unique within an account.
+          type: string
+        projectTypeCode:
+          description: Indicator for the type of the project.
+          type: string
+        sourceLocaleDescription:
+          description: The full name of the sourceLocaleId
+          type: string
+        sourceLocaleId:
+          description: The locale identifier for the source locale of the project. This indicates the base locale for which content should be uploaded to the project.
+          type: string
+      required:
+      - projectId
+      - projectName
+      - accountUid
+      - archived
+      - projectTypeCode
+      - sourceLocaleId
+      - sourceLocaleDescription
+      type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    ProjectDetailsSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                example:
+                  accountUid: ab5f1939
+                  archived: false
+                  projectId: fd7244365
+                  projectName: fd7244365
+                  projectTypeCode: APPLICATION_RESOURCES
+                  sourceLocaleDescription: English
+                  sourceLocaleId: en-US
+                properties:
+                  accountUid:
+                    description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+                    type: string
+                  archived:
+                    description: Indicator whether or not the project has been archived. Archived projects are typically hidden from a user's view, but can still be accessible
+                    type: boolean
+                  projectId:
+                    description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
+                    type: string
+                  projectName:
+                    description: The name of the project.
+                    type: string
+                  projectTypeCode:
+                    description: Indicator for the type of the project.
+                    type: string
+                  sourceLocaleDescription:
+                    description: The full name of the sourceLocaleId
+                    type: string
+                  sourceLocaleId:
+                    description: The locale identifier for the source locale of the project. This indicates the base locale for which content should be uploaded to the project.
+                    type: string
+                  targetLocales:
+                    description: The locales configured for translation for this project.
+                    items:
+                      $ref: '#/components/schemas/ProjectDetailsLocaleItem'
+                    type: array
+                required:
+                - projectId
+                - projectName
+                - accountUid
+                - archived
+                - projectTypeCode
+                - sourceLocaleId
+                - sourceLocaleDescription
+                - targetLocales
+                type: object
+            type: object
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
               type: string
             errors:
               items:
@@ -537,188 +719,6 @@ components:
                 - processStatistics
                 type: object
             type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
-    Error500Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    AccountAPIListProjectItem:
-      example:
-        accountUid: ab5f1939
-        archived: false
-        projectId: fd7244365
-        projectName: fd7244365
-        projectTypeCode: APPLICATION_RESOURCES
-        sourceLocaleDescription: English
-        sourceLocaleId: en-US
-      properties:
-        accountUid:
-          description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
-          type: string
-        archived:
-          description: Indicator whether or not the project has been archived. Archived projects are typically hidden from a user's view, but can still be accessible
-          type: boolean
-        projectId:
-          description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
-          type: string
-        projectName:
-          description: The name of the project. Names of projects are not guaranteed to be unique within an account.
-          type: string
-        projectTypeCode:
-          description: Indicator for the type of the project.
-          type: string
-        sourceLocaleDescription:
-          description: The full name of the sourceLocaleId
-          type: string
-        sourceLocaleId:
-          description: The locale identifier for the source locale of the project. This indicates the base locale for which content should be uploaded to the project.
-          type: string
-      required:
-      - projectId
-      - projectName
-      - accountUid
-      - archived
-      - projectTypeCode
-      - sourceLocaleId
-      - sourceLocaleDescription
-      type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    ProjectDetailsSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                example:
-                  accountUid: ab5f1939
-                  archived: false
-                  projectId: fd7244365
-                  projectName: fd7244365
-                  projectTypeCode: APPLICATION_RESOURCES
-                  sourceLocaleDescription: English
-                  sourceLocaleId: en-US
-                properties:
-                  accountUid:
-                    description: The account’s unique identifier. This can be found in the Smartling Dashboard under Account Settings > API.
-                    type: string
-                  archived:
-                    description: Indicator whether or not the project has been archived. Archived projects are typically hidden from a user's view, but can still be accessible
-                    type: boolean
-                  projectId:
-                    description: A unique project identifier. This can be found in the Smartling Dashboard under Account Settings > API.
-                    type: string
-                  projectName:
-                    description: The name of the project.
-                    type: string
-                  projectTypeCode:
-                    description: Indicator for the type of the project.
-                    type: string
-                  sourceLocaleDescription:
-                    description: The full name of the sourceLocaleId
-                    type: string
-                  sourceLocaleId:
-                    description: The locale identifier for the source locale of the project. This indicates the base locale for which content should be uploaded to the project.
-                    type: string
-                  targetLocales:
-                    description: The locales configured for translation for this project.
-                    items:
-                      $ref: '#/components/schemas/ProjectDetailsLocaleItem'
-                    type: array
-                required:
-                - projectId
-                - projectName
-                - accountUid
-                - archived
-                - projectTypeCode
-                - sourceLocaleId
-                - sourceLocaleDescription
-                - targetLocales
-                type: object
-            type: object
-    ProjectDetailsLocaleItem:
-      example:
-        description: Russian (Russia)
-        enabled: 'true'
-        localeId: ru-RU
-      properties:
-        description:
-          description: The name of the locale.
-          type: string
-        enabled:
-          description: Boolean indicator of the locale is enabled for the project.
-          type: boolean
-        localeId:
-          description: The identifier for the specific locale configured for the project.
-          type: string
-      required:
-      - localeId
-      - description
-      - enabled
-      type: object
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com
