@@ -118,7 +118,111 @@ paths:
 
           '
 components:
+  responses:
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
   schemas:
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    VendorsAPIContentAssignmentsSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/VendorsAPIContentAssignmentItem'
+                    type: array
+                required:
+                - items
+                type: object
+            type: object
+    VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItemTargetLocalesItemWorkflowStepsItem:
+      properties:
+        unassignedWordCount:
+          type: integer
+        wordCount:
+          type: integer
+        workflowStepName:
+          type: string
+        workflowStepOrder:
+          description: A workflow step position in workflow
+          type: integer
+        workflowStepUid:
+          type: string
+      type: object
     VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItemTargetLocalesItem:
       properties:
         issues:
@@ -130,6 +234,37 @@ components:
           type: string
         workflowSteps:
           $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItemTargetLocalesItemWorkflowStepsItem'
+      type: object
+    VendorsAPIJobsListAgencyItemProgressDetailsItem:
+      properties:
+        aggregatedPerWorkflow:
+          properties:
+            workflows:
+              items:
+                $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItem'
+              type: array
+          type: object
+      type: object
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
       type: object
     VendorsAPIContentAssignmentItem:
       properties:
@@ -210,178 +345,6 @@ components:
       - workflowStepOrder
       - assignmentEnabled
       type: object
-    VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItem:
-      properties:
-        targetLocales:
-          items:
-            $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItemTargetLocalesItem'
-          type: array
-        workflowName:
-          type: string
-        workflowUid:
-          type: string
-      type: object
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
-    VendorsAPIJobsListTranslationJobItem:
-      properties:
-        account:
-          properties:
-            accountName:
-              type: string
-            accountUid:
-              type: string
-          type: object
-        progressDetails:
-          $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemProgressDetailsItem'
-        project:
-          properties:
-            projectId:
-              type: string
-            projectName:
-              type: string
-          type: object
-        translationJob:
-          $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemTranslationJobItem'
-      required:
-      - account
-      - project
-      - progressDetails
-      - translationJob
-      type: object
-    Error400Response:
-      type: object
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
-    VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItemTargetLocalesItemWorkflowStepsItem:
-      properties:
-        unassignedWordCount:
-          type: integer
-        wordCount:
-          type: integer
-        workflowStepName:
-          type: string
-        workflowStepOrder:
-          description: A workflow step position in workflow
-          type: integer
-        workflowStepUid:
-          type: string
-      type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    VendorsAPIJobsListSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  agency:
-                    $ref: '#/components/schemas/VendorsAPIJobsListAgencyItem'
-                  lastUpdatedDate:
-                    description: Date when data for the API response was last refreshed.
-                    format: date-time
-                    type: string
-                  translationJobs:
-                    items:
-                      $ref: '#/components/schemas/VendorsAPIJobsListTranslationJobItem'
-                    type: array
-                required:
-                - lastUpdatedDate
-                - agency
-                - translationJobs
-                type: object
-            type: object
-    VendorsAPIJobsListAgencyItemProgressDetailsItem:
-      properties:
-        aggregatedPerWorkflow:
-          properties:
-            workflows:
-              items:
-                $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItem'
-              type: array
-          type: object
-      type: object
-    VendorsAPIContentAssignmentsSuccessResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/VendorsAPIContentAssignmentItem'
-                    type: array
-                required:
-                - items
-                type: object
-            type: object
     Error401Response:
       properties:
         response:
@@ -402,6 +365,16 @@ components:
           type: object
       required:
       - response
+      type: object
+    VendorsAPIJobsListAgencyItem:
+      properties:
+        agencyName:
+          type: string
+        agencyUid:
+          type: string
+      required:
+      - agencyUid
+      - agencyName
       type: object
     VendorsAPIJobsListAgencyItemTranslationJobItem:
       properties:
@@ -444,25 +417,104 @@ components:
           type: string
           description: Custom field value.
           example: Finance Dept
-    VendorsAPIJobsListAgencyItem:
+    VendorsAPIJobsListTranslationJobItem:
       properties:
-        agencyName:
-          type: string
-        agencyUid:
+        account:
+          properties:
+            accountName:
+              type: string
+            accountUid:
+              type: string
+          type: object
+        progressDetails:
+          $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemProgressDetailsItem'
+        project:
+          properties:
+            projectId:
+              type: string
+            projectName:
+              type: string
+          type: object
+        translationJob:
+          $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemTranslationJobItem'
+      required:
+      - account
+      - project
+      - progressDetails
+      - translationJob
+      type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
           type: string
       required:
-      - agencyUid
-      - agencyName
+      - code
       type: object
-    Error500Response:
+    VendorsAPIJobsListSuccessResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  agency:
+                    $ref: '#/components/schemas/VendorsAPIJobsListAgencyItem'
+                  lastUpdatedDate:
+                    description: Date when data for the API response was last refreshed.
+                    format: date-time
+                    type: string
+                  translationJobs:
+                    items:
+                      $ref: '#/components/schemas/VendorsAPIJobsListTranslationJobItem'
+                    type: array
+                required:
+                - lastUpdatedDate
+                - agency
+                - translationJobs
+                type: object
+            type: object
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
+    VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItem:
+      properties:
+        targetLocales:
+          items:
+            $ref: '#/components/schemas/VendorsAPIJobsListAgencyItemProgressDetailsItemWorkflowsItemTargetLocalesItem'
+          type: array
+        workflowName:
+          type: string
+        workflowUid:
+          type: string
+      type: object
+    Error400Response:
+      type: object
       properties:
         response:
           properties:
             code:
               description: Indicates whether the response was successful or what error has occured.
               enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
+              - VALIDATION_ERROR
               type: string
             errors:
               items:
@@ -474,58 +526,6 @@ components:
           type: object
       required:
       - response
-      type: object
-  responses:
-    Error401ResponseDefinition:
-      description: Provided credentials are not valid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error401Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: AUTHENTICATION_ERROR
-                  errors:
-                  - details: {}
-                    key: invalid_token
-                    message: Invalid token
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
-    Error400ResponseDefinition:
-      description: Provided request parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error400Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: VALIDATION_ERROR
-                  errors:
-                  - key: unknown.field
-                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
-                    details: unknown.parameter
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

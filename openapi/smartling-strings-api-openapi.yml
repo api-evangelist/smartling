@@ -478,190 +478,7 @@ paths:
 
           '
 components:
-  responses:
-    Error429ResponseDefinition:
-      description: Too many simultaneous API requests.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error429Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
-                  errors:
-                  - key: too.many.requests
-                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
-    Error400ResponseDefinition:
-      description: Provided request parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error400Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: VALIDATION_ERROR
-                  errors:
-                  - key: unknown.field
-                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
-                    details: unknown.parameter
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
-    Error401ResponseDefinition:
-      description: Provided credentials are not valid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error401Response'
-          examples:
-            response:
-              value:
-                response:
-                  code: AUTHENTICATION_ERROR
-                  errors:
-                  - details: {}
-                    key: invalid_token
-                    message: Invalid token
   schemas:
-    CreatedString:
-      description: Information on the created or updated string
-      properties:
-        hashcode:
-          description: The generated unique idenitfier for this created or updated string.
-          type: string
-        overWritten:
-          description: Idenitfies if the string was already in the system.
-          type: string
-        parsedStringText:
-          description: The text for this string used to define its uniqueness in the Smartling system.  This is after placeholders have been processed and escaping normalization has been applied.
-          type: string
-        stringText:
-          description: The text for this string
-          type: string
-        variant:
-          description: String variant
-          type: string
-      type: object
-    Error400Response:
-      type: object
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-    CreateStringResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/CreatedString'
-                    type: array
-                  processUid:
-                    description: If the request takes longer than 60 seconds to process, a `202` response will be returned, indicating the request has not failed, but is not yet complete. Use the processUid value to check the status of the request using the Check Create String Status request.
-                    type: string
-                  stringCount:
-                    description: Total number of strings captured as a result of the request.
-                    type: number
-                  totalCount:
-                    type: number
-                  wordCount:
-                    description: Total number of words captured as a result of the request.
-                    type: number
-                type: object
-            type: object
-    CreateStringStatusResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  createdDate:
-                    description: Total number of strings captured as a result of the request.
-                    type: string
-                  modifiedDate:
-                    description: If the request takes longer than 60 seconds to process, a `202` response will be returned, indicating the request has not failed, but is not yet complete. Use the processUid value to check the status of the request using the Check Create String Status request.
-                    type: string
-                  processState:
-                    description: State of the request
-                    enum:
-                    - OPEN
-                    - CLOSED
-                    - FAILED
-                    type: string
-                  processStatistics:
-                    description: Information on the created or updated string
-                    properties:
-                      errored:
-                        description: strings that had errors
-                        type: string
-                      processed:
-                        description: strings processed
-                        type: string
-                      requested:
-                        description: strings requested
-                        type: string
-                      skipped:
-                        description: strings skipped
-                        type: string
-                    type: object
-                  processUid:
-                    description: Unique identifer for a create string request.
-                    type: string
-                type: object
-            type: object
-    Error429Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - MAX_OPERATIONS_LIMIT_EXCEEDED
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
     Error401Response:
       properties:
         response:
@@ -682,16 +499,6 @@ components:
           type: object
       required:
       - response
-      type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
       type: object
     StringResponse:
       type: object
@@ -761,6 +568,138 @@ components:
             type: object
           type: array
       type: object
+    Error400Response:
+      type: object
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    CreateStringStatusResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  createdDate:
+                    description: Total number of strings captured as a result of the request.
+                    type: string
+                  modifiedDate:
+                    description: If the request takes longer than 60 seconds to process, a `202` response will be returned, indicating the request has not failed, but is not yet complete. Use the processUid value to check the status of the request using the Check Create String Status request.
+                    type: string
+                  processState:
+                    description: State of the request
+                    enum:
+                    - OPEN
+                    - CLOSED
+                    - FAILED
+                    type: string
+                  processStatistics:
+                    description: Information on the created or updated string
+                    properties:
+                      errored:
+                        description: strings that had errors
+                        type: string
+                      processed:
+                        description: strings processed
+                        type: string
+                      requested:
+                        description: strings requested
+                        type: string
+                      skipped:
+                        description: strings skipped
+                        type: string
+                    type: object
+                  processUid:
+                    description: Unique identifer for a create string request.
+                    type: string
+                type: object
+            type: object
+    Error429Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - MAX_OPERATIONS_LIMIT_EXCEEDED
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    CreatedString:
+      description: Information on the created or updated string
+      properties:
+        hashcode:
+          description: The generated unique idenitfier for this created or updated string.
+          type: string
+        overWritten:
+          description: Idenitfies if the string was already in the system.
+          type: string
+        parsedStringText:
+          description: The text for this string used to define its uniqueness in the Smartling system.  This is after placeholders have been processed and escaping normalization has been applied.
+          type: string
+        stringText:
+          description: The text for this string
+          type: string
+        variant:
+          description: String variant
+          type: string
+      type: object
+    CreateStringResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/CreatedString'
+                    type: array
+                  processUid:
+                    description: If the request takes longer than 60 seconds to process, a `202` response will be returned, indicating the request has not failed, but is not yet complete. Use the processUid value to check the status of the request using the Check Create String Status request.
+                    type: string
+                  stringCount:
+                    description: Total number of strings captured as a result of the request.
+                    type: number
+                  totalCount:
+                    type: number
+                  wordCount:
+                    description: Total number of words captured as a result of the request.
+                    type: number
+                type: object
+            type: object
     Error:
       type: object
       properties:
@@ -776,27 +715,6 @@ components:
       required:
       - key
       - message
-    Error500Response:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
-      type: object
     TranslationResponse:
       type: object
       required:
@@ -865,6 +783,88 @@ components:
           format: uuid
           type: string
       type: object
+    Error500Response:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+      type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
+  responses:
+    Error429ResponseDefinition:
+      description: Too many simultaneous API requests.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error429Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: MAX_OPERATIONS_LIMIT_EXCEEDED
+                  errors:
+                  - key: too.many.requests
+                    message: The limit of 10 concurrent Smartling file API operations for this project has been exceeded.
+    Error400ResponseDefinition:
+      description: Provided request parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error400Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: VALIDATION_ERROR
+                  errors:
+                  - key: unknown.field
+                    message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
+                    details: unknown.parameter
+    Error401ResponseDefinition:
+      description: Provided credentials are not valid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error401Response'
+          examples:
+            response:
+              value:
+                response:
+                  code: AUTHENTICATION_ERROR
+                  errors:
+                  - details: {}
+                    key: invalid_token
+                    message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

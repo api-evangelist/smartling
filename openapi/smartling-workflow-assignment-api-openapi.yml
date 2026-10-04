@@ -314,54 +314,6 @@ paths:
           $ref: '#/components/responses/Error500ResponseDefinition'
 components:
   schemas:
-    WorkflowAssignmentLocalePairs:
-      type: object
-      properties:
-        sourceLocaleId:
-          type: string
-          description: source locale ID
-          example: en-US
-        targetLocaleIds:
-          type: array
-          description: The array of target locale IDs
-          example:
-          - fr-FR
-          - es-ES
-          items:
-            type: string
-    WorkflowAssignmentCreate:
-      type: object
-      properties:
-        roleValue:
-          enum:
-          - ROLE_TRANSLATION_RESOURCE
-          - ROLE_TRANSLATION_RESOURCE_MANAGER
-          type: string
-          description: User role name
-        workflowStepAssignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowAssignmentWorkflowStep'
-    Error400Response:
-      type: object
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - VALIDATION_ERROR
-              type: string
-            errors:
-              items:
-                $ref: '#/components/schemas/Error'
-              type: array
-          required:
-          - code
-          - errors
-          type: object
-      required:
-      - response
     Error401Response:
       properties:
         response:
@@ -383,74 +335,39 @@ components:
       required:
       - response
       type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
+    Error400Response:
       type: object
-    WorkflowAssignmentSearchResponse:
-      type: object
-      required:
-      - response
       properties:
         response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  offsetToken:
-                    type: string
-                    description: Offset token for next search operation
-                  workflowStepUserAssignments:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/WorkflowAssignmentUserAssignment'
-    WorkflowAssignmentWorkflowStep:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - VALIDATION_ERROR
+              type: string
+            errors:
+              items:
+                $ref: '#/components/schemas/Error'
+              type: array
+          required:
+          - code
+          - errors
+          type: object
+      required:
+      - response
+    WorkflowAssignmentCreate:
       type: object
       properties:
-        workflowStepUid:
-          type: string
-          description: The uid of the workflow step.
-          example: 8312172ed60d
-        localePairs:
-          $ref: '#/components/schemas/WorkflowAssignmentLocalePairs'
-    WorkflowAssignmentUserAssignment:
-      type: object
-      properties:
-        userUid:
-          type: string
-          description: User identifier.
         roleValue:
+          enum:
+          - ROLE_TRANSLATION_RESOURCE
+          - ROLE_TRANSLATION_RESOURCE_MANAGER
           type: string
-          description: User role name.
-        agencyUid:
-          type: string
-          description: Agency identifier.
+          description: User role name
         workflowStepAssignments:
           type: array
           items:
             $ref: '#/components/schemas/WorkflowAssignmentWorkflowStep'
-    Error:
-      type: object
-      properties:
-        key:
-          example: general_error
-          type: string
-        message:
-          example: Unexpected server error
-          type: string
-        details:
-          example: {}
-          type: object
-      required:
-      - key
-      - message
     WorkflowAssignmentProcessResponse:
       type: object
       required:
@@ -480,6 +397,79 @@ components:
                   processed:
                     type: integer
                     description: Number of processed workers within process
+    WorkflowAssignmentUserAssignment:
+      type: object
+      properties:
+        userUid:
+          type: string
+          description: User identifier.
+        roleValue:
+          type: string
+          description: User role name.
+        agencyUid:
+          type: string
+          description: Agency identifier.
+        workflowStepAssignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowAssignmentWorkflowStep'
+    WorkflowAssignmentWorkflowStep:
+      type: object
+      properties:
+        workflowStepUid:
+          type: string
+          description: The uid of the workflow step.
+          example: 8312172ed60d
+        localePairs:
+          $ref: '#/components/schemas/WorkflowAssignmentLocalePairs'
+    WorkflowAssignmentCreateResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  totalCount:
+                    type: integer
+                    description: Number of created workflow step assignments
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WorkflowAssignmentWorkflowStep'
+    WorkflowAssignmentLocalePairs:
+      type: object
+      properties:
+        sourceLocaleId:
+          type: string
+          description: source locale ID
+          example: en-US
+        targetLocaleIds:
+          type: array
+          description: The array of target locale IDs
+          example:
+          - fr-FR
+          - es-ES
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        key:
+          example: general_error
+          type: string
+        message:
+          example: Unexpected server error
+          type: string
+        details:
+          example: {}
+          type: object
+      required:
+      - key
+      - message
     Error500Response:
       properties:
         response:
@@ -501,7 +491,7 @@ components:
       required:
       - response
       type: object
-    WorkflowAssignmentCreateResponse:
+    WorkflowAssignmentSearchResponse:
       type: object
       required:
       - response
@@ -512,13 +502,23 @@ components:
           - properties:
               data:
                 properties:
-                  totalCount:
-                    type: integer
-                    description: Number of created workflow step assignments
-                  items:
+                  offsetToken:
+                    type: string
+                    description: Offset token for next search operation
+                  workflowStepUserAssignments:
                     type: array
                     items:
-                      $ref: '#/components/schemas/WorkflowAssignmentWorkflowStep'
+                      $ref: '#/components/schemas/WorkflowAssignmentUserAssignment'
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
   responses:
     Error400ResponseDefinition:
       description: Provided request parameters are invalid.
@@ -535,12 +535,6 @@ components:
                   - key: unknown.field
                     message: The field unknown.parameter was not expected. Please consult the documentation to verify the fields you are submitting.
                     details: unknown.parameter
-    Error500ResponseDefinition:
-      description: Unexpected error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error500Response'
     Error401ResponseDefinition:
       description: Provided credentials are not valid.
       content:
@@ -556,6 +550,12 @@ components:
                   - details: {}
                     key: invalid_token
                     message: Invalid token
+    Error500ResponseDefinition:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error500Response'
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

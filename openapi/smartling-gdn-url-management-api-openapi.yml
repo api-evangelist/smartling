@@ -303,44 +303,6 @@ components:
                     type: string
                 type: object
             type: object
-    WebPageListResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      properties:
-                        created:
-                          description: url capture date
-                          type: string
-                        domain:
-                          description: domain
-                          properties:
-                            name:
-                              description: url domain name
-                              example: my.domain.com
-                              type: string
-                          type: object
-                        urlPath:
-                          description: Watcher name
-                          type: string
-                        webPageUid:
-                          description: url identifier
-                          type: string
-                      type: object
-                    type: array
-                  totalCount:
-                    description: Total element count
-                    type: integer
-                type: object
-            type: object
     WebPageListRequest:
       properties:
         domainName:
@@ -413,6 +375,44 @@ components:
           example: false
           type: boolean
       type: object
+    WebPageListResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      properties:
+                        created:
+                          description: url capture date
+                          type: string
+                        domain:
+                          description: domain
+                          properties:
+                            name:
+                              description: url domain name
+                              example: my.domain.com
+                              type: string
+                          type: object
+                        urlPath:
+                          description: Watcher name
+                          type: string
+                        webPageUid:
+                          description: url identifier
+                          type: string
+                      type: object
+                    type: array
+                  totalCount:
+                    description: Total element count
+                    type: integer
+                type: object
+            type: object
     WebPageDetailListRequest:
       properties:
         webPageUids:
@@ -425,6 +425,16 @@ components:
           maximum: 200
           minimum: 1
           type: array
+      type: object
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
       type: object
     WebPageDomainsResponse:
       type: object
@@ -451,16 +461,6 @@ components:
                     type: integer
                 type: object
             type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com

@@ -303,6 +303,27 @@ paths:
           '
 components:
   schemas:
+    GetProjectTagsResponse:
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                properties:
+                  items:
+                    items:
+                      $ref: '#/components/schemas/TagInfo'
+                    type: array
+                  totalCount:
+                    type: number
+                type: object
+            required:
+            - data
+            type: object
+      required:
+      - response
+      type: object
     TagInfo:
       properties:
         tag:
@@ -312,6 +333,18 @@ components:
       required:
       - tag
       type: object
+    AccountTagInfo:
+      properties:
+        projectId:
+          description: Project identifier
+          example: ewr33dssd
+          type: string
+        tag:
+          description: Tag text
+          example: SomeTag
+          type: string
+      required:
+      - tag
     GetStringsTagsResponse:
       properties:
         response:
@@ -342,26 +375,15 @@ components:
       required:
       - response
       type: object
-    GetProjectTagsResponse:
+    SuccessResponse:
       properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                properties:
-                  items:
-                    items:
-                      $ref: '#/components/schemas/TagInfo'
-                    type: array
-                  totalCount:
-                    type: number
-                type: object
-            required:
-            - data
-            type: object
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
       required:
-      - response
+      - code
       type: object
     GetAccountTagsResponse:
       properties:
@@ -384,28 +406,6 @@ components:
       required:
       - response
       type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    AccountTagInfo:
-      properties:
-        projectId:
-          description: Project identifier
-          example: ewr33dssd
-          type: string
-        tag:
-          description: Tag text
-          example: SomeTag
-          type: string
-      required:
-      - tag
   requestBodies:
     TagsWithStrings:
       content:

@@ -812,17 +812,36 @@ paths:
                 type: string
 components:
   schemas:
-    LocaleWorkflowStepPairDTO:
+    LocaleWorkflowPairDTO:
       type: object
       properties:
-        workflowStepUid:
+        workflowUid:
           type: string
-          description: The uid of the workflow step.
+          description: The uid of the workflow.
           example: 8312172ed60d
         targetLocaleId:
           description: Smartling ID for the language you want to get translations for.
           type: string
           example: de-DE
+    EstimateJobReportStatusResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            data:
+              $ref: '#/components/schemas/EstimateJobReportStatus'
+          required:
+          - code
+          - data
+          type: object
+      required:
+      - response
+      type: object
     EstimateJobGenericReport:
       type: object
       properties:
@@ -832,6 +851,25 @@ components:
           type: string
         reportStatus:
           type: string
+    EstimateJobReportTagsResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            data:
+              $ref: '#/components/schemas/EstimateJobReportTags'
+          required:
+          - code
+          - data
+          type: object
+      required:
+      - response
+      type: object
     CreateJobCostReportRequest:
       description: The payload to use when generating a job cost report.
       properties:
@@ -861,6 +899,40 @@ components:
           items:
             $ref: '#/components/schemas/LocaleWorkflowStepPairDTO'
       type: object
+    EstimateJobGenericReportResponse:
+      properties:
+        response:
+          properties:
+            code:
+              description: Indicates whether the response was successful or what error has occured.
+              enum:
+              - GENERAL_ERROR
+              - MAINTENANCE_MODE_ERROR
+              type: string
+            data:
+              items:
+                $ref: '#/components/schemas/EstimateJobGenericReport'
+              type: array
+          required:
+          - code
+          - data
+          type: object
+      required:
+      - response
+      type: object
+    EmptyResponse:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          allOf:
+          - $ref: '#/components/schemas/SuccessResponse'
+          - properties:
+              data:
+                description: Always null.
+                type: object
+            type: object
     EstimateJobReportResponse:
       properties:
         response:
@@ -882,24 +954,16 @@ components:
       required:
       - response
       type: object
-    EstimateJobReportTagsResponse:
+    ModifyJobReportTagsRequest:
+      description: The payload to modify job estimation report tags.
       properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            data:
-              $ref: '#/components/schemas/EstimateJobReportTags'
-          required:
-          - code
-          - data
-          type: object
-      required:
-      - response
+        tags:
+          example:
+          - tag1
+          - tag2
+          type: array
+          items:
+            type: string
       type: object
     EstimateJobReportStatus:
       type: object
@@ -917,6 +981,52 @@ components:
         createdDate:
           type: string
           format: YYYY-MM-DDThh:mm:ssZ
+    CreateJobFuzzyReportRequest:
+      description: The payload to use when generating a job fuzzy report.
+      properties:
+        contentType:
+          enum:
+          - TRANSLATION
+          - ALL_CONTENT
+          - CLAIMING
+          - UNAUTHORIZED
+          type: string
+          default: ALL_CONTENT
+        tags:
+          example:
+          - tag1
+          - tag2
+          type: array
+          items:
+            type: string
+        localeWorkflows:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocaleWorkflowPairDTO'
+        fuzzyProfileUid:
+          type: string
+        localeWorkflowStepsFilter:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocaleWorkflowStepPairDTO'
+      type: object
+    EstimateJobReportTags:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+    SuccessResponse:
+      properties:
+        code:
+          description: Indicates whether the response was successful or what error has occured.
+          enum:
+          - SUCCESS
+          type: string
+      required:
+      - code
+      type: object
     EstimateJobReport:
       type: object
       properties:
@@ -965,127 +1075,17 @@ components:
           type: array
           items:
             type: string
-    LocaleWorkflowPairDTO:
+    LocaleWorkflowStepPairDTO:
       type: object
       properties:
-        workflowUid:
+        workflowStepUid:
           type: string
-          description: The uid of the workflow.
+          description: The uid of the workflow step.
           example: 8312172ed60d
         targetLocaleId:
           description: Smartling ID for the language you want to get translations for.
           type: string
           example: de-DE
-    EstimateJobGenericReportResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            data:
-              items:
-                $ref: '#/components/schemas/EstimateJobGenericReport'
-              type: array
-          required:
-          - code
-          - data
-          type: object
-      required:
-      - response
-      type: object
-    SuccessResponse:
-      properties:
-        code:
-          description: Indicates whether the response was successful or what error has occured.
-          enum:
-          - SUCCESS
-          type: string
-      required:
-      - code
-      type: object
-    EstimateJobReportStatusResponse:
-      properties:
-        response:
-          properties:
-            code:
-              description: Indicates whether the response was successful or what error has occured.
-              enum:
-              - GENERAL_ERROR
-              - MAINTENANCE_MODE_ERROR
-              type: string
-            data:
-              $ref: '#/components/schemas/EstimateJobReportStatus'
-          required:
-          - code
-          - data
-          type: object
-      required:
-      - response
-      type: object
-    EstimateJobReportTags:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            type: string
-    CreateJobFuzzyReportRequest:
-      description: The payload to use when generating a job fuzzy report.
-      properties:
-        contentType:
-          enum:
-          - TRANSLATION
-          - ALL_CONTENT
-          - CLAIMING
-          - UNAUTHORIZED
-          type: string
-          default: ALL_CONTENT
-        tags:
-          example:
-          - tag1
-          - tag2
-          type: array
-          items:
-            type: string
-        localeWorkflows:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocaleWorkflowPairDTO'
-        fuzzyProfileUid:
-          type: string
-        localeWorkflowStepsFilter:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocaleWorkflowStepPairDTO'
-      type: object
-    ModifyJobReportTagsRequest:
-      description: The payload to modify job estimation report tags.
-      properties:
-        tags:
-          example:
-          - tag1
-          - tag2
-          type: array
-          items:
-            type: string
-      type: object
-    EmptyResponse:
-      type: object
-      required:
-      - response
-      properties:
-        response:
-          allOf:
-          - $ref: '#/components/schemas/SuccessResponse'
-          - properties:
-              data:
-                description: Always null.
-                type: object
-            type: object
 externalDocs:
   description: Smartling Help Center
   url: https://help.smartling.com
