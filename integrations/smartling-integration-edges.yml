@@ -30,7 +30,46 @@ edges:
   - namespace-domain
   detected_by: sweep-agent-tools.py
   first_seen: '2026-10-14'
+- partner_name: Sanity (own)
+  partner: sanity
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.sanity.io/technology-partners/smartling
+  mirror_of: sanity/integrations/sanity-integration-edges.yml
+  apps:
+  - Smartling
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: Sanity technology partner
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/smartling-connector/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - Smartling Connector
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
 generated: '2026-10-14'
 method: searched
 checked:
 - https://registry.modelcontextprotocol.io/v0/servers
+- sanity/integrations/sanity-integration-edges.yml
+- wordpress/integrations/wordpress-integration-edges.yml
+source:
+- sanity/integrations/sanity-integration-edges.yml
+- wordpress/integrations/wordpress-integration-edges.yml
