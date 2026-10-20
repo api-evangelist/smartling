@@ -86,3 +86,223 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: smartling-gala-globalization-and-localization-association
+  label: GALA (Globalization and Localization Association)
+  partner_name: GALA (Globalization and Localization Association)
+  category: language-industry association
+  type: register
+  channel: standard-directory
+  evidence: https://www.gala-global.org/member-directory/smartling
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: GALA member directory (gala-global.org/member-directory)
+    standard: null
+    spec_file: null
+    role: gala-member
+    registered_name: Smartling
+    register_id: https://www.gala-global.org/member-directory/smartling
+    member_type: Find a Member
+    matched_domain: smartling.com
+    matched_by: domain
+    signal_note: 'participation only: a language-industry association lists its members; it certifies nothing'
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: smartling-adobe-express-translation-integration
+  label: Adobe Express translation integration
+  partner: adobe
+  partner_name: Adobe Express translation integration
+  category: Smartling integration
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://www.smartling.com/integrations/adobe-express
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Smartling integrations (smartling.com/sitemap.xml /integrations/ pages)
+    spec_file: null
+    role: smartling-app-builder-unstated
+    registered_name: null
+    matched_domain: adobe.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Adobe Express translation integration
+    signal_note: 'the listing does not state who built the connector: direction unknown, kept out of position shares'
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q28446850 'Adobe Express' P856 https://www.adobe.com/express/ (wikidata P856, labelled
+      provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: smartling-adobe-creative-cloud
+  label: Adobe Creative Cloud
+  partner: adobe-creative-cloud
+  partner_name: Adobe Creative Cloud
+  category: Smartling integration
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://www.smartling.com/integrations/acc-translation
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Smartling integrations (smartling.com/sitemap.xml /integrations/ pages)
+    spec_file: null
+    role: smartling-app-builder-unstated
+    registered_name: null
+    matched_domain: adobe.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Adobe Creative Cloud
+    signal_note: 'the listing does not state who built the connector: direction unknown, kept out of position shares'
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q14636918 'Adobe Creative Cloud' P856 https://www.adobe.com/creativecloud.html (wikidata
+      P856, labelled provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: smartling-adobe-experience-manager-aem-translation-integration
+  label: Adobe Experience Manager (AEM) Translation Integration
+  partner: adobe-experience-manager
+  partner_name: Adobe Experience Manager (AEM) Translation Integration
+  category: Smartling integration
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://www.smartling.com/integrations/aem-translation
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Smartling integrations (smartling.com/sitemap.xml /integrations/ pages)
+    spec_file: null
+    role: smartling-app-builder-unstated
+    registered_name: null
+    matched_domain: adobe.com
+    matched_by: domain+name-among-holders
+    listings: 1
+    sample_apps:
+    - Adobe Experience Manager (AEM) Translation Integration
+    signal_note: 'the listing does not state who built the connector: direction unknown, kept out of position shares'
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q98841196 'Adobe Experience Manager' P856 https://www.adobe.com/marketing/experience-manager.html
+      (wikidata P856, labelled provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: smartling-akeneo-integration
+  label: Akeneo Integration
+  partner: akeneo
+  partner_name: Akeneo Integration
+  category: Smartling integration
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://www.smartling.com/integrations/akeneo
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Smartling integrations (smartling.com/sitemap.xml /integrations/ pages)
+    spec_file: null
+    role: smartling-app-builder-unstated
+    registered_name: null
+    matched_domain: akeneo.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Akeneo Integration
+    signal_note: 'the listing does not state who built the connector: direction unknown, kept out of position shares'
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q21125716 'Akeneo' P856 http://www.akeneo.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: smartling-sketch-plugin-with-smartling
+  label: Sketch Plugin with Smartling
+  partner: sketch
+  partner_name: Sketch Plugin with Smartling
+  category: Smartling integration
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://www.smartling.com/integrations/sketch
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Smartling integrations (smartling.com/sitemap.xml /integrations/ pages)
+    spec_file: null
+    role: smartling-app-builder-unstated
+    registered_name: null
+    matched_domain: sketch.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Sketch Plugin with Smartling
+    signal_note: 'the listing does not state who built the connector: direction unknown, kept out of position shares'
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q22808097 'Sketch' P856 https://www.sketch.com (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: smartling-storyblok-translation-integration
+  label: Storyblok translation integration
+  partner: storyblok
+  partner_name: Storyblok translation integration
+  category: Smartling integration
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://www.smartling.com/integrations/storyblok
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Smartling integrations (smartling.com/sitemap.xml /integrations/ pages)
+    spec_file: null
+    role: smartling-app-builder-unstated
+    registered_name: null
+    matched_domain: storyblok.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Storyblok translation integration
+    signal_note: 'the listing does not state who built the connector: direction unknown, kept out of position shares'
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q132654610 'Storyblok' P856 https://www.storyblok.com/ (wikidata P856, labelled provenance
+      step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
+- slug: smartling-yext-integration
+  label: Yext Integration
+  partner: yext
+  partner_name: Yext Integration
+  category: Smartling integration
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://www.smartling.com/integrations/yext
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Smartling integrations (smartling.com/sitemap.xml /integrations/ pages)
+    spec_file: null
+    role: smartling-app-builder-unstated
+    registered_name: null
+    matched_domain: yext.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Yext Integration
+    signal_note: 'the listing does not state who built the connector: direction unknown, kept out of position shares'
+    detected_by: sweep-localization.py
+    detected: '2026-10-20'
+    identity_source: wikidata Q8053341 'Yext' P856 http://yext.com (wikidata P856, labelled provenance step; Kin
+      2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
