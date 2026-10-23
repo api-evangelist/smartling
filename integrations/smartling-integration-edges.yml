@@ -55,57 +55,6 @@ edges:
   - namespace-domain
   detected_by: sweep-agent-tools.py
   first_seen: '2026-10-14'
-- partner_name: Sanity (own)
-  partner: sanity
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://www.sanity.io/technology-partners/smartling
-  mirror_of: sanity/integrations/sanity-integration-edges.yml
-  apps:
-  - Smartling
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
-  category: Sanity technology partner
-- partner_name: WordPress (own)
-  partner: wordpress
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://wordpress.org/plugins/smartling-connector/
-  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
-  apps:
-  - Smartling Connector
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
-  category: WordPress plugin
-- partner_name: Zendesk (own)
-  partner: zendesk
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://www.zendesk.com/marketplace/apps/support/81806/smartling-for-guide/
-  mirror_of: zendesk/integrations/zendesk-integration-edges.yml
-  apps:
-  - Smartling for Guide
-  listing_count: 1
-  detected: '2026-10-20'
-  detected_by: mirror-platform-listings.py
-  category: Translations
 - partner_name: GALA (Globalization and Localization Association)
   partner: null
   partner_match: register
@@ -353,6 +302,74 @@ edges:
     status: Acquired by Vitruvian Par…
   detected_by: sweep-vc-portfolios.py
   first_seen: '2026-10-21'
+- partner_name: Sanity (own)
+  partner: sanity
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.sanity.io/technology-partners/smartling
+  mirror_of: sanity/integrations/sanity-integration-edges.yml
+  apps:
+  - Smartling
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: Sanity technology partner
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/smartling-connector/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - Smartling Connector
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
+- partner_name: Zendesk (own)
+  partner: zendesk
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.zendesk.com/marketplace/apps/support/81806/smartling-for-guide/
+  mirror_of: zendesk/integrations/zendesk-integration-edges.yml
+  apps:
+  - Smartling for Guide
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: Translations
+- partner_name: Drupal (own)
+  partner: drupal
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.drupal.org/project/tmgmt_smartling
+  mirror_of: drupal/integrations/drupal-integration-edges.yml
+  apps:
+  - Smartling Connector for Drupal
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Drupal contributed module
 generated: '2026-10-14'
 method: searched
 checked:
@@ -370,6 +387,7 @@ checked:
 - https://www.indexventures.com/companies/
 - https://www.sequoiacap.com/our-companies/
 - https://www.sequoiacap.com/sitemap.xml
+- drupal/integrations/drupal-integration-edges.yml
 source:
 - https://zapier.com/api/v4/apps/
 marketplace_apps:
