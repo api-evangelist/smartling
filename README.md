@@ -1,4 +1,4 @@
-# Smartling (smartling)
+# Smartling
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,67 +66,164 @@
 
 Smartling is an enterprise translation management platform combining a cloud-based TMS, LinguisticAI, and neural machine translation. The Smartling REST API at api.smartling.com exposes authentication, accounts, projects, source files, strings, translations, jobs, glossary, issues, quality checks, MT, and reports. Authentication uses an OAuth-style userIdentifier + secret pair that returns a short-lived bearer access token (~5-10 minute TTL) with a refresh token.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/smartling/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/smartling/refs/heads/main/apis.yml)
+**Areas:** Localization · Translation · TMS · LinguisticAI · Neural MT · Enterprise · REST
 
-## Tags
+## Smartling on APIs.io
 
-- Localization
-- Translation
-- TMS
-- LinguisticAI
-- Neural MT
-- Enterprise
-- REST
+Everything profiled for Smartling is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/smartling/](https://apis.io/providers/smartling/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (19)
 
-- **Created:** 2026-05-23
-- **Modified:** 2026-05-23
+- [Smartling REST API](https://apis.io/apis/smartling/api-v2/) — Smartling's REST API for the translation management platform. Resource groups include Authentication, Accounts, Projects, Source Files, Strings,…
+- [Smartling Account & Projects API](https://apis.io/apis/smartling/smartling-account-projects-api/) — Each client within Smartling is given their own account with a designated `accountUid`. Within each account is any number of projects. All files, content,…
+- [Smartling Attachments API](https://apis.io/apis/smartling/smartling-attachments-api/) — The Attachments API allows for file attachment upload, download and checking linked attachments for an entity. Attachment entities can be from three…
+- [Smartling Authentication API](https://apis.io/apis/smartling/smartling-authentication-api/) — Smartling uses OAuth2 for [authentication](https://help.smartling.com/hc/en-us/articles/1260805176849). To access the Smartling APIs, you'll first need to…
+- [Smartling Content Search API](https://apis.io/apis/smartling/smartling-content-search-api/) — The Content Search API allows you to search for strings within a Smartling project. You can filter by string text, hashcode, namespace, or any combination…
+- [Smartling Context API](https://apis.io/apis/smartling/smartling-context-api/) — [Visual context](https://help.smartling.com/hc/en-us/articles/360057484273) helps Translators make linguistic, layout, and spacing decisions based on where…
+- [Smartling Estimates API](https://apis.io/apis/smartling/smartling-estimates-api/) — The Estimates API from Smartling — 6 operation(s) for estimates.
+- [Smartling Files API](https://apis.io/apis/smartling/smartling-files-api/) — Files are typically how you can exchange your content with Smartling to get translations. Smartling supports a wide variety of [file…
+- [Smartling GDN url management API](https://apis.io/apis/smartling/smartling-gdn-url-management-api/) — The GDN url management API from Smartling — 4 operation(s) for gdn url management.
+- [Smartling Jobs API](https://apis.io/apis/smartling/smartling-jobs-api/) — A Smartling project (such as a mobile, web, files, or connector project) may contain one or more…
+- [Smartling Language Detection API](https://apis.io/apis/smartling/smartling-language-detection-api/) — The Language Detection API from Smartling — 1 operation(s) for language detection.
+- [Smartling Locales API](https://apis.io/apis/smartling/smartling-locales-api/) — Locales are the language and country pairs that are used to identify the source content and the desired target locale for your translated content.
+- [Smartling Machine Translation (MT) API](https://apis.io/apis/smartling/smartling-machine-translation-mt-api/) — The Smartling platform offers state-of-the-art [Machine Translation capabilities](https://www.smartling.com/software/neural-machine-translation-hub/)…
+- [Smartling People API](https://apis.io/apis/smartling/smartling-people-api/) — Smartling users, who process and translate content with the Smartling platform.
+- [Smartling Reports API](https://apis.io/apis/smartling/smartling-reports-api/) — The Reports API allows to request various reports available on Smartling platform and specify additional filtering criteria to narrow down data returned by…
+- [Smartling Strings API](https://apis.io/apis/smartling/smartling-strings-api/) — A string is a piece of translation. Based on the source content, strings can be parsed differently. A string is then broken down further, into one or more…
+- [Smartling Tags API](https://apis.io/apis/smartling/smartling-tags-api/) — Tags can help you manage your strings. The Tags API allows you to add/remove string tags, and search for tags in a project.
+- [Smartling Vendors API](https://apis.io/apis/smartling/smartling-vendors-api/) — The Vendors API is for Language Service Providers to view work that's available in Smartling.
+- [Smartling Workflow Assignment API](https://apis.io/apis/smartling/smartling-workflow-assignment-api/) — The Workflow Assignment API handles workflow step assignments for non agency users.
 
-## APIs
+### Published properties
 
-### Smartling REST API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Smartling's REST API for the translation management platform. Resource groups include Authentication, Accounts, Projects, Source Files, Strings, Translations, Jobs, Glossary, Issues, Quality Checks, MT, and Reports. Authentication via api.smartling.com/auth-api/v2/authenticate returns a bearer access token used in subsequent requests.
+#### GraphQL (1)
 
-- **Human URL:** [https://api-reference.smartling.com/](https://api-reference.smartling.com/)
-- **Base URL:** `https://api.smartling.com`
+GraphQL schemas.
 
-#### Tags
+- [Moved to /providers/smartling/](https://apis.io/graphqls/smartling/smartling-graphql/)
 
-- REST
-- OAuth
-- Projects
-- Files
-- Translations
-- Jobs
-- Glossary
-- Quality
-- MT
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://api-reference.smartling.com/)
-- [Help Center](https://help.smartling.com/hc/en-us/articles/1260804843689-Overview-of-the-API)
-- [Getting Started](https://help.smartling.com/hc/en-us/articles/1260804661570-Getting-Started-with-the-API)
-- [Authentication](https://help.smartling.com/hc/en-us/articles/1260805176849-Authentication)
-- [A P I Tokens](https://help.smartling.com/hc/en-us/articles/115004187694-API-Tokens)
-- [SDK](https://github.com/Smartling/java-api-sdk)
-- [Postman Collection](collections/smartling.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/smartling.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [smartling](https://apis.io/servers/smartling/smartling/)
 
-## Common Properties
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Smartling Agentic Access](https://apis.io/agentic-access/smartling/smartling-agentic-access/)
+
+#### Collections (19)
+
+Postman and Open Collection request collections.
+
+- [Smartling REST API Reference](https://apis.io/collections/smartling/open-smartling/)
+- [Smartling REST API Reference Account & Projects API](https://apis.io/collections/smartling/open-smartling-account-projects-api/)
+- [Smartling REST API Reference Account & Projects Attachments API](https://apis.io/collections/smartling/open-smartling-attachments-api/)
+- [Smartling REST API Reference Account & Projects Authentication API](https://apis.io/collections/smartling/open-smartling-authentication-api/)
+- [Smartling REST API Reference Account & Projects Content Search API](https://apis.io/collections/smartling/open-smartling-content-search-api/)
+- [Smartling REST API Reference Account & Projects Context API](https://apis.io/collections/smartling/open-smartling-context-api/)
+- [Smartling REST API Reference Account & Projects Estimates API](https://apis.io/collections/smartling/open-smartling-estimates-api/)
+- [Smartling REST API Reference Account & Projects Files API](https://apis.io/collections/smartling/open-smartling-files-api/)
+- [Smartling REST API Reference Account & Projects GDN url management API](https://apis.io/collections/smartling/open-smartling-gdn-url-management-api/)
+- [Smartling REST API Reference Account & Projects Jobs API](https://apis.io/collections/smartling/open-smartling-jobs-api/)
+- [Smartling REST API Reference Account & Projects Language Detection API](https://apis.io/collections/smartling/open-smartling-language-detection-api/)
+- [Smartling REST API Reference Account & Projects Locales API](https://apis.io/collections/smartling/open-smartling-locales-api/)
+- [Smartling REST API Reference Account & Projects Machine Translation (MT) API](https://apis.io/collections/smartling/open-smartling-machine-translation-mt-api/)
+- [Smartling REST API Reference Account & Projects People API](https://apis.io/collections/smartling/open-smartling-people-api/)
+- [Smartling REST API Reference Account & Projects Reports API](https://apis.io/collections/smartling/open-smartling-reports-api/)
+- [Smartling REST API Reference Account & Projects Strings API](https://apis.io/collections/smartling/open-smartling-strings-api/)
+- [Smartling REST API Reference Account & Projects Tags API](https://apis.io/collections/smartling/open-smartling-tags-api/)
+- [Smartling REST API Reference Account & Projects Vendors API](https://apis.io/collections/smartling/open-smartling-vendors-api/)
+- [Smartling REST API Reference Account & Projects Workflow Assignment API](https://apis.io/collections/smartling/open-smartling-workflow-assignment-api/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Smartling Domain Security](https://apis.io/security/smartling/smartling-domain-security/)
+- [Smartling Trust Center](https://apis.io/security/smartling/smartling-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Smartling Plans Pricing](https://apis.io/plans/smartling/smartling-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Smartling Rate Limits](https://apis.io/rate-limits/smartling/smartling-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Smartling Finops](https://apis.io/finops/smartling/smartling-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.smartling.com/)
 - [Documentation](https://api-reference.smartling.com/)
-- [Help Center](https://help.smartling.com/)
-- [Git Hub](https://github.com/Smartling)
-- [LinkedIn](https://www.linkedin.com/company/smartling)
-- [Plans](plans/smartling-plans-pricing.yml)
-- [Rate Limits](rate-limits/smartling-rate-limits.yml)
-- [Fin Ops](finops/smartling-finops.yml)
+- [Blog](https://www.smartling.com/blog/rss.xml)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 33.2** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 48.9 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 47.6 |
+| Access clarity | 13.2 |
+
+**Agent readiness 56.2** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/smartling/](https://apis.io/providers/smartling/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Smartling: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/smartling/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
